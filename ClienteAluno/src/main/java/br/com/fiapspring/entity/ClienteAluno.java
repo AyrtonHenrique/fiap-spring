@@ -1,7 +1,12 @@
 package br.com.fiapspring.entity;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
+
+
 
 @Entity
 public class ClienteAluno {
@@ -18,6 +23,11 @@ public class ClienteAluno {
 	private String rg;
 	@Column(name = "dataNacimento")
 	private LocalDateTime dataNascimento;
+	
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<ClienteAlunoEndereco> enderecos = new HashSet<ClienteAlunoEndereco>(); 
+
 	
 	public ClienteAluno() {
 		// TODO Auto-generated constructor stub
