@@ -14,7 +14,10 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-batch'
-	runtimeOnly 'com.h2database:h2'
+	
+	// H2 Implementation
+	implementation 'com.h2database:h2:1.4.197'
+	
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
