@@ -5,7 +5,7 @@ package br.com.fiapspring.service;
 
 import java.util.List;
 
-import br.com.fiap.persistence.entity.Cliente;
+
 import br.com.fiapspring.entity.ClienteAluno;
 
 /**
