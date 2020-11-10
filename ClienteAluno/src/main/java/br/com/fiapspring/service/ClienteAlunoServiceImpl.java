@@ -1,9 +1,8 @@
 package br.com.fiapspring.service;
 
 import java.util.List;
+import java.util.Optional;
 
-import br.com.fiapspring.dto.ClienteAlunoCreateUpdateDTO;
-import br.com.fiapspring.dto.ClienteAlunoDTO;
 import br.com.fiapspring.entity.ClienteAluno;
 import br.com.fiapspring.repository.ClienteAlunoRepository;
 
@@ -19,48 +18,34 @@ public class ClienteAlunoServiceImpl implements ClienteAlunoService {
 	}
 
 	@Override
-	public List<ClienteAlunoDTO> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ClienteAluno> findAll() {
+		return clienteAlunoRepository.findAll();
 	}
 
-	@Override
-	public ClienteAlunoDTO findById(Long rm) {
+	public Optional<ClienteAluno> findById(long id) {
 		// TODO Auto-generated method stub
-		return null;
+		return clienteAlunoRepository.findById(id);
 	}
 
 	@Override
 	public ClienteAluno create(ClienteAluno clienteAluno) {
-		
-		clienteAluno.setNome(clienteAlunoCreateUpdateDTO.getNome());
-		clienteAluno.setTurma(clienteAlunoCreateUpdateDTO.getTurma());
-    
-		ClienteAluno savedClienteAluno = clienteAlunoRepository.save(clienteAluno);
-
-        return new ClienteAlunoDTO(savedClienteAluno);
+        return clienteAlunoRepository.save(clienteAluno); 
 
 	}
 
 	@Override
-	public ClienteAlunoDTO update(Long rm, ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO) {
-		ClienteAluno clienteAluno = getClienteAluno(rm);
-		
-		clienteAluno.setNome(clienteAlunoCreateUpdateDTO.getNome());
-		clienteAluno.setTurma(clienteAlunoCreateUpdateDTO.getTurma());
-		
-		ClienteAluno savedClienteAluno = clienteAlunoRepository.save(clienteAluno);
-		return new ClienteAlunoDTO(savedClienteAluno);
+	public ClienteAluno update(Long rm, ClienteAluno clienteAluno) {
+		return clienteAlunoRepository.save(clienteAluno);
 	}
 
 	@Override
-	public void delete(Long rm) {
-		// TODO Auto-generated method stub
+	public void delete(Long id) {
+		clienteAlunoRepository.deleteById(this.clienteAlunoRepository.findById(id).get());
 		
 	}
 	
-	private ClienteAluno getClienteAluno(Long rm) {
-		return clienteAlunoRepository.findByRm(rm)
+	private ClienteAluno getClienteAluno(long id) {
+		return clienteAlunoRepository.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 	}
 	

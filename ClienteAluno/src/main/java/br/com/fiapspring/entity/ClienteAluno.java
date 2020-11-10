@@ -7,38 +7,28 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-
-
 @Entity
+@Table(name = "tb_clientealuno")
 public class ClienteAluno {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_clientealuno")
 	private long id;
 	
-	@Column(name = "rm")
 	private Integer rm;
-	
-	@Column(name = "nome")
 	private String nome;
-	
-	@Column(name = "turma")
 	private String turma;
-	
-	@Column(name = "cpf")
 	private String cpf;
-	
-	@Column(name = "rg")
 	private String rg;
-	
-	@Column(name = "dataNacimento")
 	private LocalDateTime dataNascimento;
-	
-	@Column(name = "isclientecartao")
 	private Boolean isclientecartao;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<ClienteAlunoEndereco> enderecos = new HashSet<ClienteAlunoEndereco>(); 
+	private static Set<ClienteAlunoEndereco> enderecos = new HashSet<ClienteAlunoEndereco>(); 
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Cartao> cartoes = new HashSet<Cartao>();
 	
 	/**
 	 * 
@@ -60,6 +50,25 @@ public class ClienteAluno {
 		this.dataNascimento = dataNascimento;
 		this.enderecos = enderecos;
 		this.isclientecartao = isclientecartao;
+	}
+
+	
+	
+	
+
+	/**
+	 * @return the id
+	 */
+	public long getId() {
+		return id;
+	}
+
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
 	}
 
 
@@ -162,7 +171,7 @@ public class ClienteAluno {
 	/**
 	 * @return the enderecos
 	 */
-	public Set<ClienteAlunoEndereco> getEnderecos() {
+	public static Set<ClienteAlunoEndereco> getEnderecos() {
 		return enderecos;
 	}
 
@@ -174,6 +183,10 @@ public class ClienteAluno {
 		this.enderecos = enderecos;
 	}
 
+	public void addEndereco(ClienteAlunoEndereco enderecos) {
+		this.enderecos.add(enderecos);
+	}
+	
 	
 	/**
 	 * @return the isclientecartao
