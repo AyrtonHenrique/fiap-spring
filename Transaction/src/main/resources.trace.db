@@ -1,0 +1,6 @@
+2020-11-09 19:58:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "TB_TRANSACTION" not found; SQL statement:
+SELECT * FROM TB_TRANSACTION [42102-200]
+2020-11-09 19:59:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "TRANSACTION" not found; SQL statement:
+SELECT * FROM TRANSACTION [42102-200]

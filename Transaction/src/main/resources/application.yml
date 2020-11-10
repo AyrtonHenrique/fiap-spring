@@ -1,0 +1,15 @@
+server:
+  port: 8088
+
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true
+
+spring:
+  datasource:
+    url: jdbc:h2:F:\Mba\Spring\db\transactiondb;DB_CLOSE_ON_EXIT=FALSE
+    username: transaction
+    password: spring
+  jpa:
+    show-sql: true
