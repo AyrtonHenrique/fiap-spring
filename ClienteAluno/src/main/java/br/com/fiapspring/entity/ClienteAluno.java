@@ -14,6 +14,8 @@ public class ClienteAluno {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+	
 	@Column(name = "rm")
 	private Integer rm;
 	
@@ -32,18 +34,23 @@ public class ClienteAluno {
 	@Column(name = "dataNacimento")
 	private LocalDateTime dataNascimento;
 	
+	@Column(name = "isclientecartao")
+	private Boolean isclientecartao;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<ClienteAlunoEndereco> enderecos = new HashSet<ClienteAlunoEndereco>(); 
-
 	
+	/**
+	 * 
+	 */
 	public ClienteAluno() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
 
 	public ClienteAluno(Integer rm, String nome, String turma, String cpf, String rg, LocalDateTime dataNascimento,
-			Set<ClienteAlunoEndereco> enderecos) {
+			Set<ClienteAlunoEndereco> enderecos, Boolean isclientecartao) {
 		super();
 		this.rm = rm;
 		this.nome = nome;
@@ -52,6 +59,7 @@ public class ClienteAluno {
 		this.rg = rg;
 		this.dataNascimento = dataNascimento;
 		this.enderecos = enderecos;
+		this.isclientecartao = isclientecartao;
 	}
 
 
@@ -164,6 +172,22 @@ public class ClienteAluno {
 	 */
 	public void setEnderecos(Set<ClienteAlunoEndereco> enderecos) {
 		this.enderecos = enderecos;
+	}
+
+	
+	/**
+	 * @return the isclientecartao
+	 */
+	public Boolean getIsclientecartao() {
+		return isclientecartao;
+	}
+
+
+	/**
+	 * @param isclientecartao the isclientecartao to set
+	 */
+	public void setIsclientecartao(Boolean isclientecartao) {
+		this.isclientecartao = isclientecartao;
 	}
 
 
