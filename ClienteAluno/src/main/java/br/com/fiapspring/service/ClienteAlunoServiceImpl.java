@@ -7,8 +7,10 @@ import br.com.fiapspring.entity.ClienteAluno;
 import br.com.fiapspring.repository.ClienteAlunoRepository;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+@Service
 public class ClienteAlunoServiceImpl implements ClienteAlunoService {
 	
 	private ClienteAlunoRepository clienteAlunoRepository;

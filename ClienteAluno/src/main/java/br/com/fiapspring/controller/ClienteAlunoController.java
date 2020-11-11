@@ -14,6 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.fiapspring.entity.ClienteAluno;
 import br.com.fiapspring.entity.ClienteAlunoEndereco;
 import br.com.fiapspring.service.ClienteAlunoService;
+import io.swagger.v3.oas.models.media.MediaType;
 /**
  * @author SaraRegina
  * Classe responsaval para cadastros do aluno
@@ -67,11 +68,9 @@ public class ClienteAlunoController {
 	public ResponseEntity<Void> upadateClienteAluno(){
 		return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+
 	
-	
-	
-	
-	@GetMapping
+	@GetMapping(value = "/listarTodos")
 	public ResponseEntity<List<ClienteAluno>> listarClienteAluno(){
 		logger.info("Listar Todos os clientes cadastrados" );
 		List<ClienteAluno> listagemCliente = this.clienteAlunoService.findAll();

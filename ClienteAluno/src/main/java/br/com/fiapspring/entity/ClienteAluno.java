@@ -27,8 +27,8 @@ public class ClienteAluno {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private static Set<ClienteAlunoEndereco> enderecos = new HashSet<ClienteAlunoEndereco>(); 
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<Cartao> cartoes = new HashSet<Cartao>();
+	@OneToOne()
+	private Cartao cartao;
 	
 	/**
 	 * 
@@ -201,6 +201,24 @@ public class ClienteAluno {
 	 */
 	public void setIsclientecartao(Boolean isclientecartao) {
 		this.isclientecartao = isclientecartao;
+	}
+
+	
+	
+
+	/**
+	 * @return the cartao
+	 */
+	public Cartao getCartao() {
+		return cartao;
+	}
+
+
+	/**
+	 * @param cartao the cartao to set
+	 */
+	public void setCartao(Cartao cartao) {
+		this.cartao = cartao;
 	}
 
 

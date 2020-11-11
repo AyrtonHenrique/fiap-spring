@@ -34,7 +34,7 @@ public class ClienteAlunoEndereco {
 	private TipoEndereco tipoEndereco;
 	
 	@ManyToOne()
-	@JoinColumn(name = "id_rm")
+	@JoinColumn(name = "id")
 	private ClienteAluno clienteAluno;
 
 	public ClienteAlunoEndereco() {

@@ -25,8 +25,9 @@ public class Cartao {
 	private LocalDateTime datavalidade;
 	private Long codigoIdentificador;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Set<ClienteAluno> cliente = new HashSet<ClienteAluno>(); 
+	@ManyToOne()
+	@JoinColumn(name = "id_cartao")
+	private ClienteAluno clienteAluno ; 
 	
 	/**
 	 * 
@@ -45,13 +46,13 @@ public class Cartao {
 	 * @param cliente
 	 */
 	public Cartao(long id, Long numerocartao, LocalDateTime datavalidade, Long codigoIdentificador,
-			Set<ClienteAluno> cliente) {
+			ClienteAluno cliente) {
 		super();
 		this.id = id;
 		this.numerocartao = numerocartao;
 		this.datavalidade = datavalidade;
 		this.codigoIdentificador = codigoIdentificador;
-		this.cliente = cliente;
+		this.clienteAluno = cliente;
 	}
 
 
@@ -113,8 +114,8 @@ public class Cartao {
 	/**
 	 * @return the cliente
 	 */
-	public Set<ClienteAluno> getCliente() {
-		return cliente;
+	public ClienteAluno getCliente() {
+		return clienteAluno;
 	}
 
 
@@ -122,8 +123,8 @@ public class Cartao {
 	/**
 	 * @param cliente the cliente to set
 	 */
-	public void setCliente(Set<ClienteAluno> cliente) {
-		this.cliente = cliente;
+	public void setCliente(ClienteAluno clienteAluno) {
+		this.clienteAluno = clienteAluno;
 	}
 
 
