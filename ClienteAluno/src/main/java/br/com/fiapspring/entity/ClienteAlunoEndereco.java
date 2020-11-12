@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "ClienteAlunoEndereco")
+@Table(name = "tb_clientealunoendereco")
 public class ClienteAlunoEndereco {
 	
 	private static final long serialVersionUID = 1L;
