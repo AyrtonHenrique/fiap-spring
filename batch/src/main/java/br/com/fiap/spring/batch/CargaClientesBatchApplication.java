@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.io.Resource;
+import org.springframework.core.io.FileSystemResource;
 
 import br.com.fiap.spring.batch.model.ClientePotencial;
 import br.com.fiap.spring.batch.skipping.CustomSkipPolicy;
@@ -42,19 +42,26 @@ public class CargaClientesBatchApplication {
 	 * @return Um FlatFileItemReader pra ser tratado pelo Job
 	 */
 	@Bean
-	public FlatFileItemReader<ClientePotencial> fileReader(@Value("${input.file}") Resource resource) {
+	public FlatFileItemReader<ClientePotencial> fileReader(@Value("${input.file}") String filePath) {
 		logger.info("Criando o FlatFileItemReader...");
-		return new FlatFileItemReaderBuilder<ClientePotencial>()
-					.name("Leitura de Arquivo - Clientes Potenciais") // Nome do FlatFileItemReader
-					.resource(resource)								  // Resource de origem					  
-					.targetType(ClientePotencial.class)				  // Classe de destino dos dados do arquivo
-					.addComment("-")								  // Linhas para serem ignoradas no arquivo
-					.fixedLength() 									  // Arquivo de tamanho de colunas fixo 
-						.columns(new Range(1,41),					  // Coluna 1 do arquivo
-								new Range(42,48),					  // Coluna 2 do arquivo
-								new Range(50,55))				      // Coluna 3 do arquivo
-					.names("nome", "rm","turma")				  // Nomes das colunas do arquivo
-					.build();
+		FileSystemResource resource = new FileSystemResource(filePath);
+		if(resource.exists())
+			return new FlatFileItemReaderBuilder<ClientePotencial>()
+						.name("Leitura de Arquivo - Clientes Potenciais") // Nome do FlatFileItemReader
+						.resource(resource)								  // Resource de origem					  
+						.targetType(ClientePotencial.class)				  // Classe de destino dos dados do arquivo
+						.addComment("-")								  // Linhas para serem ignoradas no arquivo
+						.fixedLength() 									  // Arquivo de tamanho de colunas fixo 
+							.columns(new Range(1,41),					  // Coluna 1 do arquivo
+									new Range(42,48),					  // Coluna 2 do arquivo
+									new Range(50,55))				      // Coluna 3 do arquivo
+						.names("nome", "rm","turma")				  // Nomes das colunas do arquivo
+						.build();
+		else {
+			logger.error("Arquivo de entrada não foi encontrado no caminho especificado: " + filePath);
+		}
+		return null;
+			
 	}
 	
 	/**
