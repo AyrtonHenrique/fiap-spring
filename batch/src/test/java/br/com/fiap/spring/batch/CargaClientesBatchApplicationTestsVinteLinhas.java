@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CargaClientesBatchApplicationTests {
+class CargaClientesBatchApplicationTestsVinteLinhas {
 
 	@Autowired
 	private Job job;
@@ -28,6 +28,10 @@ class CargaClientesBatchApplicationTests {
 
 	@Autowired
 	private DataSource datasource;
+
+	private int totalB = 492;
+
+	private int totalA = 1060;
 
 	/**
 	 * Método que limpa as tabelas antes de executar o teste
@@ -55,11 +59,50 @@ class CargaClientesBatchApplicationTests {
 	@Test
 	void carregaClientesEmPotencialNoBanco() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException, SQLException {
 	
+		testaCargaClientesLetraA();
+		testaCargaClientesLetraB();
+		testaCargaOutrasLetras();
+	}
+
+	private void testaCargaOutrasLetras() throws SQLException {
 		ResultSet resultSet = datasource.getConnection()
-				.prepareStatement("select count(*) from TB_CLIENTEALUNO")
+				.prepareStatement("select count(*) from TB_CLIENTEALUNO WHERE nome not like 'B%'")
 				.executeQuery();
 		
 		resultSet.last();
-		Assertions.assertEquals(3, resultSet.getInt(1));
+		Assertions.assertEquals(totalA, resultSet.getInt(1));
+		
+		ResultSet resultSet2 = datasource.getConnection()
+				.prepareStatement("select count(*) from TB_CLIENTEALUNO WHERE nome not like 'A%'")
+				.executeQuery();
+		
+		resultSet2.last();
+		Assertions.assertEquals(totalB, resultSet2.getInt(1));
+		
+		ResultSet resultSet3 = datasource.getConnection()
+				.prepareStatement("select count(*) from TB_CLIENTEALUNO")
+				.executeQuery();
+		
+		resultSet3.last();
+		Assertions.assertEquals(totalA + totalB, resultSet3.getInt(1));
+	}
+
+	private void testaCargaClientesLetraB() throws SQLException {
+		ResultSet resultSet = datasource.getConnection()
+				.prepareStatement("select count(*) from TB_CLIENTEALUNO WHERE nome like 'B%' ")
+				.executeQuery();
+		
+		resultSet.last();
+		Assertions.assertEquals(totalB, resultSet.getInt(1));
+		
+	}
+
+	private void testaCargaClientesLetraA() throws SQLException {
+		ResultSet resultSet = datasource.getConnection()
+				.prepareStatement("select count(*) from TB_CLIENTEALUNO WHERE nome like 'A%' ")
+				.executeQuery();
+		
+		resultSet.last();
+		Assertions.assertEquals(totalA, resultSet.getInt(1));
 	}
 }

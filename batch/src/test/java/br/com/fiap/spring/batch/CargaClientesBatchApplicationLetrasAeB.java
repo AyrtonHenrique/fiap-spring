@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CargaClientesBatchApplicationTests {
+class CargaClientesBatchApplicationLetrasAeB {
 
 	@Autowired
 	private Job job;
@@ -60,6 +60,6 @@ class CargaClientesBatchApplicationTests {
 				.executeQuery();
 		
 		resultSet.last();
-		Assertions.assertEquals(3, resultSet.getInt(1));
+		Assertions.assertEquals(20, resultSet.getInt(1));
 	}
 }

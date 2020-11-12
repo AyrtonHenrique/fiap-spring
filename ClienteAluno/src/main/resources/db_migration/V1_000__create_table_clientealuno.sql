@@ -5,6 +5,6 @@ create table tb_clientealuno
     turma			 varchar(20),	
     cpf              varchar(20),
     rg 				 varchar(20),
-    dataNascimento   timestamp not null,
+    dataNascimento   timestamp,
     primary key (rm)
 )
