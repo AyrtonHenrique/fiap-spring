@@ -27,7 +27,7 @@ public class ClienteAluno {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<ClienteAlunoEndereco> enderecos = new HashSet<ClienteAlunoEndereco>(); 
 	
-	@OneToOne()
+	@OneToOne(cascade = CascadeType.ALL)
 	private Cartao cartao;
 	
 	/**

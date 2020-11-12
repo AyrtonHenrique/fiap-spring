@@ -4,8 +4,6 @@
 package br.com.fiapspring.entity;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.*;
 
@@ -25,8 +23,8 @@ public class Cartao {
 	private LocalDateTime datavalidade;
 	private Long codigoIdentificador;
 	
-	@ManyToOne()
-	@JoinColumn(name = "id_cartao")
+	@OneToOne()
+	@JoinColumn(name = "id_clientealuno")
 	private ClienteAluno clienteAluno ; 
 	
 	/**
