@@ -85,7 +85,7 @@ public class CargaClientesBatchApplication {
 		logger.info("Criando o ItemWriter...");
 	    return new JdbcBatchItemWriterBuilder<ClientePotencial>()
 		    .dataSource(datasource)
-		    .sql("insert into ClienteAluno (rm, nome, cpf, rg, turma, dataNascimento) values (:rm, :nome, null, null, :turma, null)")
+		    .sql("insert into TB_CLIENTEALUNO (rm, nome, cpf, rg, turma, dataNascimento) values (:rm, :nome, null, null, :turma, null)")
 		    .beanMapped()
 		    .build();
     }
