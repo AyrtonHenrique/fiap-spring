@@ -18,15 +18,17 @@ public interface ClienteAlunoService {
 	
 	public List<ClienteAluno> findAll();
 	
+	public List<ClienteAluno> findAllByIsclientecartaoIsTrue();
+	
 	public Optional<ClienteAluno> findById(long id);
 	
 	public ClienteAluno create(ClienteAluno clienteAluno);
 	
-	public ClienteAluno update(Long rm, ClienteAluno clienteAluno);
+	public ClienteAluno update(Integer rm, ClienteAluno clienteAluno);
 	
-	public void delete(Long rm);
+	public void delete(Integer rm);
 	
+	public ClienteAluno getClienteAlunoByRm(Integer rm);
 	
-
 
 }

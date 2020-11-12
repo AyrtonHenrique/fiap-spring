@@ -3,16 +3,17 @@ package br.com.fiapspring.service;
 import java.util.List;
 import java.util.Optional;
 
+import br.com.fiapspring.controller.ClienteAlunoController;
 import br.com.fiapspring.entity.ClienteAluno;
 import br.com.fiapspring.repository.ClienteAlunoRepository;
 
-import org.springframework.http.HttpStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class ClienteAlunoServiceImpl implements ClienteAlunoService {
-	
+	private final Logger logger = LoggerFactory.getLogger(ClienteAlunoController.class);
 	private ClienteAlunoRepository clienteAlunoRepository;
 	
 	public ClienteAlunoServiceImpl(ClienteAlunoRepository clienteAlunoRepository) {
@@ -25,31 +26,36 @@ public class ClienteAlunoServiceImpl implements ClienteAlunoService {
 	}
 
 	public Optional<ClienteAluno> findById(long id) {
-		// TODO Auto-generated method stub
 		return clienteAlunoRepository.findById(id);
 	}
 
 	@Override
 	public ClienteAluno create(ClienteAluno clienteAluno) {
-        return clienteAlunoRepository.save(clienteAluno); 
-
+		logger.info("Dados do Cliente cadastratados");
+        return clienteAlunoRepository.save(clienteAluno);
 	}
 
 	@Override
-	public ClienteAluno update(Long rm, ClienteAluno clienteAluno) {
+	public ClienteAluno update(Integer rm, ClienteAluno clienteAluno) {
+		logger.info("Dados do Cliente atualizados");
 		return clienteAlunoRepository.save(clienteAluno);
 	}
 
 	@Override
-	public void delete(Long id) {
-		clienteAlunoRepository.deleteById(this.clienteAlunoRepository.findById(id).get());
+	public void delete(Integer rm) {
+		ClienteAluno cliente = getClienteAlunoByRm(rm);
+		logger.info("Dados do Cliente removidos");
+		clienteAlunoRepository.deleteById(cliente.getId());
+	}
+	
+	public ClienteAluno getClienteAlunoByRm(Integer rm) {
+		return clienteAlunoRepository.findAllByRm(rm);
 		
 	}
-	
-	private ClienteAluno getClienteAluno(long id) {
-		return clienteAlunoRepository.findById(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+	@Override
+	public List<ClienteAluno> findAllByIsclientecartaoIsTrue() {
+		return clienteAlunoRepository.findAllByIsclientecartaoIsTrue();
 	}
-	
 
 }

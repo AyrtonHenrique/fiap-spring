@@ -25,7 +25,7 @@ public class ClienteAluno {
 	private Boolean isclientecartao;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private static Set<ClienteAlunoEndereco> enderecos = new HashSet<ClienteAlunoEndereco>(); 
+	private Set<ClienteAlunoEndereco> enderecos = new HashSet<ClienteAlunoEndereco>(); 
 	
 	@OneToOne()
 	private Cartao cartao;
@@ -171,7 +171,7 @@ public class ClienteAluno {
 	/**
 	 * @return the enderecos
 	 */
-	public static Set<ClienteAlunoEndereco> getEnderecos() {
+	public Set<ClienteAlunoEndereco> getEnderecos() {
 		return enderecos;
 	}
 
