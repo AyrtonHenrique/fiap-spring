@@ -18,23 +18,16 @@ public class ClienteAlunoEndereco {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_endereco")
 	private long id;
-	@Column(name = "nm_logradouro")
 	private String logradouro;
-	@Column(name = "nr_numero")
 	private Integer numero;
-	@Column(name = "ds_complemento")
 	private String complemento;
-	@Column(name = "nr_cep")
 	private String cep;
-	@Column(name = "ds_cidade")
 	private String cidade;
-	@Column(name = "ds_estado")
 	private String estado;
-	@Column(name = "tipo_endereco")
 	private TipoEndereco tipoEndereco;
 	
 	@ManyToOne()
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "id_clientealuno")
 	private ClienteAluno clienteAluno;
 
 	public ClienteAlunoEndereco() {
