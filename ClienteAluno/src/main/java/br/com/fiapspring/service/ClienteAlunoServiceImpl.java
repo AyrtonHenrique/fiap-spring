@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClienteAlunoServiceImpl implements ClienteAlunoService {
 	private final Logger logger = LoggerFactory.getLogger(ClienteAlunoController.class);
+	
 	private ClienteAlunoRepository clienteAlunoRepository;
 	
 	public ClienteAlunoServiceImpl(ClienteAlunoRepository clienteAlunoRepository) {
@@ -25,6 +26,7 @@ public class ClienteAlunoServiceImpl implements ClienteAlunoService {
 		return clienteAlunoRepository.findAll();
 	}
 
+	@Override
 	public Optional<ClienteAluno> findById(long id) {
 		return clienteAlunoRepository.findById(id);
 	}
@@ -57,5 +59,7 @@ public class ClienteAlunoServiceImpl implements ClienteAlunoService {
 	public List<ClienteAluno> findAllByIsclientecartaoIsTrue() {
 		return clienteAlunoRepository.findAllByIsclientecartaoIsTrue();
 	}
+	
+	
 
 }
