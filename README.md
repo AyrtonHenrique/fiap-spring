@@ -145,5 +145,6 @@ A solução criada se utiliza do banco de dados H2 para fins didáticos. Entreta
 
 ### Abaixo está o modelo básico das tabelas utilizadas (MER)
 
+![MER_Spring](https://user-images.githubusercontent.com/67294168/99155690-ec85ac80-2698-11eb-8a76-78add5ba2b67.png)
 
 
