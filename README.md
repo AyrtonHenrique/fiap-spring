@@ -10,6 +10,10 @@ Também foi construído uma aplicação batch utilizando Spring Batch que carreg
 
 Como a solução trata de quatro partes distintas, todas elas devem estar conectadas a um banco de dados comum conforme seus arquivos de configuração para que compartilhem os mesmos dados. Mas não necessariamente há a necessidade de ser a mesma instância, visto que cada microsserviço é responsável pelo tratamento dos seus dados e das suas responsabilidades.
 
+## Desenho Básico da solução
+
+![trabalho_final_spring](https://user-images.githubusercontent.com/67294168/99154992-f9070680-2692-11eb-8cd8-bb225f1b4e1d.png)
+
 ## Estruturação do Projeto no GitHub
 
 Foram criados nesta solução quatro projetos isolados disponíveis no GitHub, sendo: 
