@@ -29,6 +29,7 @@ public class TransactionServiceImpl implements TransactionService {
         return transactionRepository.findAllByCliente(idCliente)
                 .stream()
                 .map(transaction -> new TransactionDTO((transaction)))
+                .sorted(TransactionDTO::cartaoCompareTo)
                 .collect(Collectors.toList());
     }
 
