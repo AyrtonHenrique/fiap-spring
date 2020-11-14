@@ -18,6 +18,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
+	// Email
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 	// Swagger
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 

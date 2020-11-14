@@ -1,5 +1,5 @@
 server:
-  port: 8088
+  port: 8089
 
 springfox:
   documentation:
@@ -13,3 +13,19 @@ spring:
     password: spring
   jpa:
     show-sql: true
+  h2:
+    console:
+      enabled: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: pride.dalian@gmail.com
+    password: clgbodjdoorwxqop
+    protocol: smtp
+    smtp:
+      auth: true
+      starttls:
+        enable: true
+    properties:
+      mail:
+        to: williankaza@hotmail.com
