@@ -18,7 +18,7 @@ Como a solução trata de quatro partes distintas, todas elas devem estar conect
 
 Foram criados nesta solução quatro projetos isolados disponíveis no GitHub, sendo: 
 
-a.	ClienteAluno → Microsserviço responsável por gerenciar o CRUD de Clientes/Alunos e dos Cartões que estes possuem ou não
+a.	**ClienteAluno** → Microsserviço responsável por gerenciar o CRUD de Clientes/Alunos e dos Cartões que estes possuem ou não
     
     Como configurar:   
       * Para que ele funcione corretamente, é necessário configurar inicialmente o arquivo application.yml presente em: src/main/resources 
@@ -51,7 +51,7 @@ a.	ClienteAluno → Microsserviço responsável por gerenciar o CRUD de Clientes
 Este microsserviço é uma Sprint Boot Aplication. Para iniciá-la, após configurar o arquivo de propriedades corretamente, basta dar o start da Spring Application inicial br.com.fiapspring.ClienteAlunoApplication e acompanhar os logs.   
       
 
-b.	Transaction → Microsserviço responsável por gerenciar a recepção e tratativa das transações de cartão de crédito provindas das autorizadoras
+b.	**Transaction** → Microsserviço responsável por gerenciar a recepção e tratativa das transações de cartão de crédito provindas das autorizadoras
 
     Como configurar:   
       * Para que ele funcione corretamente, é necessário configurar inicialmente o arquivo application.yml presente em: src/main/resources 
@@ -94,7 +94,7 @@ b.	Transaction → Microsserviço responsável por gerenciar a recepção e trat
 
 Este microsserviço é uma Sprint Boot Aplication. Para iniciá-la, após configurar o arquivo de propriedades corretamente, basta dar o start da Spring Application inicial br.com.fiap.Transaction.TransactionApplication e acompanhar os logs. 
 
-c.	batch → Microsserviço responsável por executar o batch de carga do arquivo de Clientes em potencial para dentro do banco de dados da solução
+c.	**batch** → Microsserviço responsável por executar o batch de carga do arquivo de Clientes em potencial para dentro do banco de dados da solução
 
     Este microsserviço é uma Spring Batch Application. Sua função é executar uma carga de um arquivo de entrada com os clientes fictícios em potencial respeitando um layout posicional e incluí-los no banco de dados. 
     
@@ -123,5 +123,11 @@ c.	batch → Microsserviço responsável por executar o batch de carga do arquiv
       
       <Continua...>
 
-d.	sts-fiap → Serviço que expõe uma API para geração do Token JWT utilizado para receber as transações com segurança
+d.	**sts-fiap** → Serviço que expõe uma API para geração do Token JWT utilizado para receber as transações com segurança
+
+## Bancos de Dados da Aplicação
+
+A solução criada se utiliza do banco de dados H2 para fins didáticos. Entretanto, qualquer banco relacional pode ser utilizado, considerando-se a adição das dependências das  bibliotecas respectivas dentro do arquivo "build.gradle" de cada projeto.
+
+### Abaixo está o modelo básico das tabelas utilizadas (MER)
 
