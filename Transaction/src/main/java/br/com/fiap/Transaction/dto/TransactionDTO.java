@@ -61,4 +61,7 @@ public class TransactionDTO {
         this.cartao = cartao;
     }
 
+    public int cartaoCompareTo(TransactionDTO transactionDTO) {
+        return Long.compare(this.getCartao(), transactionDTO.getCartao());
+    }
 }
