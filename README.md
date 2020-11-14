@@ -10,7 +10,7 @@ Também foi construído uma aplicação batch utilizando Spring Batch que carreg
 
 Como a solução trata de quatro partes distintas, todas elas devem estar conectadas a um banco de dados comum conforme seus arquivos de configuração para que compartilhem os mesmos dados. Mas não necessariamente há a necessidade de ser a mesma instância, visto que cada microsserviço é responsável pelo tratamento dos seus dados e das suas responsabilidades.
 
-## Desenho Básico da solução
+## Desenho Básico da Solução
 
 ![trabalho_final_spring](https://user-images.githubusercontent.com/67294168/99154992-f9070680-2692-11eb-8cd8-bb225f1b4e1d.png)
 
@@ -48,7 +48,7 @@ a.	ClienteAluno → Microsserviço responsável por gerenciar o CRUD de Clientes
             console:
               enabled: true 
     
-      Este microsserviço é uma Sprint Boot Aplication. Para iniciá-la, após configurar o arquivo de propriedades corretamente, basta dar o start da Spring Application inicial br.com.fiapspring.ClienteAlunoApplication e acompanhar os logs.   
+Este microsserviço é uma Sprint Boot Aplication. Para iniciá-la, após configurar o arquivo de propriedades corretamente, basta dar o start da Spring Application inicial br.com.fiapspring.ClienteAlunoApplication e acompanhar os logs.   
       
 
 b.	Transaction → Microsserviço responsável por gerenciar a recepção e tratativa das transações de cartão de crédito provindas das autorizadoras
@@ -92,8 +92,36 @@ b.	Transaction → Microsserviço responsável por gerenciar a recepção e trat
                 starttls:
                   enable: true
 
+Este microsserviço é uma Sprint Boot Aplication. Para iniciá-la, após configurar o arquivo de propriedades corretamente, basta dar o start da Spring Application inicial br.com.fiap.Transaction.TransactionApplication e acompanhar os logs. 
+
 c.	batch → Microsserviço responsável por executar o batch de carga do arquivo de Clientes em potencial para dentro do banco de dados da solução
 
+    Este microsserviço é uma Spring Batch Application. Sua função é executar uma carga de um arquivo de entrada com os clientes fictícios em potencial respeitando um layout posicional e incluí-los no banco de dados. 
+    
+    Este serviço pressupõe que haja uma tabela criada. Esta tabela deverá será descrita abaixo e é responsável por conter o Alunos/Clientes tratados pela solução em geral.
+
+    Como configurar: 
+      * Para que o Batch funcione, é necessário configurar inicialmente o arquivo application.yml presente em: src/main/resources.
+        Neste arquivo, deverão ser definidos: string de conexão com o banco de dados H2 a ser carregado e o caminho do arquivo de entrada para carga. 
+      
+      * Layout do arquivo de entrada: 
+      O arquivo de entrada possui o seguinte layout (nomes fictícios): 
+      
+      ---------------------------A---------------------------
+
+      AARON FELIPE GRASSMANN                   3095564 100-11
+
+      AARON PAPA DE MORAIS                     8610833 160-26
+
+      ABNER GALLILEI MOREIRA BORGES            1494778 500-35
+      
+      ---------------------------B---------------------------
+
+      BARBARA ANDRADE DE ROSSI                 6419200 235-55
+
+      BARBARA ARAUJO DE CARVALHO               1623461 780-40
+      
+      <Continua...>
 
 d.	sts-fiap → Serviço que expõe uma API para geração do Token JWT utilizado para receber as transações com segurança
 
