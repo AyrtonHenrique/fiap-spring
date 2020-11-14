@@ -2,6 +2,7 @@ package br.com.fiapspring.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.*;
 import org.springframework.http.HttpHeaders;
@@ -10,8 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+
+import br.com.fiapspring.entity.Cartao;
 import br.com.fiapspring.entity.ClienteAluno;
 import br.com.fiapspring.entity.ClienteAlunoEndereco;
+import br.com.fiapspring.service.CartaoService;
 import br.com.fiapspring.service.ClienteAlunoService;
 
 /**
@@ -24,9 +28,11 @@ public class ClienteAlunoController {
 	
 	private final Logger logger = LoggerFactory.getLogger(ClienteAlunoController.class);
 	private final ClienteAlunoService clienteAlunoService;
+	private final CartaoService cartaoService;
 	
-	public ClienteAlunoController(ClienteAlunoService clienteAlunoService) {
+	public ClienteAlunoController(ClienteAlunoService clienteAlunoService, CartaoService cartaoService) {
 		this.clienteAlunoService = clienteAlunoService;
+		this.cartaoService = cartaoService;
 	}
 	
 	@PostMapping
@@ -63,10 +69,10 @@ public class ClienteAlunoController {
 		}
 	}
 	
-	@PutMapping("{rm}/updateDadosClienteAluno")
-	public ResponseEntity<Void> upadateClienteAluno(@PathVariable String rm,@RequestBody ClienteAluno clienteAluno){
+	@PutMapping("{id}/updateDadosClienteAluno")
+	public ResponseEntity<Void> upadateClienteAluno(@PathVariable String id,@RequestBody ClienteAluno clienteAluno){
 		ClienteAluno cliAluno = new ClienteAluno();
-		cliAluno = clienteAlunoService.getClienteAlunoByRm(Integer.valueOf(rm));
+		cliAluno = clienteAlunoService.getClienteAlunoByRm(Integer.valueOf(id));
 		if (cliAluno == null) {
 			logger.error("Dados do RM do aluno não encontrados");
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
@@ -88,7 +94,7 @@ public class ClienteAlunoController {
 	@DeleteMapping("{rm}/removerCliente")
 	public ResponseEntity<Void> removerClienteAluno(@PathVariable String rm) {
 		logger.info("Dados do aluno ativados para cliente.");
-		
+		clienteAlunoService.delete(Integer.valueOf(rm));
 		return new ResponseEntity<Void>(HttpStatus.OK);
 		
 	}
@@ -107,5 +113,13 @@ public class ClienteAlunoController {
 		return new ResponseEntity<List<ClienteAluno>>(listagemCliente, HttpStatus.OK);
 
 	}
+
+	  @GetMapping(value = "{id}") 
+	  public ResponseEntity<List<Cartao>> listaClienteCartao(@PathVariable Long id) {
+	    logger.info("Listar cartao do cliente");
+	    Optional<ClienteAluno> cliente = clienteAlunoService.findById(id);
+	    List<Cartao> listagemClienteCartao = this.cartaoService.findByCliente(cliente);
+	    return new ResponseEntity<List<Cartao>>(listagemClienteCartao, HttpStatus.OK); }
+	 	
 }
 
