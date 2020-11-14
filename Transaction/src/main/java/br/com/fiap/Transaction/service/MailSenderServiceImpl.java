@@ -1,9 +1,8 @@
 package br.com.fiap.Transaction.service;
 
-import br.com.fiap.Transaction.dto.TransactionDTO;
-import br.com.fiap.Transaction.mail.CardMailPayload;
-import br.com.fiap.Transaction.mail.MailPayload;
-import br.com.fiap.Transaction.mail.TransactionCardMailPayload;
+import java.util.List;
+import java.util.Properties;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
@@ -12,12 +11,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Properties;
+import br.com.fiap.Transaction.dto.TransactionDTO;
+import br.com.fiap.Transaction.mail.CardMailPayload;
+import br.com.fiap.Transaction.mail.MailPayload;
+import br.com.fiap.Transaction.mail.TransactionCardMailPayload;
 
 @Service
 public class MailSenderServiceImpl implements MailSenderService {
@@ -45,8 +42,8 @@ public class MailSenderServiceImpl implements MailSenderService {
             String smtpUserName = environment.getProperty("spring.mail.username");
             String smtpPassword = environment.getProperty("spring.mail.password");
             String protocol = environment.getProperty("spring.mail.protocol");
-            String auth = environment.getProperty("spring.mail.smtp.auth");
-            String tls = environment.getProperty("spring.mail.smtp.starttls.enable");
+			String auth = environment.getProperty("spring.mail.properties.mail.smtp.auth");
+			String tls = environment.getProperty("spring.mail.properties.mail.smtp.starttls.enable");
 
             // Create the JavaMailSenderImpl object
             try {
@@ -57,9 +54,9 @@ public class MailSenderServiceImpl implements MailSenderService {
 
                 // Other props
                 Properties props = mailSender.getJavaMailProperties();
-                props.put("mail.transport.protocol", "smtp");
-                props.put("mail.smtp.auth", true);
-                props.put("mail.smtp.starttls.enable", true);
+                props.put("mail.transport.protocol", protocol);
+                props.put("mail.smtp.auth",  auth);
+                props.put("mail.smtp.starttls.enable", tls);
 
             } catch (Exception e) {
                 logger.error("Falha ao configurar MailSender");
@@ -110,8 +107,15 @@ public class MailSenderServiceImpl implements MailSenderService {
         msg.setSubject("Extrato de transações Cliente" + mailPayload.getIdCliente().toString());
         msg.setText(builder.toString());
 
-
-        javaMailSender.send(msg);
+        JavaMailSenderImpl sender = (JavaMailSenderImpl) this.javaMailSender;
+        
+//        logger.info("Contem TLS?: " + sender.getJavaMailProperties().containsKey("mail.smtp.starttls.enable"));
+//        logger.info("Properties : " + sender.getJavaMailProperties().toString());
+//        logger.info("Porta      : " + sender.getPort());
+//        logger.info("HOST       : " + sender.getHost());
+     
+        sender.getJavaMailProperties().put("mail.smtp.starttls.enable", "true");
+        sender.send(msg);
     }
 
     @Override
@@ -147,4 +151,29 @@ public class MailSenderServiceImpl implements MailSenderService {
 
         return mailPayLoad;
     }
+
+	@Override
+	public void sendSimpleMail(String to, String subject, String body) {
+		
+		try {
+			// Create Message 
+			 SimpleMailMessage msg = new SimpleMailMessage();
+	         StringBuilder builder = new StringBuilder();
+	         builder.append(body);
+	   
+	         // Message Attributes
+	         msg.setTo(to);
+	         msg.setSubject(subject);
+	         msg.setFrom("email@gmail.com");
+	         msg.setText(builder.toString());
+
+	         JavaMailSenderImpl sender = (JavaMailSenderImpl) this.javaMailSender;
+	         sender.getJavaMailProperties().put("mail.smtp.starttls.enable", "true");
+	         // SEND!
+	         sender.send(msg);			
+		} catch( Exception e) {
+			logger.error(e.getMessage());
+		}
+		
+	}
 }
