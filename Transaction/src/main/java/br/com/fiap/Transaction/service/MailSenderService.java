@@ -11,4 +11,5 @@ public interface MailSenderService {
     JavaMailSender createConnection();
     void sendEmail(MailPayload mailPayload);
     MailPayload getMailPayload(Long idCliente);
+	void sendSimpleMail(String to, String subject, String body);
 }
