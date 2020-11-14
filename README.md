@@ -48,7 +48,7 @@ a.	**ClienteAluno** → Microsserviço responsável por gerenciar o CRUD de Clie
             console:
               enabled: true 
     
-Este microsserviço é uma Sprint Boot Aplication. Para iniciá-la, após configurar o arquivo de propriedades corretamente, basta dar o start da Spring Application inicial br.com.fiapspring.ClienteAlunoApplication e acompanhar os logs.   
+Este microsserviço é uma Sprint Boot Aplication. Para iniciá-la, após configurar o arquivo de propriedades corretamente, basta dar o start da Spring Application inicial _**br.com.fiapspring.ClienteAlunoApplication e acompanhar**_ os logs.   
       
 
 b.	**Transaction** → Microsserviço responsável por gerenciar a recepção e tratativa das transações de cartão de crédito provindas das autorizadoras
@@ -92,7 +92,7 @@ b.	**Transaction** → Microsserviço responsável por gerenciar a recepção e 
                 starttls:
                   enable: true
 
-Este microsserviço é uma Sprint Boot Aplication. Para iniciá-la, após configurar o arquivo de propriedades corretamente, basta dar o start da Spring Application inicial br.com.fiap.Transaction.TransactionApplication e acompanhar os logs. 
+Este microsserviço é uma Sprint Boot Aplication. Para iniciá-la, após configurar o arquivo de propriedades corretamente, basta dar o start da Spring Application inicial _**br.com.fiap.Transaction.TransactionApplication**_ e acompanhar os logs. 
 
 c.	**batch** → Microsserviço responsável por executar o batch de carga do arquivo de Clientes em potencial para dentro do banco de dados da solução
 
@@ -123,6 +123,20 @@ c.	**batch** → Microsserviço responsável por executar o batch de carga do ar
       
       <Continua...>
 
+Este microsserviço é uma Sprint Batch Aplication. Para iniciá-la, após configurar o arquivo de propriedades corretamente, basta dar o start da Spring Application inicial _**br.com.fiap.spring.batch.CargaClientesBatchApplication**_ e acompanhar os logs.
+
+   Para cada carga carregada com sucesso do arquivo, as linhas abaixo são impressas no Log: 
+    
+            INFO 32416 --- [main] b.c.f.s.b.CargaClientesBatchApplication  : Started CargaClientesBatchApplication in 1.503 seconds (JVM running for 1.819)
+            INFO 32416 --- [main] o.s.b.a.b.JobLauncherApplicationRunner   : Running default command line with: []
+            INFO 32416 --- [main] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=Job - Processar arquivo de Clientes Potenciais]] launched with the following parameters: [{}]
+            INFO 32416 --- [main] o.s.batch.core.job.SimpleStepHandler     : Executing step: [Step Chunk - Processamento do arquivo de Clientes Potenciais]
+            INFO 32416 --- [main] b.c.f.s.b.CargaClientesBatchApplication  : AARON FELIPE GRASSMANN processado.
+            INFO 32416 --- [main] b.c.f.s.b.CargaClientesBatchApplication  : AARON PAPA DE MORAIS processado.
+            INFO 32416 --- [main] b.c.f.s.b.CargaClientesBatchApplication  : ABNER GALLILEI MOREIRA BORGES processado.
+            INFO 32416 --- [main] o.s.batch.core.step.AbstractStep         : Step: [Step Chunk - Processamento do arquivo de Clientes Potenciais] executed in 31ms
+            INFO 32416 --- [main] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=Job - Processar arquivo de Clientes Potenciais]] completed with the following parameters: [{}] and the following status: [COMPLETED] in 50ms
+
 d.	**sts-fiap** → Serviço que expõe uma API para geração do Token JWT utilizado para receber as transações com segurança
 
 ## Bancos de Dados da Aplicação
@@ -130,4 +144,6 @@ d.	**sts-fiap** → Serviço que expõe uma API para geração do Token JWT util
 A solução criada se utiliza do banco de dados H2 para fins didáticos. Entretanto, qualquer banco relacional pode ser utilizado, considerando-se a adição das dependências das  bibliotecas respectivas dentro do arquivo "build.gradle" de cada projeto.
 
 ### Abaixo está o modelo básico das tabelas utilizadas (MER)
+
+
 
