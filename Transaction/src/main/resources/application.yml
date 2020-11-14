@@ -8,24 +8,22 @@ springfox:
 
 spring:
   datasource:
-    url: jdbc:h2:F:\Mba\Spring\db\transactiondb;DB_CLOSE_ON_EXIT=FALSE
-    username: transaction
-    password: spring
+    url: jdbc:h2:C:/dev/db/dbbatchspringfinal;DB_CLOSE_ON_EXIT=FALSE
   jpa:
-    show-sql: true
-  h2:
-    console:
-      enabled: true
+    database-platform: org.hibernate.dialect.H2Dialect
   mail:
     host: smtp.gmail.com
     port: 587
-    username: pride.dalian@gmail.com
-    password: clgbodjdoorwxqop
+    username: 
+    password: 
     protocol: smtp
-    smtp:
-      auth: true
-      starttls:
-        enable: true
     properties:
       mail:
-        to: williankaza@hotmail.com
+        to: 
+      smtp:
+        auth: true
+        connectiontimeout: 5000
+        timeout: 5000
+        writetimeout: 5000
+        starttls:
+          enable: true
