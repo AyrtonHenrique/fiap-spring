@@ -1,0 +1,10 @@
+create table tb_clientealunoendereco (id_endereco bigint not null, 
+									  cep varchar(255), 
+									  cidade varchar(255), 
+									  complemento varchar(255), 
+									  estado varchar(255), 
+									  logradouro varchar(255), 
+									  numero integer, 
+									  tipo_endereco integer, 
+									  id_clientealuno bigint, 
+									  primary key (id_endereco))

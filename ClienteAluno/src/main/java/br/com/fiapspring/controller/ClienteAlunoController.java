@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-
 import br.com.fiapspring.entity.Cartao;
 import br.com.fiapspring.entity.ClienteAluno;
 import br.com.fiapspring.entity.ClienteAlunoEndereco;
@@ -40,22 +39,22 @@ public class ClienteAlunoController {
 		
 		HttpHeaders headers = new HttpHeaders();
 		try {
-			if (clienteAluno.getEnderecos().size() == 0) {
-				logger.info("Cliente deve possuir um endereço.");
+			if (clienteAluno.getClienteAlunoEnderecos().size() == 0) {
+				logger.info("Cliente/Aluno deve possuir um endereço.");
 					return new ResponseEntity<Void>(headers, HttpStatus.BAD_REQUEST);
 			} else {
 				List<ClienteAlunoEndereco> novaLista = new ArrayList<ClienteAlunoEndereco>();
 				// Limpa os endereços pra depois adicionar
-				for (ClienteAlunoEndereco enderecoCliente : clienteAluno.getEnderecos()) {
+				for (ClienteAlunoEndereco enderecoCliente : clienteAluno.getClienteAlunoEnderecos()) {
 					novaLista.add(enderecoCliente);
 				}
-				clienteAluno.getEnderecos().clear();
+				clienteAluno.getClienteAlunoEnderecos().clear();
 				
 				// Adiciona o cliente e pega o cliente Managed
 				ClienteAluno novoCliente = clienteAlunoService.create(clienteAluno);
 				for (ClienteAlunoEndereco enderecoCliente : novaLista) {
 					enderecoCliente.setClienteAluno(novoCliente);
-					novoCliente.addEndereco(enderecoCliente);
+					novoCliente.addClienteAlunoEndereco(enderecoCliente);
 				}
 
 				//Salva o cliente com a sua lista de endereços dentro
@@ -91,13 +90,19 @@ public class ClienteAlunoController {
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		}
 		 
-	@DeleteMapping("{rm}/removerCliente")
-	public ResponseEntity<Void> removerClienteAluno(@PathVariable String rm) {
-		logger.info("Dados do aluno ativados para cliente.");
-		clienteAlunoService.delete(Integer.valueOf(rm));
-		return new ResponseEntity<Void>(HttpStatus.OK);
-		
-	}
+	@DeleteMapping("{id}/removerCliente")
+	public ResponseEntity<Void> removerClienteAluno(@PathVariable Long id) {
+			HttpHeaders headers = new HttpHeaders();
+			logger.info("Consultado dados do Cliente para remover");
+			ClienteAluno dadosClienteAluno = clienteAlunoService.findById(id).get();
+			 if (dadosClienteAluno == null ) {
+				 logger.error("Dados do cliente não localizados para remoção");
+				return new ResponseEntity<Void>(headers, HttpStatus.BAD_REQUEST);
+			 } else {
+				cartaoService.delete(id);
+				return new ResponseEntity<Void>(headers, HttpStatus.OK);
+			}
+		}
 	
 	@GetMapping(value = "listarTodos")
 	public ResponseEntity<List<ClienteAluno>> listarClienteAluno(){
@@ -114,12 +119,31 @@ public class ClienteAlunoController {
 
 	}
 
-	  @GetMapping(value = "{id}") 
-	  public ResponseEntity<List<Cartao>> listaClienteCartao(@PathVariable Long id) {
-	    logger.info("Listar cartao do cliente");
-	    Optional<ClienteAluno> cliente = clienteAlunoService.findById(id);
-	    List<Cartao> listagemClienteCartao = this.cartaoService.findByCliente(cliente);
-	    return new ResponseEntity<List<Cartao>>(listagemClienteCartao, HttpStatus.OK); }
-	 	
+	@GetMapping(value = "{id}/listarClienteCartao") 
+	public ResponseEntity<Cartao> listaClienteCartao(@PathVariable Long id) {
+		ClienteAluno cliente = clienteAlunoService.findById(id).get();
+		if (cliente != null ) {
+			logger.info("Dados do Cliente encontrado");
+			Cartao listagemClienteCartao = this.cartaoService.findByCliente(cliente);
+			logger.info("Consultando dados do Cartao");
+			return new ResponseEntity<Cartao>(listagemClienteCartao, HttpStatus.OK);
+		} else {
+			logger.info("Dados do Cliente não encontrados");
+			return new ResponseEntity<Cartao>(HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	@GetMapping(value = "{id}/buscaClienteAlunoId")
+	public ResponseEntity<ClienteAluno> buscaClienteAlunoPorID(@PathVariable Long id){
+		logger.info("Código Cliente: " + id);
+		Optional<ClienteAluno> cliente = this.clienteAlunoService.findById(id);
+		if (cliente.isPresent()) {
+			ClienteAluno clienteAluno = cliente.get();
+			return new ResponseEntity<ClienteAluno>(clienteAluno, HttpStatus.OK);
+		} else {
+			logger.info("Dados do Cliente/Aluno não encontrados");
+			return new ResponseEntity<ClienteAluno>(HttpStatus.NO_CONTENT);
+		}
+	}
 }
 

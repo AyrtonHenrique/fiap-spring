@@ -1,0 +1,6 @@
+alter table tb_clientealuno_cliente_aluno_enderecos add constraint UK_9062h30di9h12h7etqpyteofj unique (cliente_aluno_enderecos_id_endereco)
+alter table tb_cartao add constraint FK5d3aiaeyhyn97sfiggvrl4y9v foreign key (id_clientealuno) references tb_clientealuno
+alter table tb_clientealuno add constraint FKj6eu0cb2rd3s7psv0u42g338b foreign key (cartao_id) references tb_cartao
+alter table tb_clientealuno_cliente_aluno_enderecos add constraint FKfn1ycqeg3quadctwwko5fce8f foreign key (cliente_aluno_enderecos_id_endereco) references tb_clientealunoendereco
+alter table tb_clientealuno_cliente_aluno_enderecos add constraint FKjcye4edk7r16bugr312fxi7cb foreign key (cliente_aluno_id_clientealuno) references tb_clientealuno
+alter table tb_clientealunoendereco add constraint FKk78vy4pmvpe9po1xogl4cbj8j foreign key (id_clientealuno) references tb_clientealuno

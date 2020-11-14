@@ -24,10 +24,11 @@ public class ClienteAluno {
 	private LocalDateTime dataNascimento;
 	private Boolean isclientecartao;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<ClienteAlunoEndereco> enderecos = new HashSet<ClienteAlunoEndereco>(); 
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<ClienteAlunoEndereco> clienteAlunoEnderecos = new HashSet<ClienteAlunoEndereco>(); 
+	
+	@OneToOne()
 	private Cartao cartao;
 	
 	/**
@@ -40,7 +41,7 @@ public class ClienteAluno {
 
 
 	public ClienteAluno(Integer rm, String nome, String turma, String cpf, String rg, LocalDateTime dataNascimento,
-			Set<ClienteAlunoEndereco> enderecos, Boolean isclientecartao) {
+			Set<ClienteAlunoEndereco> clienteAlunoEnderecos, Boolean isclientecartao) {
 		super();
 		this.rm = rm;
 		this.nome = nome;
@@ -48,7 +49,7 @@ public class ClienteAluno {
 		this.cpf = cpf;
 		this.rg = rg;
 		this.dataNascimento = dataNascimento;
-		this.enderecos = enderecos;
+		this.clienteAlunoEnderecos = clienteAlunoEnderecos;
 		this.isclientecartao = isclientecartao;
 	}
 
@@ -168,23 +169,27 @@ public class ClienteAluno {
 	}
 
 
+
+
 	/**
-	 * @return the enderecos
+	 * @return the clienteAlunoEnderecos
 	 */
-	public Set<ClienteAlunoEndereco> getEnderecos() {
-		return enderecos;
+	public Set<ClienteAlunoEndereco> getClienteAlunoEnderecos() {
+		return clienteAlunoEnderecos;
 	}
 
 
 	/**
-	 * @param enderecos the enderecos to set
+	 * @param clienteAlunoEnderecos the clienteAlunoEnderecos to set
 	 */
-	public void setEnderecos(Set<ClienteAlunoEndereco> enderecos) {
-		this.enderecos = enderecos;
+	public void setClienteAlunoEnderecos(Set<ClienteAlunoEndereco> clienteAlunoEnderecos) {
+		this.clienteAlunoEnderecos = clienteAlunoEnderecos;
 	}
 
-	public void addEndereco(ClienteAlunoEndereco enderecos) {
-		this.enderecos.add(enderecos);
+
+
+	public void addClienteAlunoEndereco(ClienteAlunoEndereco clienteAlunoEnderecos) {
+		this.clienteAlunoEnderecos.add(clienteAlunoEnderecos);
 	}
 	
 	
@@ -225,9 +230,9 @@ public class ClienteAluno {
 	@Override
 	public String toString() {
 		return "ClienteAluno [rm=" + rm + ", nome=" + nome + ", turma=" + turma + ", cpf=" + cpf + ", rg=" + rg
-				+ ", dataNascimento=" + dataNascimento + ", enderecos=" + enderecos + ", getRm()=" + getRm()
+				+ ", dataNascimento=" + dataNascimento + ", enderecos=" + clienteAlunoEnderecos + ", getRm()=" + getRm()
 				+ ", getNome()=" + getNome() + ", getTurma()=" + getTurma() + ", getCpf()=" + getCpf() + ", getRg()="
-				+ getRg() + ", getDataNascimento()=" + getDataNascimento() + ", getEnderecos()=" + getEnderecos()
+				+ getRg() + ", getDataNascimento()=" + getDataNascimento() + ", getEnderecos()=" + getClienteAlunoEnderecos()
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
 				+ "]";
 	}
@@ -235,7 +240,7 @@ public class ClienteAluno {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cpf, dataNascimento, enderecos, nome, rg, rm, turma);
+		return Objects.hash(cpf, dataNascimento, clienteAlunoEnderecos, nome, rg, rm, turma);
 	}
 
 
@@ -247,7 +252,7 @@ public class ClienteAluno {
 			return false;
 		ClienteAluno other = (ClienteAluno) obj;
 		return Objects.equals(cpf, other.cpf) && Objects.equals(dataNascimento, other.dataNascimento)
-				&& Objects.equals(enderecos, other.enderecos) && Objects.equals(nome, other.nome)
+				&& Objects.equals(clienteAlunoEnderecos, other.clienteAlunoEnderecos) && Objects.equals(nome, other.nome)
 				&& Objects.equals(rg, other.rg) && Objects.equals(rm, other.rm) && Objects.equals(turma, other.turma);
 	}
 

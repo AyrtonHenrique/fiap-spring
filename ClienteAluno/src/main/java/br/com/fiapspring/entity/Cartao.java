@@ -34,44 +34,19 @@ public class Cartao {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
-	/**
-	 * @param id
-	 * @param numerocartao
-	 * @param datavalidade
-	 * @param codigoIdentificador
-	 * @param cliente
-	 */
-	public Cartao(long id, Long numerocartao, LocalDateTime datavalidade, Long codigoIdentificador,
-			ClienteAluno cliente) {
-		super();
-		this.id = id;
-		this.numerocartao = numerocartao;
-		this.datavalidade = datavalidade;
-		this.codigoIdentificador = codigoIdentificador;
-		this.clienteAluno = cliente;
-	}
-
-
-
 	/**
 	 * @return the id
 	 */
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
-
-
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
-
-
 
 	/**
 	 * @return the numerocartao
@@ -80,16 +55,12 @@ public class Cartao {
 		return numerocartao;
 	}
 
-
-
 	/**
 	 * @param numerocartao the numerocartao to set
 	 */
 	public void setNumerocartao(Long numerocartao) {
 		this.numerocartao = numerocartao;
 	}
-
-
 
 	/**
 	 * @return the datavalidade
@@ -98,34 +69,12 @@ public class Cartao {
 		return datavalidade;
 	}
 
-
-
 	/**
 	 * @param datavalidade the datavalidade to set
 	 */
 	public void setDatavalidade(LocalDateTime datavalidade) {
 		this.datavalidade = datavalidade;
 	}
-
-
-
-	/**
-	 * @return the cliente
-	 */
-	public ClienteAluno getCliente() {
-		return clienteAluno;
-	}
-
-
-
-	/**
-	 * @param cliente the cliente to set
-	 */
-	public void setCliente(ClienteAluno clienteAluno) {
-		this.clienteAluno = clienteAluno;
-	}
-
-
 
 	/**
 	 * @return the codigoIdentificador
@@ -134,15 +83,29 @@ public class Cartao {
 		return codigoIdentificador;
 	}
 
-
-
 	/**
 	 * @param codigoIdentificador the codigoIdentificador to set
 	 */
 	public void setCodigoIdentificador(Long codigoIdentificador) {
 		this.codigoIdentificador = codigoIdentificador;
 	}
+
+	/**
+	 * @return the clienteAluno
+	 */
+	public ClienteAluno getClienteAluno() {
+		return clienteAluno;
+	}
+
+	/**
+	 * @param clienteAluno the clienteAluno to set
+	 */
+	public void setClienteAluno(ClienteAluno clienteAluno) {
+		this.clienteAluno = clienteAluno;
+	}
+
 	
+
 	
 	
 
