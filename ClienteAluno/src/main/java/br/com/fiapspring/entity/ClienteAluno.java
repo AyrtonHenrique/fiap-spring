@@ -1,7 +1,6 @@
 package br.com.fiapspring.entity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -23,14 +22,14 @@ public class ClienteAluno {
 	private String cpf;
 	private String rg;
 	private LocalDate dataNascimento;
-	private Boolean isclientecartao;
+	private Boolean isCliente;
 	
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<ClienteAlunoEndereco> clienteAlunoEnderecos = new HashSet<ClienteAlunoEndereco>(); 
 	
-	@OneToOne()
-	private Cartao cartao;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Cartao> cartoes  = new HashSet<Cartao>();
 	
 	/**
 	 * 
@@ -42,7 +41,7 @@ public class ClienteAluno {
 
 
 	public ClienteAluno(Integer rm, String nome, String turma, String cpf, String rg, LocalDate dataNascimento,
-			Set<ClienteAlunoEndereco> clienteAlunoEnderecos, Boolean isclientecartao) {
+			Set<ClienteAlunoEndereco> clienteAlunoEnderecos, Boolean isCliente) {
 		super();
 		this.rm = rm;
 		this.nome = nome;
@@ -51,10 +50,10 @@ public class ClienteAluno {
 		this.rg = rg;
 		this.dataNascimento = dataNascimento;
 		this.clienteAlunoEnderecos = clienteAlunoEnderecos;
-		this.isclientecartao = isclientecartao;
+		this.isCliente = isCliente;
 	}
 
-	
+		
 	
 	
 
@@ -193,38 +192,37 @@ public class ClienteAluno {
 		this.clienteAlunoEnderecos.add(clienteAlunoEnderecos);
 	}
 	
-	
 	/**
-	 * @return the isclientecartao
+	 * @return the isCliente
 	 */
-	public Boolean getIsclientecartao() {
-		return isclientecartao;
+	public Boolean getIsCliente() {
+		return isCliente;
 	}
 
 
 	/**
-	 * @param isclientecartao the isclientecartao to set
+	 * @param isCliente the isCliente to set
 	 */
-	public void setIsclientecartao(Boolean isclientecartao) {
-		this.isclientecartao = isclientecartao;
+	public void setIsCliente(Boolean isCliente) {
+		this.isCliente = isCliente;
 	}
 
 	
-	
+
 
 	/**
-	 * @return the cartao
+	 * @return the cartoes
 	 */
-	public Cartao getCartao() {
-		return cartao;
+	public Set<Cartao> getCartoes() {
+		return cartoes;
 	}
 
 
 	/**
-	 * @param cartao the cartao to set
+	 * @param cartoes the cartoes to set
 	 */
-	public void setCartao(Cartao cartao) {
-		this.cartao = cartao;
+	public void setCartoes(Set<Cartao> cartoes) {
+		this.cartoes = cartoes;
 	}
 
 

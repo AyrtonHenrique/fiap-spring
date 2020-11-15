@@ -1,38 +1,37 @@
 /**
  * 
  */
-package br.com.fiapspring.entity;
+package br.com.fiapspring.dto;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.*;
-
+import br.com.fiapspring.entity.Cartao;
+import br.com.fiapspring.entity.ClienteAluno;
 
 /**
  * @author SaraRegina
  *
  */
-@Entity
-@Table(name = "tb_cartao")
-public class Cartao {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+public class CartaoDTO {
+
+	private Long id;
 	private Long numerocartao;
 	private LocalDateTime datavalidade;
 	private Long codigoIdentificador;
-	
-	@ManyToOne()
-	@JoinColumn(name = "id_clientealuno")
+
 	private ClienteAluno clienteAluno ; 
+
 	
 	/**
 	 * 
 	 */
-	public Cartao() {
-		// TODO Auto-generated constructor stub
+	public CartaoDTO(Cartao cartao) {
+		this.id = cartao.getId();
+		this.numerocartao = cartao.getNumerocartao();
+		this.datavalidade = cartao.getDatavalidade();
+		this.clienteAluno = cartao.getClienteAluno();
 	}
+
 
 	/**
 	 * @return the id
@@ -41,12 +40,14 @@ public class Cartao {
 		return id;
 	}
 
+
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
 	}
+
 
 	/**
 	 * @return the numerocartao
@@ -55,12 +56,14 @@ public class Cartao {
 		return numerocartao;
 	}
 
+
 	/**
 	 * @param numerocartao the numerocartao to set
 	 */
 	public void setNumerocartao(Long numerocartao) {
 		this.numerocartao = numerocartao;
 	}
+
 
 	/**
 	 * @return the datavalidade
@@ -69,12 +72,14 @@ public class Cartao {
 		return datavalidade;
 	}
 
+
 	/**
 	 * @param datavalidade the datavalidade to set
 	 */
 	public void setDatavalidade(LocalDateTime datavalidade) {
 		this.datavalidade = datavalidade;
 	}
+
 
 	/**
 	 * @return the codigoIdentificador
@@ -83,12 +88,14 @@ public class Cartao {
 		return codigoIdentificador;
 	}
 
+
 	/**
 	 * @param codigoIdentificador the codigoIdentificador to set
 	 */
 	public void setCodigoIdentificador(Long codigoIdentificador) {
 		this.codigoIdentificador = codigoIdentificador;
 	}
+
 
 	/**
 	 * @return the clienteAluno
@@ -97,15 +104,13 @@ public class Cartao {
 		return clienteAluno;
 	}
 
+
 	/**
 	 * @param clienteAluno the clienteAluno to set
 	 */
 	public void setClienteAluno(ClienteAluno clienteAluno) {
 		this.clienteAluno = clienteAluno;
 	}
-
-	
-
 	
 	
 

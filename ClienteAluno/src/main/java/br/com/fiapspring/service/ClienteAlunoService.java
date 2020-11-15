@@ -7,7 +7,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+
+import br.com.fiapspring.dto.ClienteAlunoCreateUpdateDTO;
+import br.com.fiapspring.dto.ClienteAlunoDTO;
 import br.com.fiapspring.entity.ClienteAluno;
+
 
 
 /**
@@ -17,19 +21,21 @@ import br.com.fiapspring.entity.ClienteAluno;
 @Service
 public interface ClienteAlunoService {
 	
-	public List<ClienteAluno> findAll();
+	public List<ClienteAlunoDTO> findAll(Long id);
 	
-	public List<ClienteAluno> findAllByIsclientecartaoIsTrue();
+	public List<ClienteAluno> findAllByIsClienteIsTrue();
 	
-	public Optional<ClienteAluno> findById(long id);
+	public Optional<ClienteAlunoDTO> findById(long id);
 	
-	public ClienteAluno create(ClienteAluno clienteAluno);
+	public ClienteAlunoDTO create(ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO);
 	
-	public ClienteAluno update(Integer rm, ClienteAluno clienteAluno);
+	public ClienteAlunoDTO update(Long id, ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO);
 	
-	public void delete(Integer rm);
-	
-	public ClienteAluno getClienteAlunoByRm(Integer rm);
+	public void delete(Long id);
 	
 
 }
+
+
+
+

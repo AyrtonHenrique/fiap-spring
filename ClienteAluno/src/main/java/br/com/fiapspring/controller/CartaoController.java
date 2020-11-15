@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.fiapspring.dto.CartaoCreateUpdateDTO;
+import br.com.fiapspring.dto.CartaoDTO;
 import br.com.fiapspring.entity.Cartao;
 import br.com.fiapspring.entity.ClienteAluno;
 import br.com.fiapspring.service.CartaoService;
@@ -41,14 +43,14 @@ public class CartaoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> cadastarCartao(@RequestBody Cartao cartao, UriComponentsBuilder builder) {
+	public ResponseEntity<Void> cadastarCartao(@RequestBody CartaoCreateUpdateDTO cartao, UriComponentsBuilder builder) {
 		HttpHeaders headers = new HttpHeaders();
 		if (cartao.getClienteAluno() == null ) {
 			logger.error("Cartao deve ter possuir um cliente cadastrado");
 			return new ResponseEntity<Void>(headers, HttpStatus.BAD_REQUEST);
 		} else {
-			Cartao novoCartao = cartaoService.create(cartao);
-			cartaoService.create(novoCartao);
+			CartaoDTO novoCartao = cartaoService.create(cartao);
+			cartaoService.create(cartao);
 			headers.setLocation(builder.path("/cartao/{id}").buildAndExpand(novoCartao.getId()).toUri());
 			return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 		}
@@ -57,9 +59,7 @@ public class CartaoController {
 	@DeleteMapping("{id}/removerCartao")
 	public ResponseEntity<Void> removerCartao(@PathVariable Long id) {
 		HttpHeaders headers = new HttpHeaders();
-		logger.info("Consultando dados do cartão para remoção.");
-		Cartao dadosCartao = cartaoService.findById(id).get();
-		 if (dadosCartao == null ) {
+		 if (id.equals(null) || id == 0 ) {
 			 logger.error("Dados do cartao não localizados para remover");
 			return new ResponseEntity<Void>(headers, HttpStatus.BAD_REQUEST);
 		 } else {

@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-
+import br.com.fiapspring.dto.ClienteAlunoDTO;
 import br.com.fiapspring.entity.ClienteAluno;
 
 
@@ -18,6 +18,6 @@ public interface ClienteAlunoRepository extends JpaRepository<ClienteAluno, Long
 
 	ClienteAluno findAllByRm(Integer rm);
 	
-	List<ClienteAluno> findAllByIsclientecartaoIsTrue();
+	List<ClienteAluno> findAllByIsClienteIsTrue();
 
 }

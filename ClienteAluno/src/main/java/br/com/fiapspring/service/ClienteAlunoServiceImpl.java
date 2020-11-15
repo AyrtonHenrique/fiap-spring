@@ -3,8 +3,11 @@ package br.com.fiapspring.service;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import br.com.fiapspring.controller.ClienteAlunoController;
+import br.com.fiapspring.dto.ClienteAlunoCreateUpdateDTO;
+import br.com.fiapspring.dto.ClienteAlunoDTO;
 import br.com.fiapspring.entity.ClienteAluno;
 import br.com.fiapspring.repository.ClienteAlunoRepository;
 import br.com.fiapspring.security.SecurityPasswordRequest;
@@ -30,21 +33,25 @@ public class ClienteAlunoServiceImpl implements ClienteAlunoService {
 		this.clienteAlunoRepository = clienteAlunoRepository;
 	}
 
-	@Override
-	public List<ClienteAluno> findAll() {
-		return clienteAlunoRepository.findAll();
-	}
 
 	@Override
-	public Optional<ClienteAluno> findById(long id) {
-		return clienteAlunoRepository.findById(id);
-	}
-
-	@Override
-	public ClienteAluno create(ClienteAluno clienteAluno) {
+	public ClienteAlunoDTO create(ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO) {
+		ClienteAluno clienteAluno = new ClienteAluno();
+		
+		clienteAluno.setRm(clienteAlunoCreateUpdateDTO.getRm());
+		clienteAluno.setNome(clienteAlunoCreateUpdateDTO.getNome());
+		clienteAluno.setTurma(clienteAlunoCreateUpdateDTO.getTurma());
+		clienteAluno.setRg(clienteAlunoCreateUpdateDTO.getRg());
+		clienteAluno.setCpf(clienteAlunoCreateUpdateDTO.getCpf());
+		clienteAluno.setDataNascimento(clienteAlunoCreateUpdateDTO.getDataNascimento());
+		clienteAluno.setIsCliente(true);
+		clienteAluno.setClienteAlunoEnderecos(clienteAlunoCreateUpdateDTO.getClienteAlunoEnderecos());
+		
+		ClienteAluno salvarCliente = clienteAlunoRepository.save(clienteAluno);
+		
 		logger.info("Dados do Cliente cadastratados");
-		criarSenha(clienteAluno);
-		return clienteAlunoRepository.save(clienteAluno);
+		criarSenha(salvarCliente);
+		return new ClienteAlunoDTO(salvarCliente);
 	}
 
 	private void criarSenha(ClienteAluno clienteAluno) {
@@ -62,27 +69,60 @@ public class ClienteAlunoServiceImpl implements ClienteAlunoService {
 	}
 
 	@Override
-	public ClienteAluno update(Integer rm, ClienteAluno clienteAluno) {
-		logger.info("Dados do Cliente atualizados");
+	public ClienteAlunoDTO update(Long id, ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO) {
+		ClienteAluno clienteAluno = getClienteAluno(id).get();
+		
+		clienteAluno.setRm(clienteAlunoCreateUpdateDTO.getRm());
+		clienteAluno.setTurma(clienteAlunoCreateUpdateDTO.getTurma());
+		clienteAluno.setNome(clienteAlunoCreateUpdateDTO.getNome());
+		clienteAluno.setRg(clienteAlunoCreateUpdateDTO.getRg());
+		clienteAluno.setCpf(clienteAlunoCreateUpdateDTO.getCpf());
+		clienteAluno.setDataNascimento(clienteAlunoCreateUpdateDTO.getDataNascimento());
+		clienteAluno.setClienteAlunoEnderecos(clienteAlunoCreateUpdateDTO.getClienteAlunoEnderecos());
+		clienteAluno.setCartoes(clienteAlunoCreateUpdateDTO.getCartoes());
+		ClienteAluno atualizarCliente = clienteAlunoRepository.save(clienteAluno);
+		
 		criarSenha(clienteAluno);
-		return clienteAlunoRepository.save(clienteAluno);
+		
+		logger.info("Dados do Cliente atualizados");
+		return new ClienteAlunoDTO (atualizarCliente);
 	}
 
 	@Override
-	public void delete(Integer rm) {
-		ClienteAluno cliente = getClienteAlunoByRm(rm);
+	public void delete(Long id) {
+		ClienteAluno cliente = getClienteAluno(id).get();
 		logger.info("Dados do Cliente removidos");
 		clienteAlunoRepository.deleteById(cliente.getId());
 	}
 
-	public ClienteAluno getClienteAlunoByRm(Integer rm) {
-		return clienteAlunoRepository.findAllByRm(rm);
-
+	
+	@Override
+	public List<ClienteAluno> findAllByIsClienteIsTrue() {
+		return clienteAlunoRepository.findAllByIsClienteIsTrue();
 	}
+	
+    private Optional<ClienteAluno> getClienteAluno(Long id) {
+        return clienteAlunoRepository.findById(id);
+                
+    }
+
 
 	@Override
-	public List<ClienteAluno> findAllByIsclientecartaoIsTrue() {
-		return clienteAlunoRepository.findAllByIsclientecartaoIsTrue();
+	public List<ClienteAlunoDTO> findAll(Long id) {
+        return clienteAlunoRepository.findAllByIsClienteIsTrue()
+                .stream()
+                .map(clienteAluno -> new ClienteAlunoDTO(clienteAluno))
+                .collect(Collectors.toList());
 	}
+
+
+	@Override
+	public Optional<ClienteAlunoDTO> findById(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
 
 }
