@@ -18,7 +18,7 @@ public class ApplicationRunnerBean implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments arg0) throws Exception {
-        System.out.println("VAAAAAAAI CARAIO");
+        System.out.println("INICIANDO ");
         _usuariosRepository.save(new Usuario("123456", "121294"));
     }
 }
