@@ -12,7 +12,7 @@ Como a solução trata de quatro partes distintas, todas elas devem estar conect
 
 ## Desenho Básico da Solução
 
-![trabalho_final_spring](https://user-images.githubusercontent.com/67294168/99154992-f9070680-2692-11eb-8cd8-bb225f1b4e1d.png)
+![estrutura_final_spring](https://user-images.githubusercontent.com/67294168/99196957-2a083980-276e-11eb-835c-9e216f21b433.png)
 
 ## Estruturação do Projeto no GitHub
 
@@ -137,9 +137,33 @@ Este microsserviço é uma Sprint Batch Aplication. Para iniciá-la antes inciar
             INFO 32416 --- [main] o.s.batch.core.step.AbstractStep         : Step: [Step Chunk - Processamento do arquivo de Clientes Potenciais] executed in 31ms
             INFO 32416 --- [main] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=Job - Processar arquivo de Clientes Potenciais]] completed with the following parameters: [{}] and the following status: [COMPLETED] in 50ms
 
-d.	**sts-fiap** → Serviço que expõe uma API para geração do Token JWT utilizado para receber as transações com segurança.
-todos os clientes possuem seu usuario como cpf e a senha os 4 primeiros digitos do CPF.
+d.	**sts-fiap** → Serviço que expõe uma API para geração do Token JWT utilizado para receber as transações com segurança e também inclui usuários válidos para poder gerar transações com tokens válidos.
 
+Todos os clientes possuem seu usuario como cpf e a senha os 4 primeiros digitos do CPF.
+
+    Como configurar:   
+          * Para que ele funcione corretamente, é necessário configurar inicialmente o arquivo application.yml presente em: src/main/resources 
+             Neste arquivo, devem ser configurados: 
+                Porta do Servidor Web, context-path da aplicação, string de conexão do banco de dados H2 e usuário e senha do mesmo, segredo e tempo de expiração o Jason Web Token. 
+          * Exemplo do arquivo:
+            spring:
+              datasource:
+                url: jdbc:h2:mem:userdb;DB_CLOSE_ON_EXIT=FALSE
+                username: 
+                password: 
+              h2:
+                console:
+                  enabled: true
+                  path: "/h2" 
+            server:
+              port: 8082
+            jwt:
+              secret: 
+              expiration: 5
+            springfox:
+              documentation:
+                swagger-ui:
+                  enabled: true
 
 ## Bancos de Dados da Aplicação
 
@@ -147,6 +171,7 @@ A solução criada se utiliza do banco de dados H2 para fins didáticos. Entreta
 
 ### Abaixo está o modelo básico das tabelas utilizadas (MER)
 
-![MER_Spring](https://user-images.githubusercontent.com/67294168/99155690-ec85ac80-2698-11eb-8a76-78add5ba2b67.png)
+![mer_final_spring](https://user-images.githubusercontent.com/67294168/99196961-2d032a00-276e-11eb-9177-c66d6cc1a4e3.png)
+
 
 
