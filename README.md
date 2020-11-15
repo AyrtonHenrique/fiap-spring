@@ -4,15 +4,17 @@
 
 O presente projeto tem o intuito de apresentar a solução adotada para a criação de uma solução que emula uma opção de uma faculdade começar a emitir cartões de crédito para os seus alunos. 
 
-Nesta solução foi construída a estrutura de backend do sistema, exposta através de três microsserviços, cada qual com sua responsabilidade. Um destes  microsserviços se integra a um servidor de e-mail SMTP configurado para envio de email. 
+Nesta solução foi construída a estrutura de backend do sistema, exposta através de quatro microsserviços, cada qual com sua responsabilidade. 
+Dois destes microsserviços tem funções de CRUD. Um outro se integra a um servidor de e-mail SMTP configurado para envio de emails vinculados a regras de negócio. 
 
-Também foi construído uma aplicação batch utilizando Spring Batch que carrega um arquivo inicial com os clientes em potencial (alunos da faculdade) para a estrutura de dados da aplicação.
+Também foi construída uma aplicação Batch utilizando Spring Batch que carrega um arquivo inicial previamente definido com os clientes em potencial (alunos da faculdade) para uma das estruturas de dados da aplicação.
 
-Como a solução trata de quatro partes distintas, todas elas devem estar conectadas a um banco de dados comum conforme seus arquivos de configuração para que compartilhem os mesmos dados. Mas não necessariamente há a necessidade de ser a mesma instância, visto que cada microsserviço é responsável pelo tratamento dos seus dados e das suas responsabilidades.
+Como a solução trata de quatro partes distintas, todas elas devem estar conectadas a bancos de dados em comum conforme seus arquivos de configuração para que compartilhem os mesmos dados. Inicialmente dois dos microsserviços foram concebidos para terem um banco de dados apartado, isolando suas regras e execuções. 
+Não necessariamente há a necessidade de se utlizar uma mesma instância, visto que cada microsserviço é responsável pelo tratamento dos seus dados e das suas responsabilidades.
 
 ## Desenho Básico da Solução
 
-![trabalho_final_spring](https://user-images.githubusercontent.com/67294168/99154992-f9070680-2692-11eb-8cd8-bb225f1b4e1d.png)
+![estrutura_final_spring](https://user-images.githubusercontent.com/67294168/99196957-2a083980-276e-11eb-835c-9e216f21b433.png)
 
 ## Estruturação do Projeto no GitHub
 
@@ -48,8 +50,10 @@ a.	**ClienteAluno** → Microsserviço responsável por gerenciar o CRUD de Clie
             console:
               enabled: true 
     
-Este microsserviço é uma Sprint Boot Aplication. Para iniciá-la antes iniciar o projeto **sts-fiap**, após configurar o arquivo de propriedades corretamente, basta dar o start da Spring Application inicial _**br.com.fiapspring.ClienteAlunoApplication e acompanhar**_ os logs.   
-      
+Este microsserviço é uma Sprint Boot Aplication. Para iniciá-la antes iniciar o projeto **sts-fiap**, após configurar o arquivo de propriedades corretamente, basta dar o start da Spring Application inicial _**br.com.fiapspring.ClienteAlunoApplication**_ e acompanhar os logs.   
+
+Tabelas criadas por este microsserviço: **tb_clientealuno, tb_cartao, tb_clientealunoendereco, tb_clientealuno_cliente_aluno_enderecos**
+
 
 b.	**Transaction** → Microsserviço responsável por gerenciar a recepção e tratativa das transações de cartão de crédito provindas das autorizadoras
 
@@ -94,11 +98,15 @@ b.	**Transaction** → Microsserviço responsável por gerenciar a recepção e 
 
 Este microsserviço é uma Sprint Boot Aplication. Para iniciá-la antes iniciar projeto **sts-fiap**, após configurar o arquivo de propriedades corretamente, basta dar o start da Spring Application inicial _**br.com.fiap.Transaction.TransactionApplication**_ e acompanhar os logs. 
 
+Tabela criada por este microsserviço: **tb_transaction**
+
 c.	**batch** → Microsserviço responsável por executar o batch de carga do arquivo de Clientes em potencial para dentro do banco de dados da solução
 
-    Este microsserviço é uma Spring Batch Application. Sua função é executar uma carga de um arquivo de entrada com os clientes fictícios em potencial respeitando um layout posicional e incluí-los no banco de dados. 
+Este microsserviço é uma Spring Batch Application. Sua função é executar uma carga de um arquivo de entrada com os clientes fictícios em potencial respeitando um layout posicional e incluí-los no banco de dados. 
     
-    Este serviço pressupõe que haja uma tabela criada. Esta tabela deverá será descrita abaixo e é responsável por conter o Alunos/Clientes tratados pela solução em geral.
+Este serviço pressupõe que haja uma tabela já criada pelo projeto ClienteAluno. Para isso, é necessário que as estruturas de dados previstas no módulo ClienteAluno já estejam criadas. 
+
+Esta tabela está descrita no MER mais abaixo e é responsável por conter o Alunos/Clientes tratados pela solução de maneira geral. A tabela criada deve ser chamada tb_clientealuno.
 
     Como configurar: 
       * Para que o Batch funcione, é necessário configurar inicialmente o arquivo application.yml presente em: src/main/resources.
@@ -137,16 +145,57 @@ Este microsserviço é uma Sprint Batch Aplication. Para iniciá-la antes inciar
             INFO 32416 --- [main] o.s.batch.core.step.AbstractStep         : Step: [Step Chunk - Processamento do arquivo de Clientes Potenciais] executed in 31ms
             INFO 32416 --- [main] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=Job - Processar arquivo de Clientes Potenciais]] completed with the following parameters: [{}] and the following status: [COMPLETED] in 50ms
 
-d.	**sts-fiap** → Serviço que expõe uma API para geração do Token JWT utilizado para receber as transações com segurança.
-todos os clientes possuem seu usuario como cpf e a senha os 4 primeiros digitos do CPF.
+Tabela carregada por este microsserviço batch: **tb_clientealuno**
 
+d.	**sts-fiap** → Serviço que expõe uma API para geração do Token JWT utilizado para receber as transações com segurança e também inclui usuários válidos para poder gerar transações com tokens válidos.
+
+Todos os clientes possuem seu usuario como cpf e a senha os 4 primeiros digitos do CPF.
+
+    Como configurar:   
+          * Para que ele funcione corretamente, é necessário configurar inicialmente o arquivo application.yml presente em: src/main/resources 
+             Neste arquivo, devem ser configurados: 
+                Porta do Servidor Web, context-path da aplicação, string de conexão do banco de dados H2 e usuário e senha do mesmo, segredo e tempo de expiração o Jason Web Token. 
+          * Exemplo do arquivo:
+            spring:
+              datasource:
+                url: jdbc:h2:mem:userdb;DB_CLOSE_ON_EXIT=FALSE
+                username: 
+                password: 
+              h2:
+                console:
+                  enabled: true
+                  path: "/h2" 
+            server:
+              port: 8082
+            jwt:
+              secret: 
+              expiration: 5
+            springfox:
+              documentation:
+                swagger-ui:
+                  enabled: true
+
+Tabela criada por este microsserviço: **tb_usuario**
 
 ## Bancos de Dados da Aplicação
 
-A solução criada se utiliza do banco de dados H2 para fins didáticos. Entretanto, qualquer banco relacional pode ser utilizado, considerando-se a adição das dependências das  bibliotecas respectivas dentro do arquivo "build.gradle" de cada projeto.
+A solução criada se utiliza do banco de dados H2 para fins didáticos. 
+Entretanto, qualquer banco relacional pode ser utilizado, considerando-se a adição das dependências das  bibliotecas respectivas dentro do arquivo "build.gradle" de cada projeto.
 
 ### Abaixo está o modelo básico das tabelas utilizadas (MER)
 
-![MER_Spring](https://user-images.githubusercontent.com/67294168/99155690-ec85ac80-2698-11eb-8a76-78add5ba2b67.png)
+Todas as estruturas e relacionamentos abaixo descritos são criados automaticamente ao serem iniciados os projetos ClienteAluno, sts-fiap e Transaction.
+
+![mer_final_spring](https://user-images.githubusercontent.com/67294168/99196961-2d032a00-276e-11eb-9177-c66d6cc1a4e3.png)
 
 
+## Swagger - Documentação e Testes
+
+Os projetos Spring Boot Application descritos acima, após iniciados e rodando cada qual em uma porta distinta, expõem as suas interfaces através da biblioteca Swagger.
+Com os mesmos já iniciados, basta adicionar a terminação da URL do Swagger conforme exemplo abaixo para cada Web API exposta: 
+
+http://<host>:<porta>/{context-path}/swagger-ui/
+    
+Com isso, uma interface de documentação e testes é exposta para cada Web API, conforme imagem abaixo: 
+
+![swagger](https://user-images.githubusercontent.com/67294168/99197415-275b1380-2771-11eb-9162-b8ee972b8bd4.png)
