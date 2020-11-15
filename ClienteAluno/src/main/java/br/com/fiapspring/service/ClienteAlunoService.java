@@ -25,7 +25,7 @@ public interface ClienteAlunoService {
 	
 	public List<ClienteAluno> findAllByIsClienteIsTrue();
 	
-	public Optional<ClienteAlunoDTO> findById(long id);
+	public ClienteAlunoDTO findById(long id);
 	
 	public ClienteAlunoDTO create(ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO);
 	

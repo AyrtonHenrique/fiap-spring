@@ -14,7 +14,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.fiapspring.dto.ClienteAlunoCreateUpdateDTO;
 import br.com.fiapspring.dto.ClienteAlunoDTO;
-import br.com.fiapspring.entity.Cartao;
 import br.com.fiapspring.entity.ClienteAluno;
 import br.com.fiapspring.entity.ClienteAlunoEndereco;
 import br.com.fiapspring.service.CartaoService;
@@ -110,9 +109,9 @@ public class ClienteAlunoController {
 	@GetMapping(value = "{id}/buscaClienteAlunoId")
 	public ResponseEntity<ClienteAlunoDTO> buscaClienteAlunoPorID(@PathVariable Long id){
 		logger.info("C�digo Cliente: " + id);
-		Optional<ClienteAlunoDTO> cliente = this.clienteAlunoService.findById(id);
-		if (cliente.isPresent()) {
-			ClienteAlunoDTO clienteAluno = cliente.get();
+		ClienteAlunoDTO cliente = this.clienteAlunoService.findById(id);
+		if (cliente != null) {
+			ClienteAlunoDTO clienteAluno = cliente;
 			return new ResponseEntity<ClienteAlunoDTO>(clienteAluno, HttpStatus.OK);
 		} else {
 			logger.info("Dados do Cliente/Aluno n�o encontrados");

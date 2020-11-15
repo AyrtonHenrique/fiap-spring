@@ -80,6 +80,7 @@ public class ClienteAlunoServiceImpl implements ClienteAlunoService {
 		clienteAluno.setDataNascimento(clienteAlunoCreateUpdateDTO.getDataNascimento());
 		clienteAluno.setClienteAlunoEnderecos(clienteAlunoCreateUpdateDTO.getClienteAlunoEnderecos());
 		clienteAluno.setCartoes(clienteAlunoCreateUpdateDTO.getCartoes());
+		clienteAluno.setIsCliente(true);
 		ClienteAluno atualizarCliente = clienteAlunoRepository.save(clienteAluno);
 		
 		criarSenha(clienteAluno);
@@ -117,9 +118,9 @@ public class ClienteAlunoServiceImpl implements ClienteAlunoService {
 
 
 	@Override
-	public Optional<ClienteAlunoDTO> findById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public ClienteAlunoDTO findById(long id) {
+		ClienteAluno clienteAluno = getClienteAluno(id).get();
+		return new ClienteAlunoDTO(clienteAluno);
 	}
 
 
