@@ -8,12 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_clientealuno")
+@Table(name = "tb_usuario")
 public class Usuario {
+    // private Long Id;
+    
     @Id
-    @Column(name = "id_clientealuno")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Id;
+    @Column(name = "id_usuario")
     private String cpf;
     private String senha;
 
@@ -24,13 +24,13 @@ public class Usuario {
         return cpf;
     }
 
-    public Long getId() {
-        return Id;
-    }
+    // public Long getId() {
+    //     return Id;
+    // }
 
-    public void setId(Long id) {
-        this.Id = id;
-    }
+    // public void setId(Long id) {
+    //     this.Id = id;
+    // }
 
     public String getSenha() {
         return senha;

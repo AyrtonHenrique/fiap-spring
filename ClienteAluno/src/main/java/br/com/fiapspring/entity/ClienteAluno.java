@@ -1,5 +1,6 @@
 package br.com.fiapspring.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 public class ClienteAluno {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_clientealuno")
 	private long id;
 	
@@ -21,7 +22,7 @@ public class ClienteAluno {
 	private String turma;
 	private String cpf;
 	private String rg;
-	private LocalDateTime dataNascimento;
+	private LocalDate dataNascimento;
 	private Boolean isclientecartao;
 	
 	
@@ -40,7 +41,7 @@ public class ClienteAluno {
 	}
 
 
-	public ClienteAluno(Integer rm, String nome, String turma, String cpf, String rg, LocalDateTime dataNascimento,
+	public ClienteAluno(Integer rm, String nome, String turma, String cpf, String rg, LocalDate dataNascimento,
 			Set<ClienteAlunoEndereco> clienteAlunoEnderecos, Boolean isclientecartao) {
 		super();
 		this.rm = rm;
@@ -156,7 +157,7 @@ public class ClienteAluno {
 	/**
 	 * @return the dataNascimento
 	 */
-	public LocalDateTime getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
@@ -164,7 +165,7 @@ public class ClienteAluno {
 	/**
 	 * @param dataNascimento the dataNascimento to set
 	 */
-	public void setDataNascimento(LocalDateTime dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
