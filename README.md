@@ -48,7 +48,7 @@ a.	**ClienteAluno** → Microsserviço responsável por gerenciar o CRUD de Clie
             console:
               enabled: true 
     
-Este microsserviço é uma Sprint Boot Aplication. Para iniciá-la antes iniciar o projeto **sts-fiap**, após configurar o arquivo de propriedades corretamente, basta dar o start da Spring Application inicial _**br.com.fiapspring.ClienteAlunoApplication e acompanhar**_ os logs.   
+Este microsserviço é uma Sprint Boot Aplication. Para iniciá-la antes iniciar o projeto **sts-fiap**, após configurar o arquivo de propriedades corretamente, basta dar o start da Spring Application inicial _**br.com.fiapspring.ClienteAlunoApplication**_ e acompanhar os logs.   
       
 
 b.	**Transaction** → Microsserviço responsável por gerenciar a recepção e tratativa das transações de cartão de crédito provindas das autorizadoras
@@ -96,9 +96,11 @@ Este microsserviço é uma Sprint Boot Aplication. Para iniciá-la antes iniciar
 
 c.	**batch** → Microsserviço responsável por executar o batch de carga do arquivo de Clientes em potencial para dentro do banco de dados da solução
 
-    Este microsserviço é uma Spring Batch Application. Sua função é executar uma carga de um arquivo de entrada com os clientes fictícios em potencial respeitando um layout posicional e incluí-los no banco de dados. 
+Este microsserviço é uma Spring Batch Application. Sua função é executar uma carga de um arquivo de entrada com os clientes fictícios em potencial respeitando um layout posicional e incluí-los no banco de dados. 
     
-    Este serviço pressupõe que haja uma tabela criada. Esta tabela deverá será descrita abaixo e é responsável por conter o Alunos/Clientes tratados pela solução em geral.
+Este serviço pressupõe que haja uma tabela já criada pelo projeto ClienteAluno. Para isso, é necessário que as estruturas de dados previstas no módulo ClienteAluno já estejam criadas. 
+
+Esta tabela está descrita no MER mais abaixo e é responsável por conter o Alunos/Clientes tratados pela solução de maneira geral. A tabela criada deve ser chamada tb_clientealuno.
 
     Como configurar: 
       * Para que o Batch funcione, é necessário configurar inicialmente o arquivo application.yml presente em: src/main/resources.
@@ -167,11 +169,23 @@ Todos os clientes possuem seu usuario como cpf e a senha os 4 primeiros digitos 
 
 ## Bancos de Dados da Aplicação
 
-A solução criada se utiliza do banco de dados H2 para fins didáticos. Entretanto, qualquer banco relacional pode ser utilizado, considerando-se a adição das dependências das  bibliotecas respectivas dentro do arquivo "build.gradle" de cada projeto.
+A solução criada se utiliza do banco de dados H2 para fins didáticos. 
+Entretanto, qualquer banco relacional pode ser utilizado, considerando-se a adição das dependências das  bibliotecas respectivas dentro do arquivo "build.gradle" de cada projeto.
 
 ### Abaixo está o modelo básico das tabelas utilizadas (MER)
 
+Todas as estruturas e relacionamentos abaixo descritos são criados automaticamente ao serem iniciados os projetos ClienteAluno, sts-fiap e Transaction.
+
 ![mer_final_spring](https://user-images.githubusercontent.com/67294168/99196961-2d032a00-276e-11eb-9177-c66d6cc1a4e3.png)
 
+
+## Swagger - Documentação e Testes
+
+Os projetos Spring Boot Application descritos acima, após iniciados e rodando cada qual em uma porta distinta, expõem as suas interfaces através da biblioteca Swagger.
+Com os mesmos já iniciados, basta adicionar a terminação da URL do Swagger conforme exemplo abaixo para cada Web API exposta: 
+
+http://<host>:<porta>/{context-path}/swagger-ui/
+    
+Com isso, uma interface de documentação e testes é exposta para cada Web API, conforme imagem abaixo: 
 
 
