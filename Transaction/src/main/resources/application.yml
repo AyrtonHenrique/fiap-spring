@@ -28,3 +28,4 @@ spring:
         writetimeout: 5000
         starttls:
           enable: true
+securityRemote: http://localhost:8082/

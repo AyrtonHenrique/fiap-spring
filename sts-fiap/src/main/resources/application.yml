@@ -12,3 +12,7 @@ server:
 jwt:
   secret: fiapSecr3tfiapSecr3tfiapSecr3tfiapSecr3tfiapSecr3t
   expiration: 5
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true

@@ -5,6 +5,7 @@ import com.fiap.sts.stsfiap.models.Usuario;
 import com.fiap.sts.stsfiap.repositories.UsuariosRepository;
 import com.fiap.sts.stsfiap.viewModels.JwtRequest;
 import com.fiap.sts.stsfiap.viewModels.JwtResponse;
+import com.fiap.sts.stsfiap.viewModels.JwtValidateResponse;
 
 import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,15 +55,15 @@ public class AutenticacaoController {
 	}
 
 	@GetMapping()
-	public ResponseEntity<String> getMethodName(@RequestParam String token) {
+	public ResponseEntity<JwtValidateResponse> getMethodName(@RequestParam String token) {
 		if (token != null && !token.isEmpty()) {
 			try {
 				var cpfUser = jwtTokenUtil.getUsernameFromToken(token);
 
 				if (cpfUser != null && !cpfUser.isEmpty()) {
-
-					if (jwtTokenUtil.validateToken(token, _usuariosRepository.findFirstByCpf(cpfUser)))
-						return ResponseEntity.ok().build();
+					var user = _usuariosRepository.findFirstByCpf(cpfUser);
+					if (jwtTokenUtil.validateToken(token, user))
+						return ResponseEntity.ok().body(new JwtValidateResponse(user.getCpf()));
 				}
 			} catch (SignatureException ex) {
 				System.out.println("Assinatura de token inválida :" + ex.getMessage());
