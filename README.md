@@ -138,6 +138,7 @@ Este microsserviço é uma Sprint Batch Aplication. Para iniciá-la antes inciar
             INFO 32416 --- [main] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=Job - Processar arquivo de Clientes Potenciais]] completed with the following parameters: [{}] and the following status: [COMPLETED] in 50ms
 
 d.	**sts-fiap** → Serviço que expõe uma API para geração do Token JWT utilizado para receber as transações com segurança.
+todos os clientes possuem seu usuario como cpf e a senha os 4 primeiros digitos do CPF.
 
 
 ## Bancos de Dados da Aplicação
