@@ -188,4 +188,4 @@ http://<host>:<porta>/{context-path}/swagger-ui/
     
 Com isso, uma interface de documentação e testes é exposta para cada Web API, conforme imagem abaixo: 
 
-
+![swagger](https://user-images.githubusercontent.com/67294168/99197415-275b1380-2771-11eb-9162-b8ee972b8bd4.png)
