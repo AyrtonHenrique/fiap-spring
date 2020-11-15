@@ -4,11 +4,13 @@
 
 O presente projeto tem o intuito de apresentar a solução adotada para a criação de uma solução que emula uma opção de uma faculdade começar a emitir cartões de crédito para os seus alunos. 
 
-Nesta solução foi construída a estrutura de backend do sistema, exposta através de três microsserviços, cada qual com sua responsabilidade. Um destes  microsserviços se integra a um servidor de e-mail SMTP configurado para envio de email. 
+Nesta solução foi construída a estrutura de backend do sistema, exposta através de quatro microsserviços, cada qual com sua responsabilidade. 
+Dois destes microsserviços tem funções de CRUD. Um outro se integra a um servidor de e-mail SMTP configurado para envio de emails vinculados a regras de negócio. 
 
-Também foi construído uma aplicação batch utilizando Spring Batch que carrega um arquivo inicial com os clientes em potencial (alunos da faculdade) para a estrutura de dados da aplicação.
+Também foi construída uma aplicação Batch utilizando Spring Batch que carrega um arquivo inicial previamente definido com os clientes em potencial (alunos da faculdade) para uma das estruturas de dados da aplicação.
 
-Como a solução trata de quatro partes distintas, todas elas devem estar conectadas a um banco de dados comum conforme seus arquivos de configuração para que compartilhem os mesmos dados. Mas não necessariamente há a necessidade de ser a mesma instância, visto que cada microsserviço é responsável pelo tratamento dos seus dados e das suas responsabilidades.
+Como a solução trata de quatro partes distintas, todas elas devem estar conectadas a bancos de dados em comum conforme seus arquivos de configuração para que compartilhem os mesmos dados. Inicialmente dois dos microsserviços foram concebidos para terem um banco de dados apartado, isolando suas regras e execuções. 
+Não necessariamente há a necessidade de se utlizar uma mesma instância, visto que cada microsserviço é responsável pelo tratamento dos seus dados e das suas responsabilidades.
 
 ## Desenho Básico da Solução
 
@@ -49,7 +51,9 @@ a.	**ClienteAluno** → Microsserviço responsável por gerenciar o CRUD de Clie
               enabled: true 
     
 Este microsserviço é uma Sprint Boot Aplication. Para iniciá-la antes iniciar o projeto **sts-fiap**, após configurar o arquivo de propriedades corretamente, basta dar o start da Spring Application inicial _**br.com.fiapspring.ClienteAlunoApplication**_ e acompanhar os logs.   
-      
+
+Tabelas criadas por este microsserviço: **tb_clientealuno, tb_cartao, tb_clientealunoendereco, tb_clientealuno_cliente_aluno_enderecos**
+
 
 b.	**Transaction** → Microsserviço responsável por gerenciar a recepção e tratativa das transações de cartão de crédito provindas das autorizadoras
 
@@ -93,6 +97,8 @@ b.	**Transaction** → Microsserviço responsável por gerenciar a recepção e 
                   enable: true
 
 Este microsserviço é uma Sprint Boot Aplication. Para iniciá-la antes iniciar projeto **sts-fiap**, após configurar o arquivo de propriedades corretamente, basta dar o start da Spring Application inicial _**br.com.fiap.Transaction.TransactionApplication**_ e acompanhar os logs. 
+
+Tabela criada por este microsserviço: **tb_transaction**
 
 c.	**batch** → Microsserviço responsável por executar o batch de carga do arquivo de Clientes em potencial para dentro do banco de dados da solução
 
@@ -139,6 +145,8 @@ Este microsserviço é uma Sprint Batch Aplication. Para iniciá-la antes inciar
             INFO 32416 --- [main] o.s.batch.core.step.AbstractStep         : Step: [Step Chunk - Processamento do arquivo de Clientes Potenciais] executed in 31ms
             INFO 32416 --- [main] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=Job - Processar arquivo de Clientes Potenciais]] completed with the following parameters: [{}] and the following status: [COMPLETED] in 50ms
 
+Tabela carregada por este microsserviço batch: **tb_clientealuno**
+
 d.	**sts-fiap** → Serviço que expõe uma API para geração do Token JWT utilizado para receber as transações com segurança e também inclui usuários válidos para poder gerar transações com tokens válidos.
 
 Todos os clientes possuem seu usuario como cpf e a senha os 4 primeiros digitos do CPF.
@@ -166,6 +174,8 @@ Todos os clientes possuem seu usuario como cpf e a senha os 4 primeiros digitos 
               documentation:
                 swagger-ui:
                   enabled: true
+
+Tabela criada por este microsserviço: **tb_usuario**
 
 ## Bancos de Dados da Aplicação
 
