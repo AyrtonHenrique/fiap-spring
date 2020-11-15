@@ -80,7 +80,7 @@ public class ClienteAlunoServiceImpl implements ClienteAlunoService {
 		clienteAluno.setDataNascimento(clienteAlunoCreateUpdateDTO.getDataNascimento());
 		clienteAluno.setClienteAlunoEnderecos(clienteAlunoCreateUpdateDTO.getClienteAlunoEnderecos());
 		clienteAluno.setCartoes(clienteAlunoCreateUpdateDTO.getCartoes());
-		clienteAluno.setIsCliente(true);
+		clienteAluno.setIsCliente(clienteAlunoCreateUpdateDTO.getIsCliente());
 		ClienteAluno atualizarCliente = clienteAlunoRepository.save(clienteAluno);
 		
 		criarSenha(clienteAluno);
