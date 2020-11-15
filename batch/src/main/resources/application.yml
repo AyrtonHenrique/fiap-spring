@@ -1,6 +1,7 @@
 spring:
   datasource:
-    url: jdbc:h2:C:/dev/db/dbbatchspringfinal;DB_CLOSE_ON_EXIT=FALSE
-
+    url: jdbc:h2:tcp://localhost/mem:userdb;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: teste2
 input:
-  file: C:/dev/git/spring_final/lista_alunos1.txt
+  file: D:\FIAP-AULAS\Spring\trabalho\fiap-spring\batch\src\main\resources\lista_alunos1.txt
