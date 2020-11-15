@@ -42,8 +42,8 @@ public class MailSenderServiceImpl implements MailSenderService {
             String smtpUserName = environment.getProperty("spring.mail.username");
             String smtpPassword = environment.getProperty("spring.mail.password");
             String protocol = environment.getProperty("spring.mail.protocol");
-			String auth = environment.getProperty("spring.mail.properties.mail.smtp.auth");
-			String tls = environment.getProperty("spring.mail.properties.mail.smtp.starttls.enable");
+			String auth = environment.getProperty("spring.mail.properties.smtp.auth");
+			String tls = environment.getProperty("spring.mail.properties.smtp.starttls.enable");
 
             // Create the JavaMailSenderImpl object
             try {
@@ -83,12 +83,12 @@ public class MailSenderServiceImpl implements MailSenderService {
         builder.append("------------------------------------------------------").append("\n");
 
         mailPayload.getCartao().forEach(cardMailPayload -> {
-            builder.append("Cartão numero:" + cardMailPayload.getIdCartao()).append("\n");
+            builder.append("\n").append("\n").append("Cartão numero: " + cardMailPayload.getIdCartao()).append("\n");
             builder.append("==========  Transacões realizadas  ==========").append("\n");
 
             cardMailPayload.getTransaction().forEach(transactionCardMailPayload -> {
-                builder.append("Transação:" + transactionCardMailPayload.getIdTransaction().toString()).append("\n");
-                builder.append("Data da transação: ")
+                builder.append("  Transação: " + transactionCardMailPayload.getIdTransaction().toString()).append("\n");
+                builder.append("    Data da transação: ")
                         .append(transactionCardMailPayload
                                 .getDataTransacao()
                                 .toLocalDate())
@@ -96,24 +96,20 @@ public class MailSenderServiceImpl implements MailSenderService {
                         .append(transactionCardMailPayload
                                 .getDataTransacao()
                                 .toLocalTime())
-                        .append("     Valor")
+                        .append("     Valor: ")
                         .append(transactionCardMailPayload
                                 .getValor()
-                                .toString());
+                                .toString())
+                        .append("\n");
             });
         });
 
         msg.setTo(emailDestinoNotificacao);
-        msg.setSubject("Extrato de transações Cliente" + mailPayload.getIdCliente().toString());
+        msg.setSubject("Extrato de transações Cliente [" + mailPayload.getIdCliente().toString() + "]");
         msg.setText(builder.toString());
 
         JavaMailSenderImpl sender = (JavaMailSenderImpl) this.javaMailSender;
-        
-//        logger.info("Contem TLS?: " + sender.getJavaMailProperties().containsKey("mail.smtp.starttls.enable"));
-//        logger.info("Properties : " + sender.getJavaMailProperties().toString());
-//        logger.info("Porta      : " + sender.getPort());
-//        logger.info("HOST       : " + sender.getHost());
-     
+
         sender.getJavaMailProperties().put("mail.smtp.starttls.enable", "true");
         sender.send(msg);
     }
@@ -149,6 +145,10 @@ public class MailSenderServiceImpl implements MailSenderService {
             newTransaction.setValor(transactionDTO.getValor());
         }
 
+        if (idCartaoAtual > -1){
+            newCardMailPayload.addTransaction(newTransaction);
+            mailPayLoad.addCartao(newCardMailPayload);
+        }
         return mailPayLoad;
     }
 
