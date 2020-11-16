@@ -43,7 +43,7 @@ public class AutenticacaoController {
 		if (!entity.cpf.isEmpty() && !entity.password.isEmpty()) {
 			Usuario usuario = _usuariosRepository.findFirstByCpf(entity.cpf);
 
-			if (usuario.getSenha().equals(entity.password)) {
+			if (usuario != null && usuario.getSenha().equals(entity.password)) {
 
 				String token = jwtTokenUtil.generateToken(new Usuario(entity.cpf, entity.password));
 
