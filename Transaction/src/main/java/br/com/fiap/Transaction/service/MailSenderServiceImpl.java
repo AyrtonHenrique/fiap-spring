@@ -3,6 +3,7 @@ package br.com.fiap.Transaction.service;
 import java.util.List;
 import java.util.Properties;
 
+import br.com.fiap.Transaction.dto.MailSenderDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
@@ -33,10 +34,11 @@ public class MailSenderServiceImpl implements MailSenderService {
     }
 
     @Override
-    public JavaMailSender createConnection() {
+    public JavaMailSender createConnection(MailSenderDTO mailSenderDTO) {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         // Read props from properties file
         try {
+
             String smtpHost = environment.getProperty("spring.mail.host");
             Integer smtpPort = Integer.parseInt(environment.getProperty("spring.mail.port"));
             String smtpUserName = environment.getProperty("spring.mail.username");
