@@ -55,7 +55,7 @@ public class CartaoController {
 				Field[] campos = createDadosCartao.getDeclaredFields();
 				for (Field campo : campos) {
 					campo.setAccessible(true);
-					Object objeto = campo.get(createDadosCartao);
+					Object objeto = campo.get(cartaoCreateUpdateDTO);
 					if (objeto == null || objeto.equals("") ) {
 						logger.error("Dados do Cartao inconsistentes");
 						return new ResponseEntity<CartaoDTO>(HttpStatus.BAD_REQUEST);
@@ -87,7 +87,7 @@ public class CartaoController {
 			Field[] campos = createDadosCartao.getDeclaredFields();
 			for (Field campo : campos) {
 				campo.setAccessible(true);
-				Object objeto = campo.get(createDadosCartao);
+				Object objeto = campo.get(cartaoCreateUpdateDTO);
 				if (objeto == null || objeto.equals("") ) {
 					logger.error("Dados do Cartao inconsistentes");
 					return new ResponseEntity<CartaoDTO>(HttpStatus.BAD_REQUEST);

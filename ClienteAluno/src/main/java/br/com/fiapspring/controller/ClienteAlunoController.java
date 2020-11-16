@@ -52,7 +52,7 @@ public class ClienteAlunoController {
 				} 	
 			}
 			clienteAlunoDTO = clienteAlunoService.getClienteAlunoByRm(clienteAlunoCreateUpdateDTO.getRm());
-			if (clienteAlunoDTO == null) {
+			if (clienteAlunoDTO.getRm() == null ) {
 				clienteAlunoDTO = clienteAlunoService.create(clienteAlunoCreateUpdateDTO);
 				headers.setLocation(builder.path("/clientealuno/{id}").buildAndExpand(clienteAlunoDTO.getId()).toUri());
 				return new ResponseEntity<ClienteAlunoDTO>(headers, HttpStatus.CREATED);

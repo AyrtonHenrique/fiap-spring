@@ -12,14 +12,13 @@ import java.time.LocalDate;
  */
 public class ClienteAlunoCreateUpdateDTO {
 
-	private Integer rm;
-	private String nome;
-	private String turma;
 	private String cpf;
-	private String rg;
 	private LocalDate dataNascimento;
 	private Boolean isCliente;
-	
+	private String nome;
+	private String rg;
+	private Integer rm;
+	private String turma;
 	
 	
 	

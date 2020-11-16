@@ -45,8 +45,6 @@ class ClienteAlunoControllerTest extends ClienteAlunoApplicationTests  {
 	this.mockMvc = MockMvcBuilders.standaloneSetup(clienteAlunoController).build();
 	}
 	
-	@Test
-	@Ignore
 	public void testGETListaTodos() throws Exception {
 		this.mockMvc.perform(MockMvcRequestBuilders.get("/listarTodos")).andExpect(MockMvcResultMatchers.status().isOk());
 	}
@@ -64,8 +62,6 @@ class ClienteAlunoControllerTest extends ClienteAlunoApplicationTests  {
 			).andExpect(MockMvcResultMatchers.redirectedUrl("/cliente"));
 	}	
 
-	@Test
-	@Ignore
 	public void testPUTClienteAlunoController() throws Exception {
 		ClienteAluno clienteAluno = (ClienteAluno) clienteAlunoRepository.save(new ClienteAluno());
 		this.mockMvc.perform(MockMvcRequestBuilders.put("/cliente/" + clienteAluno.getIdCliente())).andExpect(MockMvcResultMatchers.redirectedUrl("/salarios"));
