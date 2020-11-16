@@ -217,26 +217,26 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
     **/cliente**
 
         Body da Requisição
-        { 
-            "rm":123456, 
-            "nome": "304.33", 
-            "turma":"500-35", 
-            "cpf": "", 
-            "rg":"", 
-            "dataNascimento": "", 
-            "isCLiente": "false" 
-        } 
+         {
+            "rm": 3564402,
+            "nome": "MARIA ISABEL",
+            "turma": "642-42",
+            "cpf": "12345678900",
+            "rg": "25484582",
+            "dataNascimento": "1957-11-31",
+            "isCliente": false
+        }
 
         Retorno do Cliente/Aluno criado: 
         { 
-        "id":3, 
-            "rm":123456, 
-            "nome": "304.33", 
-            "turma":"500-35", 
-            "cpf": "", 
-            "rg":"", 
-            "dataNascimento": "", 
-            "isCLiente": "false"
+            "id":3, 
+            "rm": 3564402,
+            "nome": "MARIA ISABEL",
+            "turma": "642-42",
+            "cpf": "12345678900",
+            "rg": "25484582",
+            "dataNascimento": "1957-11-31",
+            "isCliente": false
         } 
 
     **b)**	Atualizando um Cliente/Aluno (PUT)
@@ -245,25 +245,25 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
 
         Body da Requisição
         { 
-            "rm":123456, 
-            "nome": "304.33", 
-            "turma":"500-35", 
-            "cpf": "", 
-            "rg":"", 
-            "dataNascimento": "", 
-            "isCLiente": "false" 
+            "rm": 3564422,
+            "nome": "MARIA JOSE",
+            "turma": "642-42",
+            "cpf": "12345678900",
+            "rg": "25484582",
+            "dataNascimento": "1957-10-31",
+            "isCliente": false
         } 
         
         Retorno do Cliente/Aluno criado: 
         { 
             "id":3, 
-            "rm":123456, 
-            "nome": "304.33", 
-            "turma":"500-35", 
-            "cpf": "", 
-            "rg":"", 
-            "dataNascimento": "", 
-            "isCLiente": "false"
+            "rm": 3564422,
+            "nome": "MARIA JOSE",
+            "turma": "642-42",
+            "cpf": "12345678900",
+            "rg": "25484582",
+            "dataNascimento": "1957-10-31",
+            "isCliente": false
         } 
  
     **c)**	Apagando um Cliente/Aluno (DELETE)
@@ -278,14 +278,15 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
         Retorno do Cliente/Aluno criado: 
         { 
             "id":3, 
-            "rm":123456, 
-            "nome": "304.33", 
-            "turma":"500-35", 
-            "cpf": "", 
-            "rg":"", 
-            "dataNascimento": "", 
-            "isCLiente": "true"
+            "rm": 3564422,
+            "nome": "MARIA JOSE",
+            "turma": "642-42",
+            "cpf": "12345678900",
+            "rg": "25484582",
+            "dataNascimento": "1957-10-31",
+            "isCliente": true
         } 
+ 
  
     **e)**	Buscando Cliente/Aluno por ID (GET)
 
@@ -294,13 +295,13 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
         Retorno de todos os Clientes/Aluno: 
         { 
             "id":2, 
-            "rm":654321, 
-            "nome": "199.33", 
-            "turma":"600-25", 
-            "cpf": "12345678900", 
-            "rg":"", 
-            "dataNascimento": "06/10/1988", 
-            "isCLiente": "true"
+            "rm": 3564422,
+            "nome": "MARIA JOSE",
+            "turma": "642-42",
+            "cpf": "12345678900",
+            "rg": "25484582",
+            "dataNascimento": "1957-10-31",
+            "isCliente": "true"
         } 
  
     **f)**	Buscando todos os Clientes/Aluno cadastrados (GET)
@@ -310,23 +311,23 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
         Retorno de todos os Clientes/Aluno: 
         [{ 
             "id":2, 
-            "rm":654321, 
-            "nome": "199.33", 
-            "turma":"600-25", 
-            "cpf": "12345678900", 
-            "rg":"", 
-            "dataNascimento": "06/10/1988", 
-            "isCLiente": "true"
+            "rm": 3564422,
+            "nome": "MARIA JOSE",
+            "turma": "642-42",
+            "cpf": "12345678900",
+            "rg": "25484582",
+            "dataNascimento": "1957-10-31",
+            "isCliente": true
         },
         { 
             "id":3, 
-            "rm":123456, 
-            "nome": "304.33", 
-            "turma":"500-35", 
-            "cpf": "", 
-            "rg":"", 
-            "dataNascimento": "", 
-            "isCLiente": "true"
+            "rm": 356443432422,
+            "nome": "MARIA ISABEL",
+            "turma": "642-42",
+            "cpf": "12345678900",
+            "rg": "25484582",
+            "dataNascimento": "1957-10-31",
+            "isCliente": true
         }] 
  
     **g)**	Atualizando um endereço de um Cliente/Aluno (PUT) 
