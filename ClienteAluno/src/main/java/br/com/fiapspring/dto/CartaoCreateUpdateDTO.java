@@ -17,9 +17,7 @@ public class CartaoCreateUpdateDTO {
 	private Long numerocartao;
 	private LocalDateTime datavalidade;
 	private Long codigoIdentificador;
-	private Long idCliente;
-	
-	
+
 	/**
 	 * 
 	 */
@@ -74,25 +72,5 @@ public class CartaoCreateUpdateDTO {
 	public void setCodigoIdentificador(Long codigoIdentificador) {
 		this.codigoIdentificador = codigoIdentificador;
 	}
-
-
-	/**
-	 * @return the idCliente
-	 */
-	public Long getIdCliente() {
-		return idCliente;
-	}
-
-
-	/**
-	 * @param idCliente the idCliente to set
-	 */
-	public void setIdCliente(Long idCliente) {
-		this.idCliente = idCliente;
-	}
-
-
-	
-	
 
 }

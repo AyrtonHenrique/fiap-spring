@@ -39,6 +39,7 @@ public class ClienteAlunoEnderecoController {
 	}
 
 	@PostMapping()
+	@ResponseStatus(HttpStatus.CREATED)
 	public ClienteAlunoEnderecoDTO createEnderecoAluno(@PathVariable(name = "idCliente") Long idCliente,
 													@RequestBody ClienteAlunoEnderecoCreateUpdateDTO clienteAlunoEnderecoCreateUpdateDTO ,
 													UriComponentsBuilder builder){

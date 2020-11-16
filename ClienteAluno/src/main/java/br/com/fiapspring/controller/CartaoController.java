@@ -11,15 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 
@@ -47,98 +39,32 @@ public class CartaoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<CartaoDTO> cadastarCartao(@PathVariable(name="idCliente") Long idCliente,
+	@ResponseStatus(HttpStatus.CREATED)
+	public CartaoDTO cadastarCartao(@PathVariable(name="idCliente") Long idCliente,
 													@RequestBody CartaoCreateUpdateDTO cartaoCreateUpdateDTO,
 													UriComponentsBuilder builder) {
-		HttpHeaders headers = new HttpHeaders();
-		try {
-				Class<CartaoCreateUpdateDTO> createDadosCartao = CartaoCreateUpdateDTO.class;
-				Field[] campos = createDadosCartao.getDeclaredFields();
-				for (Field campo : campos) {
-					campo.setAccessible(true);
-					Object objeto = campo.get(createDadosCartao);
-					if (objeto == null || objeto.equals("") ) {
-						logger.error("Dados do Cartao inconsistentes");
-						return new ResponseEntity<CartaoDTO>(HttpStatus.BAD_REQUEST);
-					} 	
-				}		
-				CartaoDTO cartaoDTO = cartaoService.findByNumeroCartao(cartaoCreateUpdateDTO.getNumerocartao());
-				if (cartaoDTO != null) {
-					logger.error("Cartao ja cadastrado");
-					return new ResponseEntity<CartaoDTO>(headers, HttpStatus.BAD_REQUEST);
-				} else {
-					CartaoDTO novoCartao = cartaoService.create(cartaoCreateUpdateDTO);
-					cartaoService.create(cartaoCreateUpdateDTO);
-					headers.setLocation(builder.path("/cartao/{idCliente}").buildAndExpand(novoCartao.getId()).toUri());
-					return new ResponseEntity<CartaoDTO>(headers, HttpStatus.CREATED);
-				}
-		} catch (Exception e) {
-			return new ResponseEntity<CartaoDTO>(headers, HttpStatus.INTERNAL_SERVER_ERROR);
-		}	
+		return cartaoService.create(idCliente, cartaoCreateUpdateDTO);
 	}
 	
-	
+
 	@PutMapping("{idCartao}")
-	public ResponseEntity<CartaoDTO> upadateCartao(@PathVariable(name="idCliente") Long idCliente,
-												   @PathVariable Long id,@RequestBody CartaoCreateUpdateDTO cartaoCreateUpdateDTO){
-		HttpHeaders headers = new HttpHeaders();
-		CartaoDTO cartaoDTO = new CartaoDTO();
-		try {
-			
-			Class<CartaoCreateUpdateDTO> createDadosCartao = CartaoCreateUpdateDTO.class;
-			Field[] campos = createDadosCartao.getDeclaredFields();
-			for (Field campo : campos) {
-				campo.setAccessible(true);
-				Object objeto = campo.get(createDadosCartao);
-				if (objeto == null || objeto.equals("") ) {
-					logger.error("Dados do Cartao inconsistentes");
-					return new ResponseEntity<CartaoDTO>(HttpStatus.BAD_REQUEST);
-				} 	
-			}	
-			
-			cartaoDTO = cartaoService.findById(id);
-			if (cartaoDTO == null) {
-				logger.error("Dados do Cartao nao encontrado" + id);
-				return new ResponseEntity<CartaoDTO>(HttpStatus.BAD_REQUEST);
-			} else {
-				//atualizar os dados cliente com os dados recebidos
-				logger.info("Atualizando do cartao");
-				cartaoService.update(id, cartaoCreateUpdateDTO);
-				return new ResponseEntity<CartaoDTO>(HttpStatus.OK);
-			}
-		} catch (Exception e) {
-			return new ResponseEntity<>(headers, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+	public CartaoDTO upadateCartao(@PathVariable(name="idCliente") Long idCliente,
+								   @PathVariable(name="idCartao") Long idCartao,
+								   @RequestBody CartaoCreateUpdateDTO cartaoCreateUpdateDTO){
+		return  cartaoService.update(idCliente,idCartao,cartaoCreateUpdateDTO);
 		
 	}
 	
 	@DeleteMapping("{idCartao}")
-	public ResponseEntity<CartaoDTO> removerCartao(@PathVariable(name="idCliente") Long idCliente,
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void removerCartao(@PathVariable(name="idCliente") Long idCliente,
 												   @PathVariable Long idCartao) {
-		 HttpHeaders headers = new HttpHeaders();
-		 try {	
-				 if (idCartao.equals(null) || idCartao == 0 ) {
-					 logger.error("Dados do cartao nao localizados para remover");
-					return new ResponseEntity<CartaoDTO>(headers, HttpStatus.BAD_REQUEST);
-				 } else {
-					cartaoService.delete(idCartao);
-					return new ResponseEntity<CartaoDTO>(headers, HttpStatus.OK);
-				}
-		 	} catch (Exception e) {
-			 return new ResponseEntity<CartaoDTO>(headers, HttpStatus.INTERNAL_SERVER_ERROR);
-		 	}	 
-		}
-	
-	@GetMapping
-	public CartaoDTO listarCartao(@PathVariable(name="idCliente") Long idCliente,
-								  @RequestParam(required = false) Long idCartao){
-		return (CartaoDTO) cartaoService.findAll(idCartao);
+		cartaoService.delete(idCliente, idCartao);
 	}
-	
-	@GetMapping("{idCliente}")
-	public List<CartaoDTO> listarCartaoPeloCliente(@PathVariable(name="idCliente") Long idCliente,
-												   @PathVariable Long idCliente){
-		return  cartaoService.buscaCartaoPorIdCliente(idCliente);
+
+	@GetMapping
+	public List<CartaoDTO> listarCartoesDoCliente(@PathVariable(name="idCliente") Long idCliente){
+		return cartaoService.buscaCartaoPorIdCliente(idCliente);
 	}
 
 }
