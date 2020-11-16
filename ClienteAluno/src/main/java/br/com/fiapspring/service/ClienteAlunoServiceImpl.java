@@ -83,6 +83,7 @@ public class ClienteAlunoServiceImpl implements ClienteAlunoService {
 		return new ClienteAlunoDTO(atualizarCliente);
 	}
 
+
 	@Override
 	public ClienteAlunoDTO update(Long id, ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO) {
 		ClienteAluno clienteAluno = getAluno(id);
@@ -125,10 +126,13 @@ public class ClienteAlunoServiceImpl implements ClienteAlunoService {
 		return new ClienteAlunoDTO(clienteAluno);
 	}
 
-	private ClienteAluno getAluno(long id){
-		return clienteAlunoRepository.findById(id)
+	@Override
+	public ClienteAluno getAluno(Long idCliente) {
+		logger.info(idCliente.toString());
+		return clienteAlunoRepository.findById(idCliente)
 				.orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
 	}
+
 	
 	public ClienteAluno getClienteAlunoByRm(Integer rm) {
 		return clienteAlunoRepository.findAllByRm(rm).orElse(null);

@@ -17,7 +17,7 @@ import br.com.fiapspring.entity.ClienteAlunoEndereco;
 public interface ClienteAlunoEnderecoRepository extends JpaRepository<ClienteAlunoEndereco, Long> {
 	
     @Query("from ClienteAlunoEndereco " +
-            "where idCliente = :idCliente")
+            "where id_clientealuno = :idCliente")
     List<ClienteAlunoEndereco> buscaEnderecoPorCliente(Long idCliente);
 
 }
