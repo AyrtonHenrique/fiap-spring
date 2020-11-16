@@ -24,15 +24,15 @@ public interface ClienteAlunoService {
 	
 	public ClienteAlunoDTO findById(long id);
 	
-	public ClienteAluno create(ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO);
+	public ClienteAlunoDTO create(ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO);
 	
-	public ClienteAluno update(Long id, ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO);
+	public ClienteAlunoDTO update(Long id, ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO);
 	
 	public void delete(Long id);
 	
 	public ClienteAluno getClienteAlunoByRm(Integer rm);
 
-	public ClienteAluno updateAlunoToCliente(Long id);
+	public ClienteAlunoDTO updateAlunoToCliente(Long id);
 }
 
 

@@ -37,7 +37,7 @@ public class ClienteAlunoServiceImpl implements ClienteAlunoService {
 	}
 
 	@Override
-	public ClienteAluno create(ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO) {
+	public ClienteAlunoDTO create(ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO) {
 		ClienteAluno clienteAluno =  this.getClienteAlunoByRm(clienteAlunoCreateUpdateDTO.getRm());
 
 		if (clienteAluno == null){
@@ -55,7 +55,7 @@ public class ClienteAlunoServiceImpl implements ClienteAlunoService {
 
 			logger.info("Dados do Cliente cadastratados");
 			criarSenha(clienteAlunoCriado);
-			return clienteAlunoCriado;
+			return new ClienteAlunoDTO(clienteAlunoCriado);
 		} else {
 			throw  new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Ja existe um aluno com o RM informado! Favor verificar.");
 		}
@@ -75,16 +75,16 @@ public class ClienteAlunoServiceImpl implements ClienteAlunoService {
 		}
 	}
 	@Override
-	public ClienteAluno updateAlunoToCliente(Long id) {
+	public ClienteAlunoDTO updateAlunoToCliente(Long id) {
 		ClienteAluno clienteAluno = getAluno(id);
 		clienteAluno.setIsCliente(true);
 		ClienteAluno atualizarCliente = clienteAlunoRepository.save(clienteAluno);
 
-		return atualizarCliente;
+		return new ClienteAlunoDTO(atualizarCliente);
 	}
 
 	@Override
-	public ClienteAluno update(Long id, ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO) {
+	public ClienteAlunoDTO update(Long id, ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO) {
 		ClienteAluno clienteAluno = getAluno(id);
 		
 		clienteAluno.setRm(clienteAlunoCreateUpdateDTO.getRm());
@@ -100,7 +100,7 @@ public class ClienteAlunoServiceImpl implements ClienteAlunoService {
 		criarSenha(clienteAluno);
 		
 		logger.info("Dados do Cliente atualizados");
-		return atualizarCliente;
+		return new ClienteAlunoDTO(atualizarCliente);
 	}
 
 	@Override

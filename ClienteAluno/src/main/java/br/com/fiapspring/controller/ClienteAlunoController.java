@@ -36,13 +36,13 @@ public class ClienteAlunoController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ClienteAluno create(@RequestBody ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO ,
+	public ClienteAlunoDTO create(@RequestBody ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO ,
 											   UriComponentsBuilder builder){
 		return clienteAlunoService.create(clienteAlunoCreateUpdateDTO);
 	}
 
 	@PutMapping("{idCliente}")
-	public ClienteAluno upadateClienteAluno(@PathVariable Long idCliente,@RequestBody ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO){
+	public ClienteAlunoDTO upadateClienteAluno(@PathVariable Long idCliente,@RequestBody ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO){
 		return clienteAlunoService.update(idCliente, clienteAlunoCreateUpdateDTO);
 	}
 	
@@ -53,7 +53,7 @@ public class ClienteAlunoController {
 	}
 
 	@PutMapping("{idCliente}/ativar")
-	public ClienteAluno ativarClienteAluno(@PathVariable Long idCliente){
+	public ClienteAlunoDTO ativarClienteAluno(@PathVariable Long idCliente){
 		return clienteAlunoService.updateAlunoToCliente(idCliente);
 	}
 		 
