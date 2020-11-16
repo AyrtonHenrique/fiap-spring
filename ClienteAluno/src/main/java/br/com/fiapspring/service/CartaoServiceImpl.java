@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import br.com.fiapspring.entity.ClienteAlunoEndereco;
+import ch.qos.logback.core.net.server.Client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,11 +32,11 @@ public class CartaoServiceImpl implements CartaoService {
 	private final Logger logger = LoggerFactory.getLogger(CartaoServiceImpl.class);
 
 	private CartaoRepository cartaoRepository;
-	private ClienteAlunoRepository clienteAlunoRepository;
+	private ClienteAlunoService clienteAlunoService;
 	
-	public CartaoServiceImpl(CartaoRepository cartaoRepository, ClienteAlunoRepository clienteAlunoRepository) {
+	public CartaoServiceImpl(CartaoRepository cartaoRepository, ClienteAlunoService clienteAlunoService) {
 		this.cartaoRepository = cartaoRepository;
-		this.clienteAlunoRepository = clienteAlunoRepository;
+		this.clienteAlunoService = clienteAlunoService;
 	}
 
     @Override
@@ -62,37 +63,48 @@ public class CartaoServiceImpl implements CartaoService {
 	@Override
 	public CartaoDTO create(Long idCliente,
 							CartaoCreateUpdateDTO cartaoCreateUpdateDTO){
-		Cartao cartao = new Cartao();
-		ClienteAluno cliAluno = new ClienteAluno();
+		ClienteAluno clienteAluno = clienteAlunoService.getAluno(idCliente);
+		Cartao cartaoExistente = findCartaoByNumero(idCliente, cartaoCreateUpdateDTO.getNumerocartao());
 
-		cartao.setNumerocartao(cartaoCreateUpdateDTO.getNumerocartao());
-		cartao.setCodigoIdentificador(cartao.getCodigoIdentificador());
-		cartao.setDatavalidade(cartaoCreateUpdateDTO.getDatavalidade());
-		cartao.setClienteAluno(cliAluno);
-		Cartao salvarCartao = cartaoRepository.save(cartao);
-		return new CartaoDTO(salvarCartao);
+		if (cartaoExistente != null){
+			throw new ResponseStatusException(HttpStatus.CONFLICT);
+		}
+
+		Cartao novoCartao = new Cartao();
+
+		novoCartao.setNumerocartao(cartaoCreateUpdateDTO.getNumerocartao());
+		novoCartao.setCodigoIdentificador(cartaoCreateUpdateDTO.getCodigoIdentificador());
+		novoCartao.setDatavalidade(cartaoCreateUpdateDTO.getDatavalidade());
+		novoCartao.setClienteAluno(clienteAluno);
+
+		Cartao cartaoSalvo = cartaoRepository.save(novoCartao);
+
+		return new CartaoDTO(cartaoSalvo);
 	}
 
 	@Override
-	public CartaoDTO update(Long idCliente, Long idCartao, CartaoCreateUpdateDTO cartaoCreateUpdateDTO){
-		Cartao cartao = getCartao(idCartao);
-		
-		ClienteAluno cliAluno = new ClienteAluno();
-		
+	public CartaoDTO update(Long idCliente,
+							Long idCartao,
+							CartaoCreateUpdateDTO cartaoCreateUpdateDTO){
+		Cartao cartao = findCartaoById(idCliente, idCartao);
+		Cartao cartaoExistente = findCartaoByNumero(idCliente, cartaoCreateUpdateDTO.getNumerocartao());
+
+		if (cartaoExistente != null && cartaoExistente.getIdCartao() != idCartao){
+			throw new ResponseStatusException(HttpStatus.CONFLICT);
+		}
+
 		cartao.setNumerocartao(cartaoCreateUpdateDTO.getNumerocartao());
 		cartao.setDatavalidade(cartaoCreateUpdateDTO.getDatavalidade());
 		cartao.setCodigoIdentificador(cartaoCreateUpdateDTO.getCodigoIdentificador());
-		cartao.setClienteAluno(cliAluno);
+
+		Cartao cartaoAtualizado = cartaoRepository.save(cartao);
 		
-		Cartao salvarCartao = cartaoRepository.save(cartao);
-		
-		return new CartaoDTO(salvarCartao);
+		return new CartaoDTO(cartaoAtualizado);
 	}
 
 	@Override
 	public void delete(Long idCliente, Long idCartao) {
-		logger.info("Dados do Cliente removidos");
-		this.cartaoRepository.delete(this.cartaoRepository.findById(idCartao).get());
+		this.cartaoRepository.delete(findCartaoById(idCliente, idCartao));
 	}
 	
     private Cartao getCartao(Long id) {
@@ -107,9 +119,9 @@ public class CartaoServiceImpl implements CartaoService {
     			.collect(Collectors.toList());
     	
     }
- 
-	private ClienteAluno getCliente(Long id) {
-		return clienteAlunoRepository.findById(id).get();	
+
+    private Cartao findCartaoByNumero(Long idCliente, Long numeroCartao){
+		return cartaoRepository.findByNumerocartao(numeroCartao);
 	}
 
 	private Cartao findCartaoById(Long idCliente, Long idCartao ){

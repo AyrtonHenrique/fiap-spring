@@ -3,6 +3,7 @@
  */
 package br.com.fiapspring.repository;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,6 +24,9 @@ public interface CartaoRepository extends JpaRepository<Cartao, Long> {
 
 	@Query("from Cartao " +
 			"where id_clientealuno = :idCliente")
-	 List<Cartao> buscaCartaoPorCliente(Long idCliente);
-    
+	List<Cartao> buscaCartaoPorCliente(Long idCliente);
+
+	@Query("from Cartao " +
+			"where numerocartao = :numeroCartao")
+	List<Cartao> buscarCartaoPorNumero(Long numeroCartao);
 }
