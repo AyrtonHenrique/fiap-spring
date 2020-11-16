@@ -273,7 +273,7 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
 
     **d)**	Transformando um Aluno em Cliente/Aluno (PUT)
     
-    /cliente/{idCliente}/ativar
+    **/cliente/{idCliente}/ativar**
 
         Retorno do Cliente/Aluno criado: 
         { 
@@ -396,7 +396,7 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
 
     **j)**	Retornando todos os endereços de um Cliente/Aluno (GET)
     
-    /endereco/{idCliente}
+    **/endereco/{idCliente}**
 
         Retorno dos Endereços do Aluno: 
         [{ 
@@ -500,7 +500,7 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
  
     **ii)**	Cadastrando uma nova Transação (POST)
     
-    **/transaction **
+    **/transaction**
 
         Body da Requisição
         { 
@@ -521,7 +521,7 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
  
     **iii)**	Recuperando todas as Transações cadastradas (GET)
     
-    **/transaction **
+    **/transaction**
 
         Retorno:  
         [ 
@@ -550,7 +550,7 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
  
     **iv)**	Buscando uma Transação específica pelo ID (GET)
     
-    **/transaction/{idTransacao} **
+    **/transaction/{idTransacao}**
 
         Retorno:  
         { 
@@ -563,7 +563,7 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
  
     **v)**	Atualizando uma Transação Específica pelo ID (PUT)
     
-    **/transaction/{idTransacao} **
+    **/transaction/{idTransacao}**
 
         Body da Requisição
         { 
@@ -584,7 +584,7 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
  
     **vi)**	Buscando Transações de um Cliente específico (GET)
     
-    **/transaction/cliente/{idCliente} **
+    **/transaction/cliente/{idCliente}**
 
         Response: 
         [ 
@@ -616,7 +616,7 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
     
     **/transaction/{idTransacao}** 
     
-    **Retorno: 204 No Content **
+    **Retorno: 204 No Content**
 
 
     **viii)**	Buscando todas as transações de um cliente, agrupando por Cartão
