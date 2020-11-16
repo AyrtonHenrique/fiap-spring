@@ -30,19 +30,20 @@ public class ClienteAlunoController {
 	private final Logger logger = LoggerFactory.getLogger(ClienteAlunoController.class);
 	private final ClienteAlunoService clienteAlunoService;
 	
-	public ClienteAlunoController(ClienteAlunoService clienteAlunoService, CartaoService cartaoService) {
+	public ClienteAlunoController(ClienteAlunoService clienteAlunoService,
+								  CartaoService cartaoService) {
 		this.clienteAlunoService = clienteAlunoService;
 	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ClienteAlunoDTO create(@RequestBody ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO ,
-											   UriComponentsBuilder builder){
+	public ClienteAlunoDTO create(@RequestBody ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO){
 		return clienteAlunoService.create(clienteAlunoCreateUpdateDTO);
 	}
 
 	@PutMapping("{idCliente}")
-	public ClienteAlunoDTO upadateClienteAluno(@PathVariable Long idCliente,@RequestBody ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO){
+	public ClienteAlunoDTO upadateClienteAluno(@PathVariable Long idCliente,
+											   @RequestBody ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO){
 		return clienteAlunoService.update(idCliente, clienteAlunoCreateUpdateDTO);
 	}
 	

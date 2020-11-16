@@ -41,8 +41,7 @@ public class CartaoController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public CartaoDTO cadastarCartao(@PathVariable(name="idCliente") Long idCliente,
-													@RequestBody CartaoCreateUpdateDTO cartaoCreateUpdateDTO,
-													UriComponentsBuilder builder) {
+									@RequestBody CartaoCreateUpdateDTO cartaoCreateUpdateDTO) {
 		return cartaoService.create(idCliente, cartaoCreateUpdateDTO);
 	}
 	
@@ -62,7 +61,7 @@ public class CartaoController {
 		cartaoService.delete(idCliente, idCartao);
 	}
 
-	@GetMapping
+	@GetMapping()
 	public List<CartaoDTO> listarCartoesDoCliente(@PathVariable(name="idCliente") Long idCliente){
 		return cartaoService.buscaCartaoPorIdCliente(idCliente);
 	}

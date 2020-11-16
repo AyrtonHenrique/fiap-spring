@@ -5,6 +5,11 @@ springfox:
   documentation:
     swagger-ui:
       enabled: true
+clienteapi:
+  app:
+    url: localhost
+    port: 8088
+    context: /clientealuno-app
 
 spring:
   datasource:

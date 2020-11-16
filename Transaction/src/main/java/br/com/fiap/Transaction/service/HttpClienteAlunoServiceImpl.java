@@ -6,7 +6,9 @@ import br.com.fiap.Transaction.mail.MailConnectCreator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,7 +36,7 @@ public class HttpClienteAlunoServiceImpl implements HttpClienteAlunoService {
         try {
             HttpURLConnection conn = _httpURLConnection != null
                     ? _httpURLConnection.create(this.urlAlunoCliente, idCliente)
-                    : extracted(idCliente);
+                    : extracted(idCliente, null);
                     
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
@@ -50,21 +52,25 @@ public class HttpClienteAlunoServiceImpl implements HttpClienteAlunoService {
                 return clienteAlunoDTO;
             }
         } catch (Exception e) {
-
+            throw new ResponseStatusException(HttpStatus.BAD_GATEWAY);
         }
-        return null;
     }
 
-    private HttpURLConnection extracted(Long idCliente) throws MalformedURLException, IOException {
-        URL url = new URL(this.urlAlunoCliente + "/clientealuno/" + idCliente.toString() + "/buscaClienteAlunoId");
+    private HttpURLConnection extracted(Long idCliente, String recurso) throws MalformedURLException, IOException {
+        String complementoURL = "";
+        if (recurso != null){
+            complementoURL = "/" + recurso;
+        }
+
+        URL url = new URL(this.urlAlunoCliente + "/cliente/" + idCliente.toString() + complementoURL);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         return conn;
     }
 
     @Override
-    public CartaoDTO getCartao(Long idCartao) {
+    public CartaoDTO getCartao(Long idCliente, Long idCartao) {
         try {
-            HttpURLConnection conn = extracted(idCartao);
+            HttpURLConnection conn = extracted(idCliente, "cartao");
 
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");

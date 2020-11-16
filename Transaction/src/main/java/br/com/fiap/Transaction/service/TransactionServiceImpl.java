@@ -50,7 +50,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public TransactionDTO create(TransactionCreateDTO transactionCreateDTO) {
-        // this.verifyClienteCartao(transactionCreateDTO.getCliente(),transactionCreateDTO.getCartao())
+        this.verifyClienteCartao(transactionCreateDTO.getCliente(),transactionCreateDTO.getCartao());
 
         Transaction transaction = new Transaction();
         transaction.setCliente(transactionCreateDTO.getCliente());
@@ -64,7 +64,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public TransactionDTO update(Long id, TransactionCreateDTO transactionCreateDTO){
-        //this.verifyClienteCartao(transactionCreateDTO.getCliente(),transactionCreateDTO.getCartao());
+        this.verifyClienteCartao(transactionCreateDTO.getCliente(),transactionCreateDTO.getCartao());
 
         Transaction transaction = getTransaction(id);
 
@@ -94,7 +94,8 @@ public class TransactionServiceImpl implements TransactionService {
         } else if (!clienteAlunoDTO.getIsCliente()) {
             throw  new ResponseStatusException(HttpStatus.NOT_FOUND, "O Cliente informado nao esta ativo!");
         } else {
-            CartaoDTO cartaoDTO = this.httpClienteAlunoService.getCartao(idCartao);
+            CartaoDTO cartaoDTO = this.httpClienteAlunoService.getCartao(idCliente, idCartao);
+
             if (cartaoDTO == null){
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cartao nao encontrado!");
             } else {
