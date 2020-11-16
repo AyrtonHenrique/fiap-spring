@@ -1,5 +1,7 @@
 package br.com.fiap.Transaction.service;
 
+import br.com.fiap.Transaction.dto.CartaoDTO;
+import br.com.fiap.Transaction.dto.ClienteAlunoDTO;
 import br.com.fiap.Transaction.dto.TransactionCreateDTO;
 import br.com.fiap.Transaction.dto.TransactionDTO;
 import br.com.fiap.Transaction.entity.Transaction;
@@ -15,7 +17,14 @@ import java.util.stream.Collectors;
 public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionRepository transactionRepository;
-    public TransactionServiceImpl(TransactionRepository transactionRepository){ this.transactionRepository = transactionRepository; }
+    private final HttpClienteAlunoService httpClienteAlunoService;
+
+    public TransactionServiceImpl(TransactionRepository transactionRepository,
+                                  HttpClienteAlunoService httpClienteAlunoService){
+        this.transactionRepository = transactionRepository;
+        this.httpClienteAlunoService = httpClienteAlunoService;
+    }
+
     @Override
     public List<TransactionDTO> findAll() {
         return transactionRepository.findAll()
@@ -41,6 +50,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public TransactionDTO create(TransactionCreateDTO transactionCreateDTO) {
+        // this.verifyClienteCartao(transactionCreateDTO.getCliente(),transactionCreateDTO.getCartao())
+
         Transaction transaction = new Transaction();
         transaction.setCliente(transactionCreateDTO.getCliente());
         transaction.setCartao(transactionCreateDTO.getCartao());
@@ -53,6 +64,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public TransactionDTO update(Long id, TransactionCreateDTO transactionCreateDTO){
+        //this.verifyClienteCartao(transactionCreateDTO.getCliente(),transactionCreateDTO.getCartao());
+
         Transaction transaction = getTransaction(id);
 
         transaction.setCartao(transactionCreateDTO.getCartao());
@@ -72,5 +85,21 @@ public class TransactionServiceImpl implements TransactionService {
     private Transaction getTransaction(Long id){
         return transactionRepository.findFirstById(id)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+    private Boolean verifyClienteCartao(Long idCliente, Long idCartao){
+        ClienteAlunoDTO clienteAlunoDTO = this.httpClienteAlunoService.getAluno(idCliente);
+        if (clienteAlunoDTO == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente nao encontrado!");
+        } else if (!clienteAlunoDTO.getIsCliente()) {
+            throw  new ResponseStatusException(HttpStatus.NOT_FOUND, "O Cliente informado nao esta ativo!");
+        } else {
+            CartaoDTO cartaoDTO = this.httpClienteAlunoService.getCartao(idCartao);
+            if (cartaoDTO == null){
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cartao nao encontrado!");
+            } else {
+                return true;
+            }
+        }
     }
 }
