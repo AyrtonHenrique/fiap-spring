@@ -212,9 +212,9 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
 
 2)	Simulação de Uso dos Endpoints
 
-    a)	Cadastrando um Cliente/Aluno (POST)
+    **a)**	Cadastrando um Cliente/Aluno (POST)
     
-    /cliente
+    **/cliente**
 
         Body da Requisição
         { 
@@ -239,9 +239,9 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
             "isCLiente": "false"
         } 
 
-    b)	Atualizando um Cliente/Aluno (PUT)
+    **b)**	Atualizando um Cliente/Aluno (PUT)
     
-    /cliente/{idCliente}
+    **/cliente/{idCliente}**
 
         Body da Requisição
         { 
@@ -266,12 +266,12 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
             "isCLiente": "false"
         } 
  
-    c)	Apagando um Cliente/Aluno (DELETE)
+    **c)**	Apagando um Cliente/Aluno (DELETE)
 
-    /cliente/{idCliente}
-    Retorno: 200 OK 
+    **/cliente/{idCliente}**
+    **Retorno: 200 OK **
 
-    d)	Transformando um Aluno em Cliente/Aluno (PUT)
+    **d)**	Transformando um Aluno em Cliente/Aluno (PUT)
     
     /cliente/{idCliente}/ativar
 
@@ -287,9 +287,9 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
             "isCLiente": "true"
         } 
  
-    e)	Buscando Cliente/Aluno por ID (GET)
+    **e)**	Buscando Cliente/Aluno por ID (GET)
 
-    /cliente/{id}
+    **/cliente/{id}**
 
         Retorno de todos os Clientes/Aluno: 
         { 
@@ -303,9 +303,9 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
             "isCLiente": "true"
         } 
  
-    f)	Buscando todos os Clientes/Aluno cadastrados (GET)
+    **f)**	Buscando todos os Clientes/Aluno cadastrados (GET)
 
-    /cliente/listarTodos
+    **/cliente/listarTodos**
 
         Retorno de todos os Clientes/Aluno: 
         [{ 
@@ -329,9 +329,9 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
             "isCLiente": "true"
         }] 
  
-    g)	Atualizando um endereço de um Cliente/Aluno (PUT) 
+    **g)**	Atualizando um endereço de um Cliente/Aluno (PUT) 
 
-    /endereço/{id}
+    **/endereço/{id}**
 
         Body da Requisição
         { 
@@ -359,9 +359,9 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
             "tipoEndereco": "ENTREGA" 
         } 
  
-    h)	Cadastrando um Endereço para um Cliente/Aluno (POST)
+    **h)**	Cadastrando um Endereço para um Cliente/Aluno (POST)
     
-    /endereco
+    **/endereco**
 
         Body da Requisição:
         { 
@@ -388,13 +388,13 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
             "tipoEndereco": "ENTREGA" 
         } 
  
-    i)	Apagando um Endereço (DELETE)
+    **i)**	Apagando um Endereço (DELETE)
     
-    /endereco/{id}
+    **/endereco/{id}**
     
     Retorno: 200 OK 
 
-    j)	Retornando todos os endereços de um Cliente/Aluno (GET)
+    **j)**	Retornando todos os endereços de um Cliente/Aluno (GET)
     
     /endereco/{idCliente}
 
@@ -421,9 +421,9 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
             "tipoEndereco": "ENTREGA" 
         }] 
 
-    k)	Criando um cartão para um Cliente/Aluno (POST)
+    **k)**	Criando um cartão para um Cliente/Aluno (POST)
     
-    /cartao
+    **/cartao**
 
         Body da Requisição:
         { 
@@ -442,9 +442,9 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
             "numeroCartao": "1234654954874587" 
         } 
  
-    l)	Atualizando os dados de um Cliente/Aluno (PUT)
+    **l)**	Atualizando os dados de um Cliente/Aluno (PUT)
     
-    /cartão/{idcartao}
+    **/cartão/{idcartao}**
 
         Body da Requisição:
         { 
@@ -463,9 +463,9 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
             "numeroCartao": "1234654954874587" 
         } 
  
-    m)	Recuperando Cartões de um Cliente/Aluno (GET) 
+    **m)**	Recuperando Cartões de um Cliente/Aluno (GET) 
     
-    /cartão/{idCliente}
+    **/cartão/{idCliente}**
 
         Retorno dos Cartões do Cliente: 
         [{ 
@@ -477,14 +477,14 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
         }] 
 
 
-    n)	Manipulando Transações em um Cartão de um Cliente/Aluno
+    **n)**	Manipulando Transações em um Cartão de um Cliente/Aluno
 
     Para todas as chamadas dos serviços da Web API de Transações, é necessário gerar um Token JWT para garantir a segurança da Web API.
     Para isso, deve-se invocar o endpoint do projeto Autenticação, conforme abaixo. Após recuperar o Token, este deve ser passado como um Bearer Token no Header da chamada HTTP.
 
-    i)	Gerando um token JWT (POST)
+    **i)**	Gerando um token JWT (POST)
     
-    /autenticação
+    **/autenticação**
 
         Body da Requisição
         { 
@@ -498,9 +498,9 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
 
         } 
  
-    ii)	Cadastrando uma nova Transação (POST)
+    **ii)**	Cadastrando uma nova Transação (POST)
     
-    /transaction 
+    **/transaction **
 
         Body da Requisição
         { 
@@ -519,9 +519,9 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
             "dataTransacao": "2020-11-14T20:11:52.289" 
         } 
  
-    iii)	Recuperando todas as Transações cadastradas (GET)
+    **iii)**	Recuperando todas as Transações cadastradas (GET)
     
-    /transaction 
+    **/transaction **
 
         Retorno:  
         [ 
@@ -548,9 +548,9 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
             } 
         ] 
  
-    iv)	Buscando uma Transação específica pelo ID (GET)
+    **iv)**	Buscando uma Transação específica pelo ID (GET)
     
-    /transaction/{idTransacao} 
+    **/transaction/{idTransacao} **
 
         Retorno:  
         { 
@@ -561,9 +561,9 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
             "dataTransacao": "2020-11-14T21:37:08.588" 
         } 
  
-    v)	Atualizando uma Transação Específica pelo ID (PUT)
+    **v)**	Atualizando uma Transação Específica pelo ID (PUT)
     
-    /transaction/{idTransacao} 
+    **/transaction/{idTransacao} **
 
         Body da Requisição
         { 
@@ -582,9 +582,9 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
             "dataTransacao": "2020-11-14T21:35:41.515" 
         } 
  
-    vi)	Buscando Transações de um Cliente específico (GET)
+    **vi)**	Buscando Transações de um Cliente específico (GET)
     
-    /transaction/cliente/{idCliente} 
+    **/transaction/cliente/{idCliente} **
 
         Response: 
         [ 
@@ -614,13 +614,13 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
 
     vii)	Excluindo uma Transação
     
-    /transaction/{idTransacao} 
-    Retorno: 204 No Content 
+    **/transaction/{idTransacao}** 
+    **Retorno: 204 No Content **
 
 
-    viii)	Buscando todas as transações de um cliente, agrupando por Cartão
+    **viii)**	Buscando todas as transações de um cliente, agrupando por Cartão
     
-    /extract/cliente/{ìdCliente} 
+    **/extract/cliente/{ìdCliente} **
 
         { 
             "idCliente": 1000, 
@@ -680,10 +680,10 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
         }  
 
 
-    ix)	Enviando o email do Extrato do Cliente por email (POST)
+    **ix)**	Enviando o email do Extrato do Cliente por email (POST)
     
-    extract/cliente/{ìdCliente}/envio 
-    Retorno: 204 No Content 
+    **extract/cliente/{ìdCliente}/envio** 
+    **Retorno: 204 No Content** 
 
     Modelo do Email do Extrato Enviado: 
     
