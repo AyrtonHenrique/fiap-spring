@@ -39,14 +39,14 @@ public class ClienteAlunoEnderecoController {
 	}
 
 	@PostMapping()
-	public ClienteAlunoEndereco createEnderecoAluno(@PathVariable(name = "idCliente") Long idCliente,
+	public ClienteAlunoEnderecoDTO createEnderecoAluno(@PathVariable(name = "idCliente") Long idCliente,
 													@RequestBody ClienteAlunoEnderecoCreateUpdateDTO clienteAlunoEnderecoCreateUpdateDTO ,
 													UriComponentsBuilder builder){
 		return clienteAlunoEnderecoService.create(idCliente, clienteAlunoEnderecoCreateUpdateDTO);
 	}
 
 	@PutMapping("{idEndereco}")
-	public ClienteAlunoEndereco updateEnderecoAluno(@PathVariable(name = "idCliente") Long idCliente,
+	public ClienteAlunoEnderecoDTO updateEnderecoAluno(@PathVariable(name = "idCliente") Long idCliente,
 													@PathVariable(name = "idEndereco") Long idEndereco,
 													@RequestBody ClienteAlunoEnderecoCreateUpdateDTO clienteAlunoEnderecoCreateUpdateDTO ,
 													UriComponentsBuilder builder){

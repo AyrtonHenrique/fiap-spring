@@ -24,12 +24,12 @@ public interface ClienteAlunoEnderecoService {
 
 	public ClienteAlunoEnderecoDTO findById(Long idCliente, Long idEndereco);
 	
-	public ClienteAlunoEndereco create(Long idCliente, ClienteAlunoEnderecoCreateUpdateDTO clienteAlunoEnderecoCreateUpdateDTO);
+	public ClienteAlunoEnderecoDTO create(Long idCliente, ClienteAlunoEnderecoCreateUpdateDTO clienteAlunoEnderecoCreateUpdateDTO);
 
 	public void delete(Long idCliente, Long idEndereco);
 	
 	public List<ClienteAlunoEnderecoDTO> buscaEnderecoPorIdCliente(Long idCliente);
 
 
-	public ClienteAlunoEndereco update(Long idCliente, Long idEndereco, ClienteAlunoEnderecoCreateUpdateDTO clienteAlunoEnderecoCreateUpdateDTO);
+	public ClienteAlunoEnderecoDTO update(Long idCliente, Long idEndereco, ClienteAlunoEnderecoCreateUpdateDTO clienteAlunoEnderecoCreateUpdateDTO);
 }

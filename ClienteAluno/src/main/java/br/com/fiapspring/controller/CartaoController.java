@@ -32,7 +32,7 @@ import br.com.fiapspring.service.CartaoService;
  * Classe que uma controller que pode ser invocada via chamadas REST com JSON
  */
 @RestController
-@RequestMapping("cartao")
+@RequestMapping("cliente/{idCliente}/cartao")
 public class CartaoController {
 	
 	
@@ -47,7 +47,8 @@ public class CartaoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<CartaoDTO> cadastarCartao(@RequestBody CartaoCreateUpdateDTO cartaoCreateUpdateDTO, 
+	public ResponseEntity<CartaoDTO> cadastarCartao(@PathVariable(name="idCliente") Long idCliente,
+													@RequestBody CartaoCreateUpdateDTO cartaoCreateUpdateDTO,
 													UriComponentsBuilder builder) {
 		HttpHeaders headers = new HttpHeaders();
 		try {
@@ -78,7 +79,8 @@ public class CartaoController {
 	
 	
 	@PutMapping("{idCartao}")
-	public ResponseEntity<CartaoDTO> upadateCartao(@PathVariable Long id,@RequestBody CartaoCreateUpdateDTO cartaoCreateUpdateDTO){
+	public ResponseEntity<CartaoDTO> upadateCartao(@PathVariable(name="idCliente") Long idCliente,
+												   @PathVariable Long id,@RequestBody CartaoCreateUpdateDTO cartaoCreateUpdateDTO){
 		HttpHeaders headers = new HttpHeaders();
 		CartaoDTO cartaoDTO = new CartaoDTO();
 		try {
@@ -111,7 +113,8 @@ public class CartaoController {
 	}
 	
 	@DeleteMapping("{idCartao}")
-	public ResponseEntity<CartaoDTO> removerCartao(@PathVariable Long idCartao) {
+	public ResponseEntity<CartaoDTO> removerCartao(@PathVariable(name="idCliente") Long idCliente,
+												   @PathVariable Long idCartao) {
 		 HttpHeaders headers = new HttpHeaders();
 		 try {	
 				 if (idCartao.equals(null) || idCartao == 0 ) {
@@ -127,12 +130,14 @@ public class CartaoController {
 		}
 	
 	@GetMapping
-	public CartaoDTO listarCartao(@RequestParam(required = false) Long idCartao){
+	public CartaoDTO listarCartao(@PathVariable(name="idCliente") Long idCliente,
+								  @RequestParam(required = false) Long idCartao){
 		return (CartaoDTO) cartaoService.findAll(idCartao);
 	}
 	
 	@GetMapping("{idCliente}")
-	public List<CartaoDTO> listarCartaoPeloCliente(@PathVariable Long idCliente){
+	public List<CartaoDTO> listarCartaoPeloCliente(@PathVariable(name="idCliente") Long idCliente,
+												   @PathVariable Long idCliente){
 		return  cartaoService.buscaCartaoPorIdCliente(idCliente);
 	}
 

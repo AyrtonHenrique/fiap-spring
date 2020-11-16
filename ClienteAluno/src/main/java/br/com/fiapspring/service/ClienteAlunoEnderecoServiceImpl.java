@@ -39,7 +39,7 @@ public class ClienteAlunoEnderecoServiceImpl implements ClienteAlunoEnderecoServ
 	}
 
 	@Override
-	public ClienteAlunoEndereco create(Long idCliente,ClienteAlunoEnderecoCreateUpdateDTO clienteAlunoEnderecoCreateUpdateDTO) {
+	public ClienteAlunoEnderecoDTO create(Long idCliente,ClienteAlunoEnderecoCreateUpdateDTO clienteAlunoEnderecoCreateUpdateDTO) {
 		ClienteAluno clienteAluno = clienteAlunoService.getAluno(idCliente);
 
 		ClienteAlunoEndereco clienteAlunoEndereco = new ClienteAlunoEndereco();
@@ -54,11 +54,11 @@ public class ClienteAlunoEnderecoServiceImpl implements ClienteAlunoEnderecoServ
 		clienteAlunoEndereco.setTipoEndereco(clienteAlunoEnderecoCreateUpdateDTO.getTipoEndereco());
 		ClienteAlunoEndereco salvarEndereco = clienteAlunoEnderecoRepository.save(clienteAlunoEndereco);
 		
-		return salvarEndereco;
+		return new ClienteAlunoEnderecoDTO(salvarEndereco);
 	}
 
 	@Override
-	public ClienteAlunoEndereco update(Long idCliente, Long idEndereco, ClienteAlunoEnderecoCreateUpdateDTO clienteAlunoEnderecoCreateUpdateDTO) {
+	public ClienteAlunoEnderecoDTO update(Long idCliente, Long idEndereco, ClienteAlunoEnderecoCreateUpdateDTO clienteAlunoEnderecoCreateUpdateDTO) {
 		ClienteAlunoEndereco clienteAlunoEndereco = findEnderecoAlunoById(idCliente,idEndereco);
 
 		clienteAlunoEndereco.setCep(clienteAlunoEnderecoCreateUpdateDTO.getCep());
@@ -70,7 +70,7 @@ public class ClienteAlunoEnderecoServiceImpl implements ClienteAlunoEnderecoServ
 		clienteAlunoEndereco.setTipoEndereco(clienteAlunoEnderecoCreateUpdateDTO.getTipoEndereco());
 
 		ClienteAlunoEndereco salvarEndereco = clienteAlunoEnderecoRepository.save(clienteAlunoEndereco);
-		return salvarEndereco;
+		return new ClienteAlunoEnderecoDTO(salvarEndereco);
 	}
 
 
