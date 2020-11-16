@@ -424,7 +424,7 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
 
     **k)**	Criando um cartão para um Cliente/Aluno (POST)
     
-    **/cartao**
+    **/cliente/{idCliente}/cartao**
 
         Body da Requisição:
         { 
@@ -445,7 +445,7 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
  
     **l)**	Atualizando os dados de um Cliente/Aluno (PUT)
     
-    **/cartão/{idcartao}**
+    **/cliente/{idCliente}/cartão/{idcartao}**
 
         Body da Requisição:
         { 
@@ -466,7 +466,7 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
  
     **m)**	Recuperando Cartões de um Cliente/Aluno (GET) 
     
-    **/cartão/{idCliente}**
+    **/cliente/{idCliente}/cartão**
 
         Retorno dos Cartões do Cliente: 
         [{ 
