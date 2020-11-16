@@ -53,6 +53,9 @@ public class ClienteAluno {
 		this.clienteAlunoEnderecos = clienteAlunoEnderecos;
 		this.isCliente = isCliente;
 	}
+	
+	
+	
 
 	/**
 	 * @return the id

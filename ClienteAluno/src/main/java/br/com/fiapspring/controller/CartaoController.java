@@ -116,7 +116,7 @@ public class CartaoController {
 		 try {	
 				 if (idCartao.equals(null) || idCartao == 0 ) {
 					 logger.error("Dados do cartao não localizados para remover");
-					return new ResponseEntity<CartaoDTO>(headers, HttpStatus.BAD_REQUEST);
+					return new ResponseEntity<CartaoDTO>(headers, HttpStatus.NO_CONTENT);
 				 } else {
 					cartaoService.delete(idCartao);
 					return new ResponseEntity<CartaoDTO>(headers, HttpStatus.OK);
