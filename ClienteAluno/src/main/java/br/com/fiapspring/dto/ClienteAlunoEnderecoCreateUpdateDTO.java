@@ -19,7 +19,6 @@ public class ClienteAlunoEnderecoCreateUpdateDTO {
 	private Integer numero;
 	private String complemento;
 	private TipoEndereco tipoEndereco;
-	private Long idCliente; 
 
 	/**
 	 * 
@@ -125,21 +124,5 @@ public class ClienteAlunoEnderecoCreateUpdateDTO {
 	public void setTipoEndereco(TipoEndereco tipoEndereco) {
 		this.tipoEndereco = tipoEndereco;
 	}
-
-	/**
-	 * @return the idCliente
-	 */
-	public Long getIdCliente() {
-		return idCliente;
-	}
-
-	/**
-	 * @param idCliente the idCliente to set
-	 */
-	public void setIdCliente(Long idCliente) {
-		this.idCliente = idCliente;
-	}
-	
-	
 
 }

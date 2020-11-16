@@ -5,6 +5,7 @@ package br.com.fiapspring.service;
 
 import java.util.List;
 
+import br.com.fiapspring.entity.ClienteAlunoEndereco;
 import org.springframework.stereotype.Service;
 
 
@@ -21,15 +22,14 @@ public interface ClienteAlunoEnderecoService {
 
 	public List<ClienteAlunoEnderecoDTO> findAll(Long id);
 
-	public ClienteAlunoEnderecoDTO findById(long id);
+	public ClienteAlunoEnderecoDTO findById(Long idCliente, Long idEndereco);
 	
-	public ClienteAlunoEnderecoDTO create(ClienteAlunoEnderecoCreateUpdateDTO clienteAlunoEnderecoCreateUpdateDTO);
-	
-	public ClienteAlunoEnderecoDTO update(Long id, ClienteAlunoEnderecoCreateUpdateDTO clienteAlunoEnderecoCreateUpdateDTO);
-	
-	public void delete(Long id);
+	public ClienteAlunoEndereco create(Long idCliente, ClienteAlunoEnderecoCreateUpdateDTO clienteAlunoEnderecoCreateUpdateDTO);
+
+	public void delete(Long idCliente, Long idEndereco);
 	
 	public List<ClienteAlunoEnderecoDTO> buscaEnderecoPorIdCliente(Long idCliente);
-	
-	
+
+
+	public ClienteAlunoEndereco update(Long idCliente, Long idEndereco, ClienteAlunoEnderecoCreateUpdateDTO clienteAlunoEnderecoCreateUpdateDTO);
 }

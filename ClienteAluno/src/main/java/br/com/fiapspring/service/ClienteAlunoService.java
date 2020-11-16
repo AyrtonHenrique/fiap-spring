@@ -33,6 +33,8 @@ public interface ClienteAlunoService {
 	public ClienteAluno getClienteAlunoByRm(Integer rm);
 
 	public ClienteAlunoDTO updateAlunoToCliente(Long id);
+
+    public ClienteAluno getAluno(Long idCliente);
 }
 
 
