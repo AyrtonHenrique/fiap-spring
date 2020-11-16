@@ -198,4 +198,279 @@ http://<host>:<porta>/{context-path}/swagger-ui/
     
 Com isso, uma interface de documentação e testes é exposta para cada Web API, conforme imagem abaixo: 
 
-![swagger](https://user-images.githubusercontent.com/67294168/99197415-275b1380-2771-11eb-9162-b8ee972b8bd4.png)
+
+## Interfaces dos Endpoints com os JSONs para testes
+
+1)	Pré-requisitos
+    Para que a aplicação funcione corretamente, as aplicações devem estar iniciadas e o banco de dados H2 configurado. 
+    A ordem de execução das aplicação é: 
+    1.	ClienteAluno
+    2.	Sts-fiap
+    3.	Transaction
+    4.	Batch
+
+2)	Simulação de Uso dos Endpoints
+    a)	Cadastrando um Cliente/Aluno (POST)
+    
+    /cliente
+
+        Body da Requisição
+        { 
+            "rm":123456, 
+            "nome": "304.33", 
+            "turma":"500-35", 
+            "cpf": "", 
+            "rg":"", 
+            "dataNascimento": "", 
+            "isCLiente": "false" 
+        } 
+
+        Retorno do Cliente/Aluno criado: 
+        { 
+        "id":3, 
+            "rm":123456, 
+            "nome": "304.33", 
+            "turma":"500-35", 
+            "cpf": "", 
+            "rg":"", 
+            "dataNascimento": "", 
+            "isCLiente": "false"
+        } 
+
+    b)	Atualizando um Cliente/Aluno (PUT)
+    
+    /cliente/{idCliente}
+
+        Body da Requisição
+        { 
+            "rm":123456, 
+            "nome": "304.33", 
+            "turma":"500-35", 
+            "cpf": "", 
+            "rg":"", 
+            "dataNascimento": "", 
+            "isCLiente": "false" 
+        } 
+        
+        Retorno do Cliente/Aluno criado: 
+        { 
+            "id":3, 
+            "rm":123456, 
+            "nome": "304.33", 
+            "turma":"500-35", 
+            "cpf": "", 
+            "rg":"", 
+            "dataNascimento": "", 
+            "isCLiente": "false"
+        } 
+ 
+    c)	Apagando um Cliente/Aluno (DELETE)
+
+    /cliente/{idCliente}
+    Retorno: 200 OK 
+
+    d)	Transformando um Aluno em Cliente/Aluno (PUT)
+    
+    /cliente/{idCliente}/ativar
+
+        Retorno do Cliente/Aluno criado: 
+        { 
+            "id":3, 
+            "rm":123456, 
+            "nome": "304.33", 
+            "turma":"500-35", 
+            "cpf": "", 
+            "rg":"", 
+            "dataNascimento": "", 
+            "isCLiente": "true"
+        } 
+ 
+    e)	Buscando Cliente/Aluno por ID (GET)
+
+    /cliente/{id}
+
+        Retorno de todos os Clientes/Aluno: 
+        { 
+            "id":2, 
+            "rm":654321, 
+            "nome": "199.33", 
+            "turma":"600-25", 
+            "cpf": "12345678900", 
+            "rg":"", 
+            "dataNascimento": "06/10/1988", 
+            "isCLiente": "true"
+        } 
+ 
+    f)	Buscando todos os Clientes/Aluno cadastrados (GET)
+
+    /cliente/listarTodos
+
+        Retorno de todos os Clientes/Aluno: 
+        [{ 
+            "id":2, 
+            "rm":654321, 
+            "nome": "199.33", 
+            "turma":"600-25", 
+            "cpf": "12345678900", 
+            "rg":"", 
+            "dataNascimento": "06/10/1988", 
+            "isCLiente": "true"
+        },
+        { 
+            "id":3, 
+            "rm":123456, 
+            "nome": "304.33", 
+            "turma":"500-35", 
+            "cpf": "", 
+            "rg":"", 
+            "dataNascimento": "", 
+            "isCLiente": "true"
+        }] 
+ 
+    g)	Atualizando um endereço de um Cliente/Aluno (PUT) 
+
+    /endereço/{id}
+
+        Body da Requisição
+        { 
+            "id":33, 
+            "cep":"04337-090", 
+            "cidade": "São Paulo", 
+            "complemento":"CASA 4", 
+            "estado": "SP", 
+            "idCliente":"2", 
+            "logradouro": "RUA MELO NUNES", 
+            "numero": "110",
+            "tipoEndereco": "ENTREGA" 
+        } 
+ 
+        Retorno do Endereço atualizado: 
+        { 
+            "id":33, 
+            "cep":"04337-120", 
+            "cidade": "São Paulo", 
+            "complemento":"CASA 2", 
+            "estado": "SP", 
+            "idCliente":"2", 
+            "logradouro": "RUA JORGE RUBENS", 
+            "numero": "511",
+            "tipoEndereco": "ENTREGA" 
+        } 
+ 
+    h)	Cadastrando um Endereço para um Cliente/Aluno (POST)
+    
+    /endereco
+
+        Body da Requisição:
+        { 
+            "cep":"04337-120", 
+            "cidade": "São Paulo", 
+            "complemento":"CASA 2", 
+            "estado": "SP", 
+            "idCliente":"2", 
+            "logradouro": "RUA MELO NUNES", 
+            "numero": "110",
+            "tipoEndereco": "ENTREGA" 
+        } 
+ 
+        Retorno do Endereço criado: 
+        { 
+        "id":33, 
+            "cep":"04337-120", 
+            "cidade": "São Paulo", 
+            "complemento":"CASA 2", 
+            "estado": "SP", 
+            "idCliente":"2", 
+            "logradouro": "RUA MELO NUNES", 
+            "numero": "110",
+            "tipoEndereco": "ENTREGA" 
+        } 
+ 
+    i)	Apagando um Endereço (DELETE)
+    
+    /endereco/{id}
+    Retorno: 200 OK 
+
+    j)	Retornando todos os endereços de um Cliente/Aluno (GET)
+    
+    /endereco/{idCliente}
+
+        Retorno dos Endereços do Aluno: 
+        [{ 
+        "id":33, 
+            "cep":"04337-120", 
+            "cidade": "São Paulo", 
+            "complemento":"CASA 2", 
+            "estado": "SP", 
+            "idCliente":"2", 
+            "logradouro": "RUA MELO NUNES", 
+            "numero": "110",
+            "tipoEndereco": "ENTREGA" 
+        },{ 
+        "id":34, 
+            "cep":"04337-090", 
+            "cidade": "São Paulo", 
+            "complemento":"CASA 1", 
+            "estado": "SP", 
+            "idCliente":"2", 
+            "logradouro": "RUA JORGE RUBENS", 
+            "numero": "511",
+            "tipoEndereco": "ENTREGA" 
+        }] 
+
+    k)	Criando um cartão para um Cliente/Aluno (POST)
+    
+    /cartao
+
+        Body da Requisição:
+        { 
+            "codigoIdentificador":"123", 
+            "dataValidade": "2020-11-16 ", 
+            "idCliente":"2", 
+            "numeroCartao": "1234654954874587" 
+        } 
+ 
+        Retorno do Cartão criado: 
+        { 
+        "id":303, 
+        "codigoIdentificador":"123", 
+            "dataValidade": "2020-11-16 ", 
+            "idCliente":"2", 
+            "numeroCartao": "1234654954874587" 
+        } 
+ 
+    l)	Atualizando os dados de um Cliente/Aluno (PUT)
+    
+    /cartão/{idcartao}
+
+        Body da Requisição:
+        { 
+            "codigoIdentificador":"123", 
+            "dataValidade": "2020-11-16 ", 
+            "idCliente":"2", 
+            "numeroCartao": "1234654954874587" 
+        } 
+ 
+        Retorno do Cartão atualizado: 
+        { 
+        "id":303, 
+        "codigoIdentificador":"123", 
+            "dataValidade": "2020-11-16 ", 
+            "idCliente":"2", 
+            "numeroCartao": "1234654954874587" 
+        } 
+ 
+    m)	Recuperando Cartões de um Cliente/Aluno (GET) 
+    
+    /cartão/{idCliente}
+
+        Retorno dos Cartões do Cliente: 
+        [{ 
+        "id":303, 
+        "codigoIdentificador":"123", 
+            "dataValidade": "2020-11-16 ", 
+            "idCliente":"2", 
+            "numeroCartao": "1234654954874587" 
+        }] 
+
+
