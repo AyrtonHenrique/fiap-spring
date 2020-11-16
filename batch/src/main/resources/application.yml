@@ -4,4 +4,4 @@ spring:
     username: sa
     password: teste2
 input:
-  file: D:\FIAP-AULAS\Spring\trabalho\fiap-spring\batch\src\main\resources\lista_alunos1.txt
+  file: ..\files\lista_alunos1.txt

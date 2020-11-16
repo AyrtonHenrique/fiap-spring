@@ -37,7 +37,7 @@ public class CargaClientesBatchApplication {
 	}
 
 	/**
-	 * M�todo de configura��o da leitura do arquivo flat configurado
+	 * Metodo de configuracao da leitura do arquivo flat configurado
 	 * @param Objeto Resource correspondente ao arquivo Flat a ser lido
 	 * @return Um FlatFileItemReader pra ser tratado pelo Job
 	 */
@@ -58,15 +58,15 @@ public class CargaClientesBatchApplication {
 						.names("nome", "rm","turma")				  // Nomes das colunas do arquivo
 						.build();
 		else {
-			logger.error("Arquivo de entrada n�o foi encontrado no caminho especificado: " + filePath);
+			logger.error("Arquivo de entrada nao foi encontrado no caminho especificado: " + filePath);
 		}
 		return null;
 			
 	}
 	
 	/**
-	 * Item que processar� linha a linha do arquivo de entrada
-	 * @return O item Processor com cada ocorrencia de ClientePotencial ajustada � regra
+	 * Item que processara linha a linha do arquivo de entrada
+	 * @return O item Processor com cada ocorrencia de ClientePotencial ajustada a regra
 	 */
     @Bean
     public ItemProcessor<ClientePotencial, ClientePotencial> itemProcessor(){
@@ -82,23 +82,23 @@ public class CargaClientesBatchApplication {
     }
     
     /**
-     * M�todo respons�vel por gravar linha a linha do arquivo lida no banco de dados. 
-     * Aqui a estrat�gia � enviar um INSERT diretamente no SGBD  via JDBC para fins de performance
-     * @param datasource O datasource de conex�o com o banco de dados
-     * @return Um JdbcBatchItemWriter respons�vel por gravar 
+     * M�todo responsavel por gravar linha a linha do arquivo lida no banco de dados.
+     * Aqui a estrategia e enviar um INSERT diretamente no SGBD  via JDBC para fins de performance
+     * @param datasource O datasource de conexao com o banco de dados
+     * @return Um JdbcBatchItemWriter responsavel por gravar
      */
     @Bean
     public JdbcBatchItemWriter<ClientePotencial> databaseWriter(DataSource datasource) {
 		logger.info("Criando o ItemWriter...");
 	    return new JdbcBatchItemWriterBuilder<ClientePotencial>()
 		    .dataSource(datasource)
-		    .sql("insert into TB_CLIENTEALUNO (rm, nome, cpf, rg, turma, data_nascimento) values (:rm, :nome, null, null, :turma, null)")
+		    .sql("insert into TB_CLIENTEALUNO (rm, nome, cpf, rg, turma, data_nascimento, is_cliente) values (:rm, :nome, null, null, :turma, null, 'false')")
 		    .beanMapped()
 		    .build();
     }
 
     /**
-     * Step respons�vel por processar efetivamente o arquivo de entrada de clientes potenciais
+     * Step responsavel por processar efetivamente o arquivo de entrada de clientes potenciais
      * @param stepBuilderFactory StepBuilderFactory injetado pelo Spring
      * @param itemReader ItemReader injetado pelo Spring
      * @param itemProcessor ItemProcessor injetado pelo Spring
