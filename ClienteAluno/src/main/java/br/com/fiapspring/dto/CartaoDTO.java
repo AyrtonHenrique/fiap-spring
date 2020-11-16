@@ -3,7 +3,7 @@
  */
 package br.com.fiapspring.dto;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import br.com.fiapspring.entity.Cartao;
 
@@ -16,7 +16,7 @@ public class CartaoDTO {
 
 	private Long id;
 	private Long numerocartao;
-	private LocalDate datavalidade;
+	private LocalDateTime datavalidade;
 	private Long codigoIdentificador;
 	private Long idcliente;
 
@@ -76,7 +76,7 @@ public class CartaoDTO {
 	/**
 	 * @return the datavalidade
 	 */
-	public LocalDate getDatavalidade() {
+	public LocalDateTime getDatavalidade() {
 		return datavalidade;
 	}
 
@@ -84,7 +84,7 @@ public class CartaoDTO {
 	/**
 	 * @param datavalidade the datavalidade to set
 	 */
-	public void setDatavalidade(LocalDate datavalidade) {
+	public void setDatavalidade(LocalDateTime datavalidade) {
 		this.datavalidade = datavalidade;
 	}
 

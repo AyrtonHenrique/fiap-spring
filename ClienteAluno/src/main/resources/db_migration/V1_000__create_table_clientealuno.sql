@@ -1,7 +1,7 @@
 create table tb_clientealuno (id_clientealuno bigint not null, 
 							  cpf varchar(255), 
 							  data_nascimento timestamp, 
-							  isclientecartao boolean, 
+							  is_cliente boolean,
 							  nome varchar(255), 
 							  rg varchar(255), 
 							  rm integer, 

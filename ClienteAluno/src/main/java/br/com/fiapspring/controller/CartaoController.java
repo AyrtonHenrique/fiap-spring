@@ -40,7 +40,7 @@ public class CartaoController {
 	private final CartaoService cartaoService;
 
 	/**
-	 * Construtor para instanciar os médodos das classes service
+	 * Construtor para instanciar os medodos das classes service
 	 */
 	public CartaoController(CartaoService cartaoService) {
 		this.cartaoService = cartaoService;
@@ -55,7 +55,7 @@ public class CartaoController {
 				Field[] campos = createDadosCartao.getDeclaredFields();
 				for (Field campo : campos) {
 					campo.setAccessible(true);
-					Object objeto = campo.get(cartaoCreateUpdateDTO);
+					Object objeto = campo.get(createDadosCartao);
 					if (objeto == null || objeto.equals("") ) {
 						logger.error("Dados do Cartao inconsistentes");
 						return new ResponseEntity<CartaoDTO>(HttpStatus.BAD_REQUEST);
@@ -63,7 +63,7 @@ public class CartaoController {
 				}		
 				CartaoDTO cartaoDTO = cartaoService.findByNumeroCartao(cartaoCreateUpdateDTO.getNumerocartao());
 				if (cartaoDTO != null) {
-					logger.error("Cartao já cadastrado");
+					logger.error("Cartao ja cadastrado");
 					return new ResponseEntity<CartaoDTO>(headers, HttpStatus.BAD_REQUEST);
 				} else {
 					CartaoDTO novoCartao = cartaoService.create(cartaoCreateUpdateDTO);
@@ -87,7 +87,7 @@ public class CartaoController {
 			Field[] campos = createDadosCartao.getDeclaredFields();
 			for (Field campo : campos) {
 				campo.setAccessible(true);
-				Object objeto = campo.get(cartaoCreateUpdateDTO);
+				Object objeto = campo.get(createDadosCartao);
 				if (objeto == null || objeto.equals("") ) {
 					logger.error("Dados do Cartao inconsistentes");
 					return new ResponseEntity<CartaoDTO>(HttpStatus.BAD_REQUEST);
@@ -96,7 +96,7 @@ public class CartaoController {
 			
 			cartaoDTO = cartaoService.findById(id);
 			if (cartaoDTO == null) {
-				logger.error("Dados do Cartao não encontrado" + id);
+				logger.error("Dados do Cartao nao encontrado" + id);
 				return new ResponseEntity<CartaoDTO>(HttpStatus.BAD_REQUEST);
 			} else {
 				//atualizar os dados cliente com os dados recebidos
@@ -115,8 +115,8 @@ public class CartaoController {
 		 HttpHeaders headers = new HttpHeaders();
 		 try {	
 				 if (idCartao.equals(null) || idCartao == 0 ) {
-					 logger.error("Dados do cartao não localizados para remover");
-					return new ResponseEntity<CartaoDTO>(headers, HttpStatus.NO_CONTENT);
+					 logger.error("Dados do cartao nao localizados para remover");
+					return new ResponseEntity<CartaoDTO>(headers, HttpStatus.BAD_REQUEST);
 				 } else {
 					cartaoService.delete(idCartao);
 					return new ResponseEntity<CartaoDTO>(headers, HttpStatus.OK);

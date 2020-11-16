@@ -16,7 +16,7 @@ public interface ClienteAlunoRepository extends JpaRepository<ClienteAluno, Long
 	
 	void deleteById(Long id);
 
-	ClienteAluno findAllByrm(Integer rm);
+	Optional<ClienteAluno> findAllByRm(Integer rm);
 	
 	List<ClienteAluno> findAllByIsClienteIsTrue();
 

@@ -3,69 +3,67 @@
  */
 package br.com.fiapspring.ClienteAluno;
 
-import java.text.SimpleDateFormat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.Before;
-import org.junit.Ignore;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.fiapspring.controller.ClienteAlunoController;
+import br.com.fiapspring.dto.ClienteAlunoCreateUpdateDTO;
+import br.com.fiapspring.dto.ClienteAlunoDTO;
 import br.com.fiapspring.entity.ClienteAluno;
 import br.com.fiapspring.repository.ClienteAlunoRepository;
 import br.com.fiapspring.service.ClienteAlunoService;
-
 
 /**
  * @author SaraRegina
  *
  */
 
-class ClienteAlunoControllerTest extends ClienteAlunoApplicationTests  {
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
+@AutoConfigureMockMvc
+class ClienteAlunoControllerTest {
 
-	private MockMvc mockMvc;
-	
-	@Autowired
-	private ClienteAlunoController clienteAlunoController;
-	
-	@Autowired
-	private ClienteAlunoService clienteAlunoService;  
-	
-	@Autowired
-	private ClienteAlunoRepository clienteAlunoRepository;
-	
-	@Before
-	public void setUp() {
-	this.mockMvc = MockMvcBuilders.standaloneSetup(clienteAlunoController).build();
-	}
-	
-	public void testGETListaTodos() throws Exception {
-		this.mockMvc.perform(MockMvcRequestBuilders.get("/listarTodos")).andExpect(MockMvcResultMatchers.status().isOk());
-	}
-	
-	@Test
-	public void testPOSTSaveClienteAlunoController() throws Exception {
-		this.mockMvc.perform(MockMvcRequestBuilders.post("/cliente")
-			.param("cpf", "12345670")
-			.param("dataNascimento", "1986-09-13")
-			.param("isCliente", "true")
-			.param("nome", "Sara Pires")
-			.param("rg", "12345678")
-			.param("rm", "098765")
-			.param("turma", "36SCJ")
-			).andExpect(MockMvcResultMatchers.redirectedUrl("/cliente"));
-	}	
+	  @Autowired
+	  private MockMvc mockMvc;
 
-	public void testPUTClienteAlunoController() throws Exception {
-		ClienteAluno clienteAluno = (ClienteAluno) clienteAlunoRepository.save(new ClienteAluno());
-		this.mockMvc.perform(MockMvcRequestBuilders.put("/cliente/" + clienteAluno.getIdCliente())).andExpect(MockMvcResultMatchers.redirectedUrl("/salarios"));
-	}
-		
+	  @Autowired
+	  private ObjectMapper objectMapper;
+
+	  @Autowired
+	  private ClienteAlunoRepository clienteAlunoRepository;
+
+	  @Test
+	  void registraCliente() throws Exception {
+	    ClienteAlunoCreateUpdateDTO clienteCreate = new ClienteAlunoCreateUpdateDTO(1234, "Sara", "36SCJ", "1234567", "123465-0", LocalDate.now() , true);
+	    mockMvc.perform(post("/clientealuno")
+	            .contentType("application/json")
+	            .param("create", "true")
+	            .content(objectMapper.writeValueAsString(clienteCreate.getNome())))
+	            .andExpect(status().isOk());
+
+	    Boolean foundAluno = clienteAlunoRepository.findAllByRm(1234).isPresent();
+	    assertThat(foundAluno).isTrue();
+	  }
+
 
 }

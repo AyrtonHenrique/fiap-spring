@@ -20,17 +20,19 @@ import br.com.fiapspring.entity.ClienteAluno;
 @Service
 public interface ClienteAlunoService {
 	
-	public List<ClienteAlunoDTO> findAll(Long id);
+	public List<ClienteAlunoDTO> findAll();
 	
 	public ClienteAlunoDTO findById(long id);
 	
-	public ClienteAlunoDTO create(ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO);
+	public ClienteAluno create(ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO);
 	
-	public ClienteAlunoDTO update(Long id, ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO);
+	public ClienteAluno update(Long id, ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO);
 	
 	public void delete(Long id);
 	
-	public ClienteAlunoDTO getClienteAlunoByRm(Integer rm);
+	public ClienteAluno getClienteAlunoByRm(Integer rm);
+
+	public ClienteAluno updateAlunoToCliente(Long id);
 }
 
 

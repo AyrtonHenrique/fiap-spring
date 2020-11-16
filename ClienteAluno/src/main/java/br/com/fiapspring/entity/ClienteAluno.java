@@ -22,6 +22,8 @@ public class ClienteAluno {
 	private String turma;
 	private String cpf;
 	private LocalDate dataNascimento;
+
+	@Column(name = "is_cliente")
 	private Boolean isCliente;
 	
 	
@@ -53,9 +55,6 @@ public class ClienteAluno {
 		this.clienteAlunoEnderecos = clienteAlunoEnderecos;
 		this.isCliente = isCliente;
 	}
-	
-	
-	
 
 	/**
 	 * @return the id
