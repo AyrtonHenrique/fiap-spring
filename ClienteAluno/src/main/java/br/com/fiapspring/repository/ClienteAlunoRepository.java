@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.fiapspring.dto.ClienteAlunoDTO;
+
 import br.com.fiapspring.entity.ClienteAluno;
 
 
@@ -14,9 +14,9 @@ public interface ClienteAlunoRepository extends JpaRepository<ClienteAluno, Long
 	
 	Optional<ClienteAluno> findById(Long id);
 	
-	void deleteById(ClienteAluno clienteAluno);
+	void deleteById(Long id);
 
-	ClienteAluno findAllByRm(Integer rm);
+	ClienteAluno findAllByrm(Integer rm);
 	
 	List<ClienteAluno> findAllByIsClienteIsTrue();
 

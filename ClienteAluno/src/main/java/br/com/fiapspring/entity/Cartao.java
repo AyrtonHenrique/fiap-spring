@@ -18,7 +18,7 @@ public class Cartao {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private long idCartao;
 	private Long numerocartao;
 	private LocalDateTime datavalidade;
 	private Long codigoIdentificador;
@@ -37,15 +37,15 @@ public class Cartao {
 	/**
 	 * @return the id
 	 */
-	public long getId() {
-		return id;
+	public long getIdCartao() {
+		return idCartao;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(long id) {
-		this.id = id;
+	public void setIdCartao(long idCartao) {
+		this.idCartao = idCartao;
 	}
 
 	/**

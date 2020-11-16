@@ -5,7 +5,7 @@ package br.com.fiapspring.dto;
 
 import java.time.LocalDateTime;
 
-import br.com.fiapspring.entity.ClienteAluno;
+
 
 /**
  * @author SaraRegina
@@ -17,8 +17,7 @@ public class CartaoCreateUpdateDTO {
 	private Long numerocartao;
 	private LocalDateTime datavalidade;
 	private Long codigoIdentificador;
-
-	private ClienteAluno clienteAluno;
+	private Long idCliente;
 	
 	
 	/**
@@ -78,19 +77,21 @@ public class CartaoCreateUpdateDTO {
 
 
 	/**
-	 * @return the clienteAluno
+	 * @return the idCliente
 	 */
-	public ClienteAluno getClienteAluno() {
-		return clienteAluno;
+	public Long getIdCliente() {
+		return idCliente;
 	}
 
 
 	/**
-	 * @param clienteAluno the clienteAluno to set
+	 * @param idCliente the idCliente to set
 	 */
-	public void setClienteAluno(ClienteAluno clienteAluno) {
-		this.clienteAluno = clienteAluno;
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
 	}
+
+
 	
 	
 

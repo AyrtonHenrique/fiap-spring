@@ -6,7 +6,7 @@ package br.com.fiapspring.dto;
 import java.time.LocalDateTime;
 
 import br.com.fiapspring.entity.Cartao;
-import br.com.fiapspring.entity.ClienteAluno;
+
 
 /**
  * @author SaraRegina
@@ -18,18 +18,26 @@ public class CartaoDTO {
 	private Long numerocartao;
 	private LocalDateTime datavalidade;
 	private Long codigoIdentificador;
+	private Long idcliente;
 
-	private ClienteAluno clienteAluno ; 
-
+	
+	
 	
 	/**
 	 * 
 	 */
+	public CartaoDTO() {
+	}
+
+
+	/**
+	 * 
+	 */
 	public CartaoDTO(Cartao cartao) {
-		this.id = cartao.getId();
+		this.id = cartao.getIdCartao();
 		this.numerocartao = cartao.getNumerocartao();
 		this.datavalidade = cartao.getDatavalidade();
-		this.clienteAluno = cartao.getClienteAluno();
+		this.idcliente = cartao.getClienteAluno().getIdCliente();
 	}
 
 
@@ -44,7 +52,7 @@ public class CartaoDTO {
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -98,19 +106,23 @@ public class CartaoDTO {
 
 
 	/**
-	 * @return the clienteAluno
+	 * @return the idcliente
 	 */
-	public ClienteAluno getClienteAluno() {
-		return clienteAluno;
+	public Long getIdcliente() {
+		return idcliente;
 	}
 
 
 	/**
-	 * @param clienteAluno the clienteAluno to set
+	 * @param idcliente the idcliente to set
 	 */
-	public void setClienteAluno(ClienteAluno clienteAluno) {
-		this.clienteAluno = clienteAluno;
+	public void setIdcliente(Long idcliente) {
+		this.idcliente = idcliente;
 	}
+
+	
+
+ 
 	
 	
 

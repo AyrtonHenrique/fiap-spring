@@ -19,6 +19,10 @@ public interface CartaoService {
 	
 	public void delete(Long id);
 	
-	public List<CartaoDTO> findAll(Integer mumerocartao);
+	public List<CartaoDTO> findAll(Long idCartao);
+	
+	public List<CartaoDTO> buscaCartaoPorIdCliente(Long idCliente);
+	
+	public CartaoDTO findByNumeroCartao(Long numeroCartao);
 
 }

@@ -6,7 +6,6 @@ package br.com.fiapspring.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import br.com.fiapspring.entity.Cartao;
 import br.com.fiapspring.entity.ClienteAluno;
 
@@ -17,8 +16,10 @@ import br.com.fiapspring.entity.ClienteAluno;
 public interface CartaoRepository extends JpaRepository<Cartao, Long> {
 	
 	 
-	 Cartao findByClienteAluno(ClienteAluno clienteAluno);
+	 List<Cartao> findByClienteAluno(ClienteAluno clienteAluno);
 	  
-	 List<Cartao> findByNumerocartao(Long numerocartao);
+	 Cartao findByNumerocartao(Long numerocartao);
 	 
+	 
+    
 }

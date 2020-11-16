@@ -14,13 +14,13 @@ public class ClienteAluno {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_clientealuno")
-	private long id;
+	private long idCliente;
 	
 	private Integer rm;
+	private String rg;
 	private String nome;
 	private String turma;
 	private String cpf;
-	private String rg;
 	private LocalDate dataNascimento;
 	private Boolean isCliente;
 	
@@ -41,7 +41,7 @@ public class ClienteAluno {
 
 
 	public ClienteAluno(Integer rm, String nome, String turma, String cpf, String rg, LocalDate dataNascimento,
-			Set<ClienteAlunoEndereco> clienteAlunoEnderecos, Boolean isCliente) {
+			Set<ClienteAlunoEndereco> clienteAlunoEnderecos, Set<Cartao> cartoes, Boolean isCliente) {
 		super();
 		this.rm = rm;
 		this.nome = nome;
@@ -49,27 +49,24 @@ public class ClienteAluno {
 		this.cpf = cpf;
 		this.rg = rg;
 		this.dataNascimento = dataNascimento;
+		this.cartoes = cartoes;
 		this.clienteAlunoEnderecos = clienteAlunoEnderecos;
 		this.isCliente = isCliente;
 	}
 
-		
-	
-	
-
 	/**
 	 * @return the id
 	 */
-	public long getId() {
-		return id;
+	public long getIdCliente() {
+		return idCliente;
 	}
 
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(long id) {
-		this.id = id;
+	public void setIdCliente(long id) {
+		this.idCliente = id;
 	}
 
 

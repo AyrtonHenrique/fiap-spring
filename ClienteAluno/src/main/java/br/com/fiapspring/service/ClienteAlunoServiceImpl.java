@@ -44,8 +44,8 @@ public class ClienteAlunoServiceImpl implements ClienteAlunoService {
 		clienteAluno.setRg(clienteAlunoCreateUpdateDTO.getRg());
 		clienteAluno.setCpf(clienteAlunoCreateUpdateDTO.getCpf());
 		clienteAluno.setDataNascimento(clienteAlunoCreateUpdateDTO.getDataNascimento());
-		clienteAluno.setIsCliente(true);
-		clienteAluno.setClienteAlunoEnderecos(clienteAlunoCreateUpdateDTO.getClienteAlunoEnderecos());
+		clienteAluno.setIsCliente(clienteAlunoCreateUpdateDTO.getIsCliente());
+
 		
 		ClienteAluno salvarCliente = clienteAlunoRepository.save(clienteAluno);
 		
@@ -78,8 +78,6 @@ public class ClienteAlunoServiceImpl implements ClienteAlunoService {
 		clienteAluno.setRg(clienteAlunoCreateUpdateDTO.getRg());
 		clienteAluno.setCpf(clienteAlunoCreateUpdateDTO.getCpf());
 		clienteAluno.setDataNascimento(clienteAlunoCreateUpdateDTO.getDataNascimento());
-		clienteAluno.setClienteAlunoEnderecos(clienteAlunoCreateUpdateDTO.getClienteAlunoEnderecos());
-		clienteAluno.setCartoes(clienteAlunoCreateUpdateDTO.getCartoes());
 		clienteAluno.setIsCliente(clienteAlunoCreateUpdateDTO.getIsCliente());
 		ClienteAluno atualizarCliente = clienteAlunoRepository.save(clienteAluno);
 		
@@ -93,15 +91,11 @@ public class ClienteAlunoServiceImpl implements ClienteAlunoService {
 	public void delete(Long id) {
 		ClienteAluno cliente = getClienteAluno(id).get();
 		logger.info("Dados do Cliente removidos");
-		clienteAlunoRepository.deleteById(cliente.getId());
+		clienteAlunoRepository.deleteById(cliente.getIdCliente());
 	}
 
 	
-	@Override
-	public List<ClienteAluno> findAllByIsClienteIsTrue() {
-		return clienteAlunoRepository.findAllByIsClienteIsTrue();
-	}
-	
+
     private Optional<ClienteAluno> getClienteAluno(Long id) {
         return clienteAlunoRepository.findById(id);
                 
@@ -120,6 +114,12 @@ public class ClienteAlunoServiceImpl implements ClienteAlunoService {
 	@Override
 	public ClienteAlunoDTO findById(long id) {
 		ClienteAluno clienteAluno = getClienteAluno(id).get();
+		return new ClienteAlunoDTO(clienteAluno);
+	}
+	
+	
+	public ClienteAlunoDTO getClienteAlunoByRm(Integer rm) {
+		ClienteAluno clienteAluno = clienteAlunoRepository.findAllByrm(rm);
 		return new ClienteAlunoDTO(clienteAluno);
 	}
 

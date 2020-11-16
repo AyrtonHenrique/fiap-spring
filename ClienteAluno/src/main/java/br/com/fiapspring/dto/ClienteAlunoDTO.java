@@ -17,7 +17,7 @@ import br.com.fiapspring.entity.ClienteAlunoEndereco;
  */
 public class ClienteAlunoDTO {
 
-	
+	private Long id;
 	private Integer rm;
 	private String nome;
 	private String turma;
@@ -26,15 +26,25 @@ public class ClienteAlunoDTO {
 	private LocalDate dataNascimento;
 	private Boolean isCliente;
 
-	private Set<ClienteAlunoEndereco> clienteAlunoEnderecos = new HashSet<ClienteAlunoEndereco>(); 
-	private Set<Cartao> cartoes  = new HashSet<Cartao>();
+
+	
 	
 
 	/**
 	 * 
 	 */
-	public ClienteAlunoDTO( ClienteAluno clienteAluno ) {
+	public ClienteAlunoDTO() {
 		
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+	/**
+	 * 
+	 */
+	public ClienteAlunoDTO( ClienteAluno clienteAluno ) {
+		this.id = clienteAluno.getIdCliente();
 		this.rm = clienteAluno.getRm();
 		this.nome = clienteAluno.getNome();
 		this.turma = clienteAluno.getTurma();
@@ -42,10 +52,28 @@ public class ClienteAlunoDTO {
 		this.rg = clienteAluno.getRg() ;
 		this.dataNascimento = clienteAluno.getDataNascimento() ;
 		this.isCliente = clienteAluno.getIsCliente() ;
-		this.clienteAlunoEnderecos = clienteAluno.getClienteAlunoEnderecos();
-		this.cartoes = clienteAluno.getCartoes();
 		
 	}
+	
+	
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
 
 	/**
 	 * @return the rm
@@ -145,35 +173,6 @@ public class ClienteAlunoDTO {
 		this.isCliente = isCliente;
 	}
 
-	/**
-	 * @return the clienteAlunoEnderecos
-	 */
-	public Set<ClienteAlunoEndereco> getClienteAlunoEnderecos() {
-		return clienteAlunoEnderecos;
-	}
-
-	/**
-	 * @param clienteAlunoEnderecos the clienteAlunoEnderecos to set
-	 */
-	public void setClienteAlunoEnderecos(Set<ClienteAlunoEndereco> clienteAlunoEnderecos) {
-		this.clienteAlunoEnderecos = clienteAlunoEnderecos;
-	}
-
-	/**
-	 * @return the cartoes
-	 */
-	public Set<Cartao> getCartoes() {
-		return cartoes;
-	}
-
-	/**
-	 * @param cartoes the cartoes to set
-	 */
-	public void setCartoes(Set<Cartao> cartoes) {
-		this.cartoes = cartoes;
-	}
-	
-	
 	
 
 }

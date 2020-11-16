@@ -4,11 +4,7 @@
 package br.com.fiapspring.dto;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
-import br.com.fiapspring.entity.Cartao;
-import br.com.fiapspring.entity.ClienteAlunoEndereco;
 
 /**
  * @author SaraRegina
@@ -24,14 +20,39 @@ public class ClienteAlunoCreateUpdateDTO {
 	private LocalDate dataNascimento;
 	private Boolean isCliente;
 	
-	private Set<ClienteAlunoEndereco> clienteAlunoEnderecos = new HashSet<ClienteAlunoEndereco>();
-	private Set<Cartao> cartoes = new HashSet<Cartao>(); 
-
+	
+	
+	
+	
 	/**
 	 * 
 	 */
 	public ClienteAlunoCreateUpdateDTO() {
 		
+	}
+	
+	
+	
+
+	/**
+	 * @param rm
+	 * @param nome
+	 * @param turma
+	 * @param cpf
+	 * @param rg
+	 * @param dataNascimento
+	 * @param isCliente
+	 */
+	public ClienteAlunoCreateUpdateDTO(Integer rm, String nome, String turma, String cpf, String rg,
+			LocalDate dataNascimento, Boolean isCliente) {
+		super();
+		this.rm = rm;
+		this.nome = nome;
+		this.turma = turma;
+		this.cpf = cpf;
+		this.rg = rg;
+		this.dataNascimento = dataNascimento;
+		this.isCliente = isCliente;
 	}
 
 	/**
@@ -132,33 +153,6 @@ public class ClienteAlunoCreateUpdateDTO {
 		this.isCliente = isCliente;
 	}
 
-	/**
-	 * @return the clienteAlunoEnderecos
-	 */
-	public Set<ClienteAlunoEndereco> getClienteAlunoEnderecos() {
-		return clienteAlunoEnderecos;
-	}
-
-	/**
-	 * @param clienteAlunoEnderecos the clienteAlunoEnderecos to set
-	 */
-	public void setClienteAlunoEnderecos(Set<ClienteAlunoEndereco> clienteAlunoEnderecos) {
-		this.clienteAlunoEnderecos = clienteAlunoEnderecos;
-	}
-
-	/**
-	 * @return the cartoes
-	 */
-	public Set<Cartao> getCartoes() {
-		return cartoes;
-	}
-
-	/**
-	 * @param cartoes the cartoes to set
-	 */
-	public void setCartoes(Set<Cartao> cartoes) {
-		this.cartoes = cartoes;
-	}
 	
 	
 
