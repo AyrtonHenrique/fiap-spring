@@ -392,7 +392,7 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
     
     **/endereco/{id}**
     
-    Retorno: 200 OK 
+    ** Retorno: 200 OK ** 
 
     **j)**	Retornando todos os endereços de um Cliente/Aluno (GET)
     
@@ -615,6 +615,7 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
     vii)	Excluindo uma Transação
     
     **/transaction/{idTransacao}** 
+    
     **Retorno: 204 No Content **
 
 
@@ -682,7 +683,8 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
 
     **ix)**	Enviando o email do Extrato do Cliente por email (POST)
     
-    **extract/cliente/{ìdCliente}/envio** 
+    **extract/cliente/{ìdCliente}/envio**
+    
     **Retorno: 204 No Content** 
 
     Modelo do Email do Extrato Enviado: 
