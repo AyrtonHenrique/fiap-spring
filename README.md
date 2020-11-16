@@ -392,7 +392,7 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
     
     **/endereco/{id}**
     
-    ** Retorno: 200 OK ** 
+    **Retorno: 200 OK** 
 
     **j)**	Retornando todos os endereços de um Cliente/Aluno (GET)
     
