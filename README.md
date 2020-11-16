@@ -194,7 +194,7 @@ Todas as estruturas e relacionamentos abaixo descritos são criados automaticame
 Os projetos Spring Boot Application descritos acima, após iniciados e rodando cada qual em uma porta distinta, expõem as suas interfaces através da biblioteca Swagger.
 Com os mesmos já iniciados, basta adicionar a terminação da URL do Swagger conforme exemplo abaixo para cada Web API exposta: 
 
-http://<host>:<porta>/{context-path}/swagger-ui/
+http://[caminho-host]:[porta]/{context-path}/swagger-ui/
     
 Com isso, uma interface de documentação e testes é exposta para cada Web API, conforme imagem abaixo: 
 
