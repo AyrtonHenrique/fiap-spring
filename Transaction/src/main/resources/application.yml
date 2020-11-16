@@ -6,7 +6,6 @@ springfox:
     swagger-ui:
       enabled: true
 
-
 spring:
   datasource:
     url: jdbc:h2:C:/dev/db/dbbatchspringfinal;DB_CLOSE_ON_EXIT=FALSE
@@ -16,11 +15,11 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: pride.dalian@gmail.com
-    password: clgbodjdoorwxqop
+    password:
     protocol: smtp
     properties:
       mail:
-        to: williankaza@hotmail.com
+        to: 
       smtp:
         auth: true
         connectiontimeout: 5000

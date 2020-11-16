@@ -1,6 +1,7 @@
 package br.com.fiap.Transaction.controller;
 
 
+import br.com.fiap.Transaction.dto.MailSenderDTO;
 import br.com.fiap.Transaction.mail.MailPayload;
 import br.com.fiap.Transaction.service.MailSenderService;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +27,8 @@ public class ExtractController {
     }
 
     @PostMapping("cliente/{idCliente}/envio")
-    public void sendMail(@PathVariable Long idCliente){
-        this.mailSenderService.createConnection();
+    public void sendMail(@PathVariable Long idCliente, @RequestBody MailSenderDTO mailSenderDTO){
+        this.mailSenderService.createConnection(mailSenderDTO);
         this.mailSenderService.sendEmail(this.mailSenderService.getMailPayload(idCliente));
     }
 }
