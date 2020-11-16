@@ -211,6 +211,7 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
     4.	Batch
 
 2)	Simulação de Uso dos Endpoints
+
     a)	Cadastrando um Cliente/Aluno (POST)
     
     /cliente
@@ -390,6 +391,7 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
     i)	Apagando um Endereço (DELETE)
     
     /endereco/{id}
+    
     Retorno: 200 OK 
 
     j)	Retornando todos os endereços de um Cliente/Aluno (GET)
