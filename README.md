@@ -198,7 +198,7 @@ http://<host>:<porta>/{context-path}/swagger-ui/
     
 Com isso, uma interface de documentação e testes é exposta para cada Web API, conforme imagem abaixo: 
 
-![swagger](https://user-images.githubusercontent.com/67294168/99307344-1d024d80-2835-11eb-8c98-692ce5f338e0.png)
+![swagger_2](https://user-images.githubusercontent.com/67294168/99307973-014b7700-2836-11eb-9c9c-ffabd413e447.png)
 
 ## Interfaces dos Endpoints com os JSONs para testes
 
