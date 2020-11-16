@@ -306,7 +306,7 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
  
     **f)**	Buscando todos os Clientes/Aluno cadastrados (GET)
 
-    **/cliente/listarTodos**
+    **/cliente**
 
         Retorno de todos os Clientes/Aluno: 
         [{ 
@@ -332,7 +332,7 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
  
     **g)**	Atualizando um endereço de um Cliente/Aluno (PUT) 
 
-    **/endereço/{id}**
+    **/cliente/{idCliente}/endereco/{id}**
 
         Body da Requisição
         { 
@@ -362,7 +362,7 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
  
     **h)**	Cadastrando um Endereço para um Cliente/Aluno (POST)
     
-    **/endereco**
+    **/cliente/{idCliente}/endereco**
 
         Body da Requisição:
         { 
@@ -391,13 +391,13 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
  
     **i)**	Apagando um Endereço (DELETE)
     
-    **/endereco/{id}**
+    **/cliente/{idCliente}/endereco/{id}**
     
     **Retorno: 200 OK** 
 
     **j)**	Retornando todos os endereços de um Cliente/Aluno (GET)
     
-    **/endereco/{idCliente}**
+    **/cliente/{idCliente}/endereco**
 
         Retorno dos Endereços do Aluno: 
         [{ 
