@@ -686,4 +686,6 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
     Retorno: 204 No Content 
 
     Modelo do Email do Extrato Enviado: 
+    
+    ![Extrato](https://user-images.githubusercontent.com/67294168/99309076-a87cde00-2837-11eb-99bd-704cca118e8a.jpg)
 
