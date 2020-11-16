@@ -477,3 +477,213 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
         }] 
 
 
+    n)	Manipulando Transações em um Cartão de um Cliente/Aluno
+
+    Para todas as chamadas dos serviços da Web API de Transações, é necessário gerar um Token JWT para garantir a segurança da Web API.
+    Para isso, deve-se invocar o endpoint do projeto Autenticação, conforme abaixo. Após recuperar o Token, este deve ser passado como um Bearer Token no Header da chamada HTTP.
+
+    i)	Gerando um token JWT (POST)
+    
+    /autenticação
+
+        Body da Requisição
+        { 
+            "cpf":”12345678900”, 
+            "senha":”1234” 
+        } 
+
+        Retorno do token JWT para ser passado no Header das chamadas: 
+        { 
+            "acessToken": ”eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwNzg2ODQwMjg1NyIsImlhdCI6MTYwNTQ2MjkyOSwiZXhwIjoxNjA1NDgwOTI5fQ.zCdt-AhKk3rooyXYirASpn_LiaQtP-MPKKa0fNR3IY” 
+
+        } 
+ 
+    ii)	Cadastrando uma nova Transação (POST)
+    
+    /transaction 
+
+        Body da Requisição
+        { 
+            "cliente":<idCliente>, 
+            "cartao":<idCartao>, 
+            "valor": 304.33, 
+            "dataTransacao": "2020-11-14T20:11:52.289" 
+        } 
+ 
+        Retorno da transação criada: 
+        { 
+            "id": 1, 
+            "cliente": 338, 
+            "cartao": 133, 
+            "valor": 304.33, 
+            "dataTransacao": "2020-11-14T20:11:52.289" 
+        } 
+ 
+    iii)	Recuperando todas as Transações cadastradas (GET)
+    
+    /transaction 
+
+        Retorno:  
+        [ 
+            { 
+                "id": 1, 
+                "cliente": 338, 
+                "cartao": 133, 
+                "valor": 304.33, 
+                "dataTransacao": "2020-11-14T20:11:52.289" 
+            }, 
+            { 
+                "id": 2, 
+                "cliente": 606, 
+                "cartao": 868, 
+                "valor": 773.59, 
+                "dataTransacao": "2020-11-14T20:15:40.638" 
+            }, 
+            { 
+                "id": 3, 
+                "cliente": 132, 
+                "cartao": 361, 
+                "valor": 288.51, 
+                "dataTransacao": "2020-11-14T20:15:42.415" 
+            } 
+        ] 
+ 
+    iv)	Buscando uma Transação específica pelo ID (GET)
+    
+    /transaction/{idTransacao} 
+
+        Retorno:  
+        { 
+            "id": 4, 
+            "cliente": 100, 
+            "cartao": 167, 
+            "valor": 776.56, 
+            "dataTransacao": "2020-11-14T21:37:08.588" 
+        } 
+ 
+    v)	Atualizando uma Transação Específica pelo ID (PUT)
+    
+    /transaction/{idTransacao} 
+
+        Body da Requisição
+        { 
+            "cliente": 1000, 
+            "cartao": 11234, 
+            "valor": 1.15, 
+            "dataTransacao": "2020-11-14T21:35:41.515" 
+        } 
+ 
+        Response: 
+        { 
+            "id": 1000, 
+            "cliente": 1000, 
+            "cartao": 11234, 
+            "valor": 1.15, 
+            "dataTransacao": "2020-11-14T21:35:41.515" 
+        } 
+ 
+    vi)	Buscando Transações de um Cliente específico (GET)
+    
+    /transaction/cliente/{idCliente} 
+
+        Response: 
+        [ 
+            { 
+                "id": 3, 
+                "cliente": 100, 
+                "cartao": 31, 
+                "valor": 842.26, 
+                "dataTransacao": "2020-11-14T21:37:07.965" 
+            }, 
+            { 
+                "id": 2, 
+                "cliente": 100, 
+                "cartao": 131, 
+                "valor": 804.31, 
+                "dataTransacao": "2020-11-14T21:37:07.617" 
+            }, 
+            { 
+                "id": 4, 
+                "cliente": 100, 
+                "cartao": 167, 
+                "valor": 776.56, 
+                "dataTransacao": "2020-11-14T21:37:08.588" 
+            } 
+        ] 
+ 
+
+    vii)	Excluindo uma Transação
+    
+    /transaction/{idTransacao} 
+    Retorno: 204 No Content 
+
+
+    viii)	Buscando todas as transações de um cliente, agrupando por Cartão
+    
+    /extract/cliente/{ìdCliente} 
+
+        { 
+            "idCliente": 1000, 
+            "nomeCliente": "Jorge", 
+            "cartao": [ 
+                { 
+                    "idCartao": 178, 
+                    "transaction": [ 
+                        { 
+                            "idTransaction": 5, 
+                            "valor": 859.70, 
+                            "dataTransacao": "2020-11-14T21:41:33.146" 
+                        } 
+                    ] 
+                }, 
+                { 
+                    "idCartao": 483, 
+                    "transaction": [ 
+                        { 
+                            "idTransaction": 7, 
+                            "valor": 903.14, 
+                            "dataTransacao": "2020-11-14T21:41:37.284" 
+                        } 
+                    ] 
+                }, 
+                { 
+                    "idCartao": 504, 
+                    "transaction": [ 
+                        { 
+                            "idTransaction": 6, 
+                            "valor": 525.72, 
+                            "dataTransacao": "2020-11-14T21:41:33.637" 
+                        }, 
+                        { 
+                            "idTransaction": 8, 
+                            "valor": 501.02, 
+                            "dataTransacao": "2020-11-14T21:41:42.116" 
+                        }, 
+                        { 
+                            "idTransaction": 10, 
+                            "valor": 427.18, 
+                            "dataTransacao": "2020-11-14T21:41:42.845" 
+                        } 
+                    ] 
+                }, 
+                { 
+                    "idCartao": 11234, 
+                    "transaction": [ 
+                        { 
+                            "idTransaction": 1, 
+                            "valor": 1.15, 
+                            "dataTransacao": "2020-11-14T21:35:41.515" 
+                        } 
+                    ] 
+                } 
+            ] 
+        }  
+
+
+    ix)	Enviando o email do Extrato do Cliente por email (POST)
+    
+    extract/cliente/{ìdCliente}/envio 
+    Retorno: 204 No Content 
+
+    Modelo do Email do Extrato Enviado: 
+
