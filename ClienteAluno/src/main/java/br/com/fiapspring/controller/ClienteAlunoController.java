@@ -57,7 +57,7 @@ public class ClienteAlunoController {
 		return clienteAlunoService.updateAlunoToCliente(idCliente);
 	}
 		 
-	@GetMapping(value = "listarTodos")
+	@GetMapping()
 	public List<ClienteAlunoDTO> findAll(){
 		return clienteAlunoService.findAll();
 	}
