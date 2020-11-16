@@ -3,6 +3,7 @@
  */
 package br.com.fiapspring.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.*;
@@ -20,7 +21,7 @@ public class Cartao {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long idCartao;
 	private Long numerocartao;
-	private LocalDateTime datavalidade;
+	private LocalDate datavalidade;
 	private Long codigoIdentificador;
 	
 	@ManyToOne()
@@ -65,14 +66,14 @@ public class Cartao {
 	/**
 	 * @return the datavalidade
 	 */
-	public LocalDateTime getDatavalidade() {
+	public LocalDate getDatavalidade() {
 		return datavalidade;
 	}
 
 	/**
 	 * @param datavalidade the datavalidade to set
 	 */
-	public void setDatavalidade(LocalDateTime datavalidade) {
+	public void setDatavalidade(LocalDate datavalidade) {
 		this.datavalidade = datavalidade;
 	}
 
