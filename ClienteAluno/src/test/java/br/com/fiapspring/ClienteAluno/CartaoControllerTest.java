@@ -61,7 +61,7 @@ public class CartaoControllerTest {
 	public  void testRegistraCartao() throws Exception {
 		    CartaoCreateUpdateDTO cartaoCreate = new CartaoCreateUpdateDTO();
 		    cartaoCreate.setNumerocartao(123445678901l);
-		    cartaoCreate.setDatavalidade(LocalDateTime.now());
+		    cartaoCreate.setDatavalidade(LocalDate.now());
 		    cartaoCreate.setCodigoIdentificador(123l);
 		    mockMvc.perform(post("cliente/{idCliente}/cartao")
 		            .contentType("application/json")
@@ -82,7 +82,7 @@ public class CartaoControllerTest {
 	  public void testPUTCartaoController() throws Exception {
 		CartaoCreateUpdateDTO cartao = new CartaoCreateUpdateDTO();
 		cartao.setNumerocartao(123456789012l);
-		cartao.setDatavalidade(LocalDateTime.now());
+		cartao.setDatavalidade(LocalDate.now());
 		cartao.setCodigoIdentificador(231l);
 		CartaoDTO cartaoDTO =  cartaoService.update(100l, 1145l ,cartao);
 	  	this.mockMvc.perform(MockMvcRequestBuilders.put("/cliente/" + cartaoDTO.getIdcliente() +"/cartao/"+ cartaoDTO.getId() )).andExpect(MockMvcResultMatchers.redirectedUrl("/cliente/{idCliente}/cartao"));
