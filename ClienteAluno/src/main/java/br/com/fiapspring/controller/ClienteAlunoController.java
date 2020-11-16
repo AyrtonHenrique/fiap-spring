@@ -1,6 +1,7 @@
 package br.com.fiapspring.controller;
 
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 
@@ -39,6 +40,17 @@ public class ClienteAlunoController {
 		ClienteAlunoDTO clienteAlunoDTO = new ClienteAlunoDTO();
 
 		try {
+			
+			Class<ClienteAlunoCreateUpdateDTO> createDadosCliente = ClienteAlunoCreateUpdateDTO.class;
+			Field[] campos = createDadosCliente.getDeclaredFields();
+			for (Field campo : campos) {
+				campo.setAccessible(true);
+				Object objeto = campo.get(createDadosCliente);
+				if (objeto == null || objeto.equals("") ) {
+					logger.error("Dados do Cliente inconsistentes");
+					return new ResponseEntity<ClienteAlunoDTO>(HttpStatus.BAD_REQUEST);
+				} 	
+			}
 			clienteAlunoDTO = clienteAlunoService.getClienteAlunoByRm(clienteAlunoCreateUpdateDTO.getRm());
 			if (clienteAlunoDTO == null) {
 				clienteAlunoDTO = clienteAlunoService.create(clienteAlunoCreateUpdateDTO);
@@ -56,11 +68,22 @@ public class ClienteAlunoController {
 	
 	
 	
-	@PutMapping("{id}")
+	@PutMapping("{idCliente}")
 	public ResponseEntity<ClienteAlunoDTO> upadateClienteAluno(@PathVariable Long id,@RequestBody ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO){
 		HttpHeaders headers = new HttpHeaders();
 		ClienteAlunoDTO clienteAlunoDTO = new ClienteAlunoDTO();
 		try {
+			
+			Class<ClienteAlunoCreateUpdateDTO> createDadosCliente = ClienteAlunoCreateUpdateDTO.class;
+			Field[] campos = createDadosCliente.getDeclaredFields();
+			for (Field campo : campos) {
+				campo.setAccessible(true);
+				Object objeto = campo.get(createDadosCliente);
+				if (objeto == null || objeto.equals("") ) {
+					logger.error("Dados do Cliente inconsistentes");
+					return new ResponseEntity<ClienteAlunoDTO>(HttpStatus.BAD_REQUEST);
+				} 	
+			}
 			clienteAlunoDTO = clienteAlunoService.findById(id);
 			if (clienteAlunoDTO == null) {
 				logger.error("Dados do Cliente/Aluno nao encontrados" + id);
@@ -77,11 +100,21 @@ public class ClienteAlunoController {
 		
 	}
 	
-	@DeleteMapping("{id}")
+	@DeleteMapping("{idCliente}")
 	public ResponseEntity<ClienteAlunoDTO> removerClienteAluno(@PathVariable Long id) {
 		HttpHeaders headers = new HttpHeaders();
 		ClienteAlunoDTO clienteAlunoDTO = new ClienteAlunoDTO();
 		try {
+			Class<ClienteAlunoCreateUpdateDTO> createDadosCliente = ClienteAlunoCreateUpdateDTO.class;
+			Field[] campos = createDadosCliente.getDeclaredFields();
+			for (Field campo : campos) {
+				campo.setAccessible(true);
+				Object objeto = campo.get(createDadosCliente);
+				if (objeto == null || objeto.equals("") ) {
+					logger.error("Dados do Cliente inconsistentes");
+					return new ResponseEntity<ClienteAlunoDTO>(HttpStatus.BAD_REQUEST);
+				} 	
+			}
 			clienteAlunoDTO = clienteAlunoService.findById(id);
 			if (clienteAlunoDTO == null ) {
 				logger.error("Dados do Cliente/Aluno nao encontrados" + id);
@@ -97,11 +130,21 @@ public class ClienteAlunoController {
 		
 	}
 
-	@PutMapping("{id}/ativar")
+	@PutMapping("{idCliente}/ativar")
 	public ResponseEntity<ClienteAlunoDTO> ativarClienteAluno(@PathVariable Long id,@RequestBody ClienteAlunoCreateUpdateDTO clienteAlunoCreateUpdateDTO){
 		HttpHeaders headers = new HttpHeaders();
 		ClienteAlunoDTO clienteAlunoDTO = new ClienteAlunoDTO();
 		try {
+			Class<ClienteAlunoCreateUpdateDTO> createDadosCliente = ClienteAlunoCreateUpdateDTO.class;
+			Field[] campos = createDadosCliente.getDeclaredFields();
+			for (Field campo : campos) {
+				campo.setAccessible(true);
+				Object objeto = campo.get(createDadosCliente);
+				if (objeto == null || objeto.equals("") ) {
+					logger.error("Dados do Cliente inconsistentes");
+					return new ResponseEntity<ClienteAlunoDTO>(HttpStatus.BAD_REQUEST);
+				} 	
+			}
 			clienteAlunoDTO = clienteAlunoService.findById(id);
 			if (clienteAlunoDTO == null) {
 				logger.error("Dados do Cliente/Aluno nao encontrados" + id);
