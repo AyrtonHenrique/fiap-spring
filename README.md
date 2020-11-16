@@ -194,8 +194,500 @@ Todas as estruturas e relacionamentos abaixo descritos são criados automaticame
 Os projetos Spring Boot Application descritos acima, após iniciados e rodando cada qual em uma porta distinta, expõem as suas interfaces através da biblioteca Swagger.
 Com os mesmos já iniciados, basta adicionar a terminação da URL do Swagger conforme exemplo abaixo para cada Web API exposta: 
 
-http://<host>:<porta>/{context-path}/swagger-ui/
+http://[caminho-host]:[porta]/{context-path}/swagger-ui/
     
 Com isso, uma interface de documentação e testes é exposta para cada Web API, conforme imagem abaixo: 
 
-![swagger](https://user-images.githubusercontent.com/67294168/99197415-275b1380-2771-11eb-9162-b8ee972b8bd4.png)
+![swagger_2](https://user-images.githubusercontent.com/67294168/99307973-014b7700-2836-11eb-9c9c-ffabd413e447.png)
+
+## Interfaces dos Endpoints com os JSONs para testes
+
+1)	Pré-requisitos
+    Para que a aplicação funcione corretamente, as aplicações devem estar iniciadas e o banco de dados H2 configurado. 
+    A ordem de execução das aplicação é: 
+    1.	ClienteAluno
+    2.	Sts-fiap
+    3.	Transaction
+    4.	Batch
+
+2)	Simulação de Uso dos Endpoints
+
+    **a)**	Cadastrando um Cliente/Aluno (POST)
+    
+    **/cliente**
+
+        Body da Requisição
+        { 
+            "rm":123456, 
+            "nome": "304.33", 
+            "turma":"500-35", 
+            "cpf": "", 
+            "rg":"", 
+            "dataNascimento": "", 
+            "isCLiente": "false" 
+        } 
+
+        Retorno do Cliente/Aluno criado: 
+        { 
+        "id":3, 
+            "rm":123456, 
+            "nome": "304.33", 
+            "turma":"500-35", 
+            "cpf": "", 
+            "rg":"", 
+            "dataNascimento": "", 
+            "isCLiente": "false"
+        } 
+
+    **b)**	Atualizando um Cliente/Aluno (PUT)
+    
+    **/cliente/{idCliente}**
+
+        Body da Requisição
+        { 
+            "rm":123456, 
+            "nome": "304.33", 
+            "turma":"500-35", 
+            "cpf": "", 
+            "rg":"", 
+            "dataNascimento": "", 
+            "isCLiente": "false" 
+        } 
+        
+        Retorno do Cliente/Aluno criado: 
+        { 
+            "id":3, 
+            "rm":123456, 
+            "nome": "304.33", 
+            "turma":"500-35", 
+            "cpf": "", 
+            "rg":"", 
+            "dataNascimento": "", 
+            "isCLiente": "false"
+        } 
+ 
+    **c)**	Apagando um Cliente/Aluno (DELETE)
+
+    **/cliente/{idCliente}**
+    **Retorno: 200 OK **
+
+    **d)**	Transformando um Aluno em Cliente/Aluno (PUT)
+    
+    **/cliente/{idCliente}/ativar**
+
+        Retorno do Cliente/Aluno criado: 
+        { 
+            "id":3, 
+            "rm":123456, 
+            "nome": "304.33", 
+            "turma":"500-35", 
+            "cpf": "", 
+            "rg":"", 
+            "dataNascimento": "", 
+            "isCLiente": "true"
+        } 
+ 
+    **e)**	Buscando Cliente/Aluno por ID (GET)
+
+    **/cliente/{id}**
+
+        Retorno de todos os Clientes/Aluno: 
+        { 
+            "id":2, 
+            "rm":654321, 
+            "nome": "199.33", 
+            "turma":"600-25", 
+            "cpf": "12345678900", 
+            "rg":"", 
+            "dataNascimento": "06/10/1988", 
+            "isCLiente": "true"
+        } 
+ 
+    **f)**	Buscando todos os Clientes/Aluno cadastrados (GET)
+
+    **/cliente/listarTodos**
+
+        Retorno de todos os Clientes/Aluno: 
+        [{ 
+            "id":2, 
+            "rm":654321, 
+            "nome": "199.33", 
+            "turma":"600-25", 
+            "cpf": "12345678900", 
+            "rg":"", 
+            "dataNascimento": "06/10/1988", 
+            "isCLiente": "true"
+        },
+        { 
+            "id":3, 
+            "rm":123456, 
+            "nome": "304.33", 
+            "turma":"500-35", 
+            "cpf": "", 
+            "rg":"", 
+            "dataNascimento": "", 
+            "isCLiente": "true"
+        }] 
+ 
+    **g)**	Atualizando um endereço de um Cliente/Aluno (PUT) 
+
+    **/endereço/{id}**
+
+        Body da Requisição
+        { 
+            "id":33, 
+            "cep":"04337-090", 
+            "cidade": "São Paulo", 
+            "complemento":"CASA 4", 
+            "estado": "SP", 
+            "idCliente":"2", 
+            "logradouro": "RUA MELO NUNES", 
+            "numero": "110",
+            "tipoEndereco": "ENTREGA" 
+        } 
+ 
+        Retorno do Endereço atualizado: 
+        { 
+            "id":33, 
+            "cep":"04337-120", 
+            "cidade": "São Paulo", 
+            "complemento":"CASA 2", 
+            "estado": "SP", 
+            "idCliente":"2", 
+            "logradouro": "RUA JORGE RUBENS", 
+            "numero": "511",
+            "tipoEndereco": "ENTREGA" 
+        } 
+ 
+    **h)**	Cadastrando um Endereço para um Cliente/Aluno (POST)
+    
+    **/endereco**
+
+        Body da Requisição:
+        { 
+            "cep":"04337-120", 
+            "cidade": "São Paulo", 
+            "complemento":"CASA 2", 
+            "estado": "SP", 
+            "idCliente":"2", 
+            "logradouro": "RUA MELO NUNES", 
+            "numero": "110",
+            "tipoEndereco": "ENTREGA" 
+        } 
+ 
+        Retorno do Endereço criado: 
+        { 
+        "id":33, 
+            "cep":"04337-120", 
+            "cidade": "São Paulo", 
+            "complemento":"CASA 2", 
+            "estado": "SP", 
+            "idCliente":"2", 
+            "logradouro": "RUA MELO NUNES", 
+            "numero": "110",
+            "tipoEndereco": "ENTREGA" 
+        } 
+ 
+    **i)**	Apagando um Endereço (DELETE)
+    
+    **/endereco/{id}**
+    
+    **Retorno: 200 OK** 
+
+    **j)**	Retornando todos os endereços de um Cliente/Aluno (GET)
+    
+    **/endereco/{idCliente}**
+
+        Retorno dos Endereços do Aluno: 
+        [{ 
+        "id":33, 
+            "cep":"04337-120", 
+            "cidade": "São Paulo", 
+            "complemento":"CASA 2", 
+            "estado": "SP", 
+            "idCliente":"2", 
+            "logradouro": "RUA MELO NUNES", 
+            "numero": "110",
+            "tipoEndereco": "ENTREGA" 
+        },{ 
+        "id":34, 
+            "cep":"04337-090", 
+            "cidade": "São Paulo", 
+            "complemento":"CASA 1", 
+            "estado": "SP", 
+            "idCliente":"2", 
+            "logradouro": "RUA JORGE RUBENS", 
+            "numero": "511",
+            "tipoEndereco": "ENTREGA" 
+        }] 
+
+    **k)**	Criando um cartão para um Cliente/Aluno (POST)
+    
+    **/cartao**
+
+        Body da Requisição:
+        { 
+            "codigoIdentificador":"123", 
+            "dataValidade": "2020-11-16 ", 
+            "idCliente":"2", 
+            "numeroCartao": "1234654954874587" 
+        } 
+ 
+        Retorno do Cartão criado: 
+        { 
+        "id":303, 
+        "codigoIdentificador":"123", 
+            "dataValidade": "2020-11-16 ", 
+            "idCliente":"2", 
+            "numeroCartao": "1234654954874587" 
+        } 
+ 
+    **l)**	Atualizando os dados de um Cliente/Aluno (PUT)
+    
+    **/cartão/{idcartao}**
+
+        Body da Requisição:
+        { 
+            "codigoIdentificador":"123", 
+            "dataValidade": "2020-11-16 ", 
+            "idCliente":"2", 
+            "numeroCartao": "1234654954874587" 
+        } 
+ 
+        Retorno do Cartão atualizado: 
+        { 
+        "id":303, 
+        "codigoIdentificador":"123", 
+            "dataValidade": "2020-11-16 ", 
+            "idCliente":"2", 
+            "numeroCartao": "1234654954874587" 
+        } 
+ 
+    **m)**	Recuperando Cartões de um Cliente/Aluno (GET) 
+    
+    **/cartão/{idCliente}**
+
+        Retorno dos Cartões do Cliente: 
+        [{ 
+        "id":303, 
+        "codigoIdentificador":"123", 
+            "dataValidade": "2020-11-16 ", 
+            "idCliente":"2", 
+            "numeroCartao": "1234654954874587" 
+        }] 
+
+
+    **n)**	Manipulando Transações em um Cartão de um Cliente/Aluno
+
+    Para todas as chamadas dos serviços da Web API de Transações, é necessário gerar um Token JWT para garantir a segurança da Web API.
+    Para isso, deve-se invocar o endpoint do projeto Autenticação, conforme abaixo. Após recuperar o Token, este deve ser passado como um Bearer Token no Header da chamada HTTP.
+
+    **i)**	Gerando um token JWT (POST)
+    
+    **/autenticação**
+
+        Body da Requisição
+        { 
+            "cpf":”12345678900”, 
+            "senha":”1234” 
+        } 
+
+        Retorno do token JWT para ser passado no Header das chamadas: 
+        { 
+            "acessToken": ”eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwNzg2ODQwMjg1NyIsImlhdCI6MTYwNTQ2MjkyOSwiZXhwIjoxNjA1NDgwOTI5fQ.zCdt-AhKk3rooyXYirASpn_LiaQtP-MPKKa0fNR3IY” 
+
+        } 
+ 
+    **ii)**	Cadastrando uma nova Transação (POST)
+    
+    **/transaction**
+
+        Body da Requisição
+        { 
+            "cliente":<idCliente>, 
+            "cartao":<idCartao>, 
+            "valor": 304.33, 
+            "dataTransacao": "2020-11-14T20:11:52.289" 
+        } 
+ 
+        Retorno da transação criada: 
+        { 
+            "id": 1, 
+            "cliente": 338, 
+            "cartao": 133, 
+            "valor": 304.33, 
+            "dataTransacao": "2020-11-14T20:11:52.289" 
+        } 
+ 
+    **iii)**	Recuperando todas as Transações cadastradas (GET)
+    
+    **/transaction**
+
+        Retorno:  
+        [ 
+            { 
+                "id": 1, 
+                "cliente": 338, 
+                "cartao": 133, 
+                "valor": 304.33, 
+                "dataTransacao": "2020-11-14T20:11:52.289" 
+            }, 
+            { 
+                "id": 2, 
+                "cliente": 606, 
+                "cartao": 868, 
+                "valor": 773.59, 
+                "dataTransacao": "2020-11-14T20:15:40.638" 
+            }, 
+            { 
+                "id": 3, 
+                "cliente": 132, 
+                "cartao": 361, 
+                "valor": 288.51, 
+                "dataTransacao": "2020-11-14T20:15:42.415" 
+            } 
+        ] 
+ 
+    **iv)**	Buscando uma Transação específica pelo ID (GET)
+    
+    **/transaction/{idTransacao}**
+
+        Retorno:  
+        { 
+            "id": 4, 
+            "cliente": 100, 
+            "cartao": 167, 
+            "valor": 776.56, 
+            "dataTransacao": "2020-11-14T21:37:08.588" 
+        } 
+ 
+    **v)**	Atualizando uma Transação Específica pelo ID (PUT)
+    
+    **/transaction/{idTransacao}**
+
+        Body da Requisição
+        { 
+            "cliente": 1000, 
+            "cartao": 11234, 
+            "valor": 1.15, 
+            "dataTransacao": "2020-11-14T21:35:41.515" 
+        } 
+ 
+        Response: 
+        { 
+            "id": 1000, 
+            "cliente": 1000, 
+            "cartao": 11234, 
+            "valor": 1.15, 
+            "dataTransacao": "2020-11-14T21:35:41.515" 
+        } 
+ 
+    **vi)**	Buscando Transações de um Cliente específico (GET)
+    
+    **/transaction/cliente/{idCliente}**
+
+        Response: 
+        [ 
+            { 
+                "id": 3, 
+                "cliente": 100, 
+                "cartao": 31, 
+                "valor": 842.26, 
+                "dataTransacao": "2020-11-14T21:37:07.965" 
+            }, 
+            { 
+                "id": 2, 
+                "cliente": 100, 
+                "cartao": 131, 
+                "valor": 804.31, 
+                "dataTransacao": "2020-11-14T21:37:07.617" 
+            }, 
+            { 
+                "id": 4, 
+                "cliente": 100, 
+                "cartao": 167, 
+                "valor": 776.56, 
+                "dataTransacao": "2020-11-14T21:37:08.588" 
+            } 
+        ] 
+ 
+
+    vii)	Excluindo uma Transação
+    
+    **/transaction/{idTransacao}** 
+    
+    **Retorno: 204 No Content**
+
+
+    **viii)**	Buscando todas as transações de um cliente, agrupando por Cartão
+    
+    **/extract/cliente/{ìdCliente} **
+
+        { 
+            "idCliente": 1000, 
+            "nomeCliente": "Jorge", 
+            "cartao": [ 
+                { 
+                    "idCartao": 178, 
+                    "transaction": [ 
+                        { 
+                            "idTransaction": 5, 
+                            "valor": 859.70, 
+                            "dataTransacao": "2020-11-14T21:41:33.146" 
+                        } 
+                    ] 
+                }, 
+                { 
+                    "idCartao": 483, 
+                    "transaction": [ 
+                        { 
+                            "idTransaction": 7, 
+                            "valor": 903.14, 
+                            "dataTransacao": "2020-11-14T21:41:37.284" 
+                        } 
+                    ] 
+                }, 
+                { 
+                    "idCartao": 504, 
+                    "transaction": [ 
+                        { 
+                            "idTransaction": 6, 
+                            "valor": 525.72, 
+                            "dataTransacao": "2020-11-14T21:41:33.637" 
+                        }, 
+                        { 
+                            "idTransaction": 8, 
+                            "valor": 501.02, 
+                            "dataTransacao": "2020-11-14T21:41:42.116" 
+                        }, 
+                        { 
+                            "idTransaction": 10, 
+                            "valor": 427.18, 
+                            "dataTransacao": "2020-11-14T21:41:42.845" 
+                        } 
+                    ] 
+                }, 
+                { 
+                    "idCartao": 11234, 
+                    "transaction": [ 
+                        { 
+                            "idTransaction": 1, 
+                            "valor": 1.15, 
+                            "dataTransacao": "2020-11-14T21:35:41.515" 
+                        } 
+                    ] 
+                } 
+            ] 
+        }  
+
+
+    **ix)**	Enviando o email do Extrato do Cliente por email (POST)
+    
+    **extract/cliente/{ìdCliente}/envio**
+    
+    **Retorno: 204 No Content** 
+
+    Modelo do Email do Extrato Enviado: 
+    
+    ![Extrato](https://user-images.githubusercontent.com/67294168/99309076-a87cde00-2837-11eb-99bd-704cca118e8a.jpg)
+
