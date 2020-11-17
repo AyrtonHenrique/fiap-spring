@@ -28,21 +28,21 @@ public class MailConnectCreator {
 
         ClienteAlunoRemote clienteAlunoRemote = retrofit.create(ClienteAlunoRemote.class);
 
-        Call<ResponseBody> responseBodyCall = clienteAlunoRemote.buscarAluno();
+        var responseBodyCall = clienteAlunoRemote.buscarAluno().execute();
 
-        URL url = new URL(urlAlunoCliente + "/cliente/" + idCliente.toString() );
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-        conn.setRequestProperty("Accept", "application/json");
+        // URL url = new URL(urlAlunoCliente + "/cliente/" + idCliente.toString() );
+        // HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        // conn.setRequestMethod("GET");
+        // conn.setRequestProperty("Accept", "application/json");
 
-        if (conn.getResponseCode() != 200) {
+        if (responseBodyCall.code() != 200) {
             throw new Exception("Erro ao buscar o Cliente");
         }
 
-        InputStream response = conn.getInputStream();
-        ObjectMapper mapper = new ObjectMapper();
-        ClienteAlunoDTO clienteAlunoDTO = mapper.readValue(response, ClienteAlunoDTO.class);
-        return clienteAlunoDTO;
+        // InputStream response = conn.getInputStream();
+        // ObjectMapper mapper = new ObjectMapper();
+        // ClienteAlunoDTO clienteAlunoDTO = mapper.readValue(response, ClienteAlunoDTO.class);
+        return responseBodyCall.body();
     }
 
     public CartaoDTO obterCartao(String urlAlunoCliente, Long idCliente) throws IOException {

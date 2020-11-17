@@ -5,8 +5,8 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface ClienteAlunoRemote {
-    @GET("aluno")
-    Call<ResponseBody> buscarAluno();
+    @GET()
+    Call<ClienteAlunoDTO> buscarAluno();
 
     @GET("cartao")
     Call<ResponseBody> buscarCartao();
