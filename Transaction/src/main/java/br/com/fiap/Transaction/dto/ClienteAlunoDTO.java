@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import okhttp3.ResponseBody;
+import org.apache.tomcat.jni.Local;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -13,11 +14,18 @@ public class ClienteAlunoDTO {
     private String turma;
     private String cpf;
     private String rg;
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataNascimento;
     private Boolean isCliente;
 
     public ClienteAlunoDTO(){}
+    public ClienteAlunoDTO(ClienteAlunoRemoteDTO clienteAlunoRemoteDTO){
+        this.setId(clienteAlunoRemoteDTO.getId());
+        this.setRm(clienteAlunoRemoteDTO.getRm());
+        this.setCpf(clienteAlunoRemoteDTO.getCpf());
+        this.setRg(clienteAlunoRemoteDTO.getRg());
+        this.setIsCliente(clienteAlunoRemoteDTO.getCliente());
+        this.setDataNascimento(LocalDate.parse(clienteAlunoRemoteDTO.getDataNascimento()));
+    }
 
     public long getId() {
         return id;

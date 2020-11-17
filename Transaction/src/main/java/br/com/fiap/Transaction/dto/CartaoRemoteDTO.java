@@ -1,24 +1,12 @@
 package br.com.fiap.Transaction.dto;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-public class CartaoDTO {
+public class CartaoRemoteDTO {
     private Long id;
     private Long numerocartao;
-    private LocalDate datavalidade;
+    private String datavalidade;
     private Long codigoIdentificador;
-
-    public CartaoDTO(){
-
-    }
-
-    public CartaoDTO(CartaoRemoteDTO cartaoRemoteDTO){
-        this.setId(cartaoRemoteDTO.getId());
-        this.setNumerocartao(cartaoRemoteDTO.getNumerocartao());
-        this.setCodigoIdentificador(cartaoRemoteDTO.getCodigoIdentificador());
-        this.setDatavalidade(LocalDate.parse(cartaoRemoteDTO.getDatavalidade()));
-    }
 
     public Long getId() {
         return id;
@@ -36,11 +24,11 @@ public class CartaoDTO {
         this.numerocartao = numerocartao;
     }
 
-    public LocalDate getDatavalidade() {
+    public String getDatavalidade() {
         return datavalidade;
     }
 
-    public void setDatavalidade(LocalDate datavalidade) {
+    public void setDatavalidade(String datavalidade) {
         this.datavalidade = datavalidade;
     }
 

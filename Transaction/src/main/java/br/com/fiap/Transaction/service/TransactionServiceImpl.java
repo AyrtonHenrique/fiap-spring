@@ -50,30 +50,36 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public TransactionDTO create(TransactionCreateDTO transactionCreateDTO) {
-        this.verifyClienteCartao(transactionCreateDTO.getCliente(),transactionCreateDTO.getCartao());
+            this.verifyClienteCartao(transactionCreateDTO.getCliente(),transactionCreateDTO.getCartao());
 
-        Transaction transaction = new Transaction();
-        transaction.setCliente(transactionCreateDTO.getCliente());
-        transaction.setCartao(transactionCreateDTO.getCartao());
-        transaction.setValor(transactionCreateDTO.getValor());
-        transaction.setDataTransacao(transactionCreateDTO.getDataTransacao());
+            Transaction transaction = new Transaction();
+            transaction.setCliente(transactionCreateDTO.getCliente());
+            transaction.setCartao(transactionCreateDTO.getCartao());
+            transaction.setValor(transactionCreateDTO.getValor());
+            transaction.setDataTransacao(transactionCreateDTO.getDataTransacao());
 
-        Transaction savedTransaction = transactionRepository.save(transaction);
-        return new TransactionDTO(savedTransaction);
+            Transaction savedTransaction = transactionRepository.save(transaction);
+            return new TransactionDTO(savedTransaction);
+
     }
 
     @Override
     public TransactionDTO update(Long id, TransactionCreateDTO transactionCreateDTO){
-        this.verifyClienteCartao(transactionCreateDTO.getCliente(),transactionCreateDTO.getCartao());
+        try {
+            this.verifyClienteCartao(transactionCreateDTO.getCliente(),transactionCreateDTO.getCartao());
 
-        Transaction transaction = getTransaction(id);
+            Transaction transaction = getTransaction(id);
 
-        transaction.setCartao(transactionCreateDTO.getCartao());
-        transaction.setCliente(transactionCreateDTO.getCliente());
-        transaction.setValor(transactionCreateDTO.getValor());
+            transaction.setCartao(transactionCreateDTO.getCartao());
+            transaction.setCliente(transactionCreateDTO.getCliente());
+            transaction.setValor(transactionCreateDTO.getValor());
 
-        Transaction savedTransaction = transactionRepository.save(transaction);
-        return new TransactionDTO(savedTransaction);
+            Transaction savedTransaction = transactionRepository.save(transaction);
+            return new TransactionDTO(savedTransaction);
+        } catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @Override
@@ -87,20 +93,24 @@ public class TransactionServiceImpl implements TransactionService {
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    private Boolean verifyClienteCartao(Long idCliente, Long idCartao){
-        ClienteAlunoDTO clienteAlunoDTO = this.httpClienteAlunoService.getAluno(idCliente);
-        if (clienteAlunoDTO == null){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente nao encontrado!");
-        } else if (!clienteAlunoDTO.getIsCliente()) {
-            throw  new ResponseStatusException(HttpStatus.NOT_FOUND, "O Cliente informado nao esta ativo!");
-        } else {
-            CartaoDTO cartaoDTO = this.httpClienteAlunoService.getCartao(idCliente, idCartao);
-
-            if (cartaoDTO == null){
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cartao nao encontrado!");
+    private Boolean verifyClienteCartao(Long idCliente, Long idCartao) {
+        try{
+            ClienteAlunoDTO clienteAlunoDTO = this.httpClienteAlunoService.getAluno(idCliente);
+            if (clienteAlunoDTO == null){
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente nao encontrado!");
+            } else if (!clienteAlunoDTO.getIsCliente()) {
+                throw  new ResponseStatusException(HttpStatus.UNAUTHORIZED, "O Cliente informado nao esta ativo!");
             } else {
-                return true;
+                CartaoDTO cartaoDTO = this.httpClienteAlunoService.getCartao(idCliente, idCartao);
+
+                if (cartaoDTO == null){
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cartao nao encontrado!");
+                } else {
+                    return true;
+                }
             }
+        } catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 }

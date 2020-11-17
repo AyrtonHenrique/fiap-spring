@@ -16,6 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.http.HttpClient;
+import java.util.List;
 
 @Service
 public class HttpClienteAlunoServiceImpl implements HttpClienteAlunoService {
@@ -41,14 +42,14 @@ public class HttpClienteAlunoServiceImpl implements HttpClienteAlunoService {
     }
 
     @Override
-    public CartaoDTO getCartao(Long idCliente, Long idCartao) {
-        try {
-            return _httpURLConnection.obterCartao(this.urlAlunoCliente, idCartao);
+    public CartaoDTO getCartao(Long idCliente, Long idCartao) throws Exception {
+        List<CartaoDTO> lsCartaoDTO =_httpURLConnection.obterCartao(this.urlAlunoCliente, idCartao);
 
-          
-        } catch (Exception e) {
-
-        }
-        return null;
+        CartaoDTO cartao =  lsCartaoDTO
+                .stream()
+                .filter( cartaoDTO -> cartaoDTO.getId() == idCartao )
+                .findFirst()
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return cartao;
     }
 }

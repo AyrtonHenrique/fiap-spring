@@ -5,5 +5,5 @@ import br.com.fiap.Transaction.dto.ClienteAlunoDTO;
 
 public interface HttpClienteAlunoService {
     public ClienteAlunoDTO getAluno(Long idCliente);
-    public CartaoDTO getCartao(Long idCliente, Long idCartao);
+    public CartaoDTO getCartao(Long idCliente, Long idCartao) throws Exception;
 }

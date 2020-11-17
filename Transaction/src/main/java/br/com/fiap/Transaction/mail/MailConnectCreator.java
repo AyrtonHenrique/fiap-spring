@@ -1,20 +1,15 @@
 package br.com.fiap.Transaction.mail;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import br.com.fiap.Transaction.dto.ClienteAlunoRemote;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import br.com.fiap.Transaction.dto.*;
 
-import okhttp3.ResponseBody;
+import com.google.gson.Gson;
 import org.springframework.stereotype.Component;
 
-import br.com.fiap.Transaction.dto.CartaoDTO;
-import br.com.fiap.Transaction.dto.ClienteAlunoDTO;
-import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -23,46 +18,37 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MailConnectCreator {
     public ClienteAlunoDTO obterAluno(String urlAlunoCliente, Long idCliente) throws Exception {
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(urlAlunoCliente + "/cliente/" + idCliente.toString())
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(urlAlunoCliente + "/cliente/")
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
         ClienteAlunoRemote clienteAlunoRemote = retrofit.create(ClienteAlunoRemote.class);
 
-        var responseBodyCall = clienteAlunoRemote.buscarAluno().execute();
-
-        // URL url = new URL(urlAlunoCliente + "/cliente/" + idCliente.toString() );
-        // HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        // conn.setRequestMethod("GET");
-        // conn.setRequestProperty("Accept", "application/json");
+        Response<ClienteAlunoRemoteDTO> responseBodyCall = clienteAlunoRemote.buscarAluno(idCliente).execute();
 
         if (responseBodyCall.code() != 200) {
             throw new Exception("Erro ao buscar o Cliente");
         }
-
-        // InputStream response = conn.getInputStream();
-        // ObjectMapper mapper = new ObjectMapper();
-        // ClienteAlunoDTO clienteAlunoDTO = mapper.readValue(response, ClienteAlunoDTO.class);
-        return responseBodyCall.body();
+        ClienteAlunoDTO cliente = new ClienteAlunoDTO(responseBodyCall.body());
+        return cliente;
     }
 
-    public CartaoDTO obterCartao(String urlAlunoCliente, Long idCliente) throws IOException {
-        URL url = new URL(urlAlunoCliente + "/cliente/" + idCliente.toString() + "/cartao");
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-        conn.setRequestProperty("Accept", "application/json");
+    public List<CartaoDTO> obterCartao(String urlAlunoCliente, Long idCliente) throws Exception {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(urlAlunoCliente + "/cliente/")
+                .addConverterFactory(GsonConverterFactory.create()).build();
 
-        if (conn.getResponseCode() != 200) {
-            try {
-                throw new Exception("Erro ao buscar o Cliente");
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+        ClienteAlunoRemote clienteAlunoRemote = retrofit.create(ClienteAlunoRemote.class);
+
+        Response<List<CartaoRemoteDTO>> responseBodyCall = clienteAlunoRemote.buscarCartao(idCliente).execute();
+
+        if (responseBodyCall.code() != 200) {
+            throw new Exception("Erro ao buscar o Cartao");
         }
 
-        InputStream response = conn.getInputStream();
-        ObjectMapper mapper = new ObjectMapper();
-        CartaoDTO cartaoDTO = mapper.readValue(response, CartaoDTO.class);
-        return cartaoDTO;
+        List<CartaoDTO> cartaoDTO = responseBodyCall.body()
+                .stream()
+                .map(cartaoRemoteDTO -> new CartaoDTO(cartaoRemoteDTO))
+                .collect(Collectors.toList());
+
+        return cartaoDTO;//responseBodyCall.body();
     }
 }
