@@ -25,7 +25,8 @@ a.	**ClienteAluno** → Microsserviço responsável por gerenciar o CRUD de Clie
     Como configurar:   
       * Para que ele funcione corretamente, é necessário configurar inicialmente o arquivo application.yml presente em: src/main/resources 
          Neste arquivo, devem ser configurados: 
-            Porta do Servidor Web, context-path da aplicação, string de conexão do banco de dados H2 e usuário e senha do mesmo
+            Porta do Servidor Web, context-path da aplicação, string de conexão do banco de dados H2 e usuário e senha do mesmo, além do caminho da API do módulo de segurança do projeot sts-fiap
+            
       * Exemplo do arquivo: 
       
         #Server properties
@@ -38,10 +39,13 @@ a.	**ClienteAluno** → Microsserviço responsável por gerenciar o CRUD de Clie
           documentation:
             swagger-ui:
               enabled: true
+        #Caminho API modulo de segurança      
+        securityRemote: http://localhost:8082/
+        
         #SGBD Properties
         spring:
           datasource:
-            url: jdbc:h2:D:\fiapclientealuno;DB_CLOSE_ON_EXIT=FALSE
+            url: jdbc:h2:mem:userdb;DB_CLOSE_ON_EXIT=FALSE
             username: fiap
             password: fiap
           jpa:
@@ -60,7 +64,8 @@ b.	**Transaction** → Microsserviço responsável por gerenciar a recepção e 
     Como configurar:   
       * Para que ele funcione corretamente, é necessário configurar inicialmente o arquivo application.yml presente em: src/main/resources 
          Neste arquivo, devem ser configurados: 
-            Porta do Servidor Web, context-path da aplicação, string de conexão do banco de dados H2 e usuário e senha do mesmo, configuracoes do servidor de email SMTP
+            Porta do Servidor Web, context-path da aplicação, string de conexão do banco de dados H2 e usuário e senha do mesmo, configuracoes do servidor de email SMTP, caminhos da API da aplicacao de segurança sts-fiap e caminhos da API da aplicaçao ClienteAluno
+            
       * Exemplo do arquivo:
       
         #Server properties
@@ -73,6 +78,15 @@ b.	**Transaction** → Microsserviço responsável por gerenciar a recepção e 
           documentation:
             swagger-ui:
               enabled: true
+              
+        #Caminho da API do modulo de seguranca sts-fiap
+        securityRemote: http://localhost:8082/
+        #Caminho da API da aplicacao ClienteAluno
+        clienteapi:
+          app:
+            url: localhost
+            port: 8088
+            context: /clientealuno-app
         #SGBD e Mail properties
         spring:
           datasource:
@@ -111,6 +125,17 @@ Esta tabela está descrita no MER mais abaixo e é responsável por conter o Alu
     Como configurar: 
       * Para que o Batch funcione, é necessário configurar inicialmente o arquivo application.yml presente em: src/main/resources.
         Neste arquivo, deverão ser definidos: string de conexão com o banco de dados H2 a ser carregado e o caminho do arquivo de entrada para carga. 
+      * Exemplo de arquivo: 
+        
+        #configuracao do H2
+        spring:
+          datasource:
+            url: jdbc:h2:tcp://localhost/mem:userdb;DB_CLOSE_ON_EXIT=FALSE
+            username: sa
+            password: teste2
+        #caminho do arquivo de entrada
+        input:
+          file: c:\files\lista_alunos1.txt
       
       * Layout do arquivo de entrada: 
       O arquivo de entrada possui o seguinte layout (nomes fictícios): 
