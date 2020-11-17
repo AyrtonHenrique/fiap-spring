@@ -77,7 +77,7 @@ public class TransactionServiceImpl implements TransactionService {
             Transaction savedTransaction = transactionRepository.save(transaction);
             return new TransactionDTO(savedTransaction);
         } catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
         }
 
     }
@@ -90,27 +90,30 @@ public class TransactionServiceImpl implements TransactionService {
 
     private Transaction getTransaction(Long id){
         return transactionRepository.findFirstById(id)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NO_CONTENT));
     }
 
     private Boolean verifyClienteCartao(Long idCliente, Long idCartao) {
         try{
             ClienteAlunoDTO clienteAlunoDTO = this.httpClienteAlunoService.getAluno(idCliente);
             if (clienteAlunoDTO == null){
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente nao encontrado!");
+                throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Cliente nao encontrado!");
             } else if (!clienteAlunoDTO.getIsCliente()) {
-                throw  new ResponseStatusException(HttpStatus.UNAUTHORIZED, "O Cliente informado nao esta ativo!");
+                throw  new ResponseStatusException(HttpStatus.BAD_REQUEST, "O Cliente informado nao esta ativo!");
             } else {
                 CartaoDTO cartaoDTO = this.httpClienteAlunoService.getCartao(idCliente, idCartao);
 
                 if (cartaoDTO == null){
-                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cartao nao encontrado!");
+                    throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Cartao nao encontrado!");
                 } else {
                     return true;
                 }
             }
-        } catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        } catch (ResponseStatusException e){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getReason());
+        }
+        catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 }

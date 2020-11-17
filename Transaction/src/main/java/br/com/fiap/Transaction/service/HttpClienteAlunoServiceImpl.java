@@ -49,7 +49,7 @@ public class HttpClienteAlunoServiceImpl implements HttpClienteAlunoService {
                 .stream()
                 .filter( cartaoDTO -> cartaoDTO.getId() == idCartao )
                 .findFirst()
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"cartão não encontrado"));
         return cartao;
     }
 }
