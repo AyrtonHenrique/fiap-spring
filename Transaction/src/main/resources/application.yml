@@ -7,7 +7,7 @@ springfox:
       enabled: true
 clienteapi:
   app:
-    url: localhost
+    url: http://localhost
     port: 8088
     context: /clientealuno-app
 

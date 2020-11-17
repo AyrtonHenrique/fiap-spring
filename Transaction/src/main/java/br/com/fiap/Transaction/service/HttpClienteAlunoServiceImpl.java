@@ -27,8 +27,7 @@ public class HttpClienteAlunoServiceImpl implements HttpClienteAlunoService {
     public HttpClienteAlunoServiceImpl(Environment environment, MailConnectCreator httpURLConnection) {
         this.environment = environment;
         this._httpURLConnection = httpURLConnection;
-        this.urlAlunoCliente = environment
-                .getProperty("clienteapi.app.url" + ':' + "clienteapi.app.port" + "clienteapi.app.context");
+        this.urlAlunoCliente = environment.getProperty("clienteapi.app.url") + ':' + environment.getProperty("clienteapi.app.port") + environment.getProperty("clienteapi.app.context");
     }
 
     @Override

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MailConnectCreator {
     public HttpURLConnection create(String urlAlunoCliente, Long idCliente) throws IOException {
-        URL url = new URL(urlAlunoCliente + "/clientealuno/" + idCliente.toString() + "/buscaClienteAlunoId");
+        URL url = new URL(urlAlunoCliente + "/cliente/" + idCliente.toString() + "");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         return conn;
     }
