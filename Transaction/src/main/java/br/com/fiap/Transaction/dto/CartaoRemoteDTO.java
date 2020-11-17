@@ -7,6 +7,16 @@ public class CartaoRemoteDTO {
     private Long numerocartao;
     private String datavalidade;
     private Long codigoIdentificador;
+    private Long idcliente;
+
+    public Long getIdcliente() {
+        return idcliente;
+    }
+
+    public void setIdcliente(Long idcliente) {
+        this.idcliente = idcliente;
+    }
+
 
     public Long getId() {
         return id;

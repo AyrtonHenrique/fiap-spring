@@ -43,7 +43,7 @@ public class HttpClienteAlunoServiceImpl implements HttpClienteAlunoService {
 
     @Override
     public CartaoDTO getCartao(Long idCliente, Long idCartao) throws Exception {
-        List<CartaoDTO> lsCartaoDTO =_httpURLConnection.obterCartao(this.urlAlunoCliente, idCartao);
+        List<CartaoDTO> lsCartaoDTO =_httpURLConnection.obterCartao(this.urlAlunoCliente, idCliente);
 
         CartaoDTO cartao =  lsCartaoDTO
                 .stream()
