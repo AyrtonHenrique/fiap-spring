@@ -1,6 +1,8 @@
 package br.com.fiap.Transaction.dto;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class ClienteAlunoDTO {
     private long id;
@@ -8,7 +10,8 @@ public class ClienteAlunoDTO {
     private String turma;
     private String cpf;
     private String rg;
-    private LocalDateTime dataNascimento;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dataNascimento;
     private Boolean isCliente;
 
     public ClienteAlunoDTO(){}
@@ -61,11 +64,11 @@ public class ClienteAlunoDTO {
         this.rg = rg;
     }
 
-    public LocalDateTime getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(LocalDateTime dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
