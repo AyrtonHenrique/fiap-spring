@@ -60,7 +60,7 @@ b.	**Transaction** → Microsserviço responsável por gerenciar a recepção e 
     Como configurar:   
       * Para que ele funcione corretamente, é necessário configurar inicialmente o arquivo application.yml presente em: src/main/resources 
          Neste arquivo, devem ser configurados: 
-            Porta do Servidor Web, context-path da aplicação, string de conexão do banco de dados H2 e usuário e senha do mesmo, configuracoes do servidor de email SMTP
+            Porta do Servidor Web, context-path da aplicação, string de conexão do banco de dados H2 e usuário e senha do mesmo, configuracoes do servidor de email SMTP, caminhos da API da aplicacao de segurança sts-fiap e caminhos da API da aplicaçao Cliente
       * Exemplo do arquivo:
       
         #Server properties
@@ -73,6 +73,15 @@ b.	**Transaction** → Microsserviço responsável por gerenciar a recepção e 
           documentation:
             swagger-ui:
               enabled: true
+              
+        #Caminho da API do modulo de seguranca sts-fiap
+        securityRemote: http://localhost:8082/
+        #Caminho da API da aplicacao ClienteAluno
+        clienteapi:
+          app:
+            url: localhost
+            port: 8088
+            context: /clientealuno-app
         #SGBD e Mail properties
         spring:
           datasource:
