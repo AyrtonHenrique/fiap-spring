@@ -35,6 +35,7 @@ import br.com.fiap.Transaction.service.TransactionServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -78,6 +79,33 @@ class TransactionApplicationTests {
 	}
 
 	@Test
+	void DeveRetornarByIdTransactionCorretamente() {
+
+		var transaction = new Transaction();
+		transaction.setCliente(1L);
+		transaction.setCartao(22L);
+		transaction.setValor(BigDecimal.valueOf(50.00));
+		transaction.setDataTransacao(LocalDateTime.parse("2015-08-04T10:11:30"));
+		transaction.setId(1L);
+
+		var transactionMock = mock(TransactionRepository.class);
+		when(transactionMock.findFirstById(any())).thenReturn(Optional.ofNullable(transaction));
+
+		var transactionService = new TransactionServiceImpl(transactionMock, _httpAluno);
+
+		var transactionDto = new TransactionCreateDTO();
+		transactionDto.setCliente(1L);
+		transactionDto.setCartao(22L);
+		transactionDto.setValor(BigDecimal.valueOf(50.00));
+		transactionDto.setDataTransacao(LocalDateTime.parse("2015-08-04T10:11:30"));
+
+		var ret = transactionService.findById(1L);
+
+		assertEquals(transaction.getId(),ret.getId()); 
+
+	}
+
+	@Test
 	void DeveRetornarListaTransactionCorretamente() {
 
 		var transaction = new Transaction();
@@ -102,14 +130,12 @@ class TransactionApplicationTests {
 	}
 
 	@Test
-	void DeveObterAlunoCorretamente() throws IOException {
+	void DeveObterAlunoCorretamente() throws Exception {
 		var env = mock(Environment.class);
 		when(env.getProperty(any())).thenReturn("urlll");
 		
 		var mailCreate = mock(MailConnectCreator.class);
-		var mockHttp = mock(HttpURLConnection.class);
 
-		ObjectMapper mapper = new ObjectMapper();
 		var alunodto = new ClienteAlunoDTO();
 		alunodto.setCpf("12345678900");
 		alunodto.setDataNascimento(LocalDate.parse("1957-11-12"));
@@ -118,16 +144,34 @@ class TransactionApplicationTests {
 		alunodto.setRg("25484582");
 		alunodto.setRm("3564402");
 		alunodto.setTurma("642-42");
+	
+		when(mailCreate.obterAluno(any(), any())).thenReturn(alunodto);
+
+		var httpCliente = new HttpClienteAlunoServiceImpl(env,mailCreate);
+		var retorno = httpCliente.getAluno(3L);
+
+		assertEquals(alunodto.getCpf(), retorno.getCpf());
+
+
+	}
+
+	@Test
+	void DeveObterCartaoCorretamente() throws Exception {
+		// var env = mock(Environment.class);
+		// when(env.getProperty(any())).thenReturn("urlll");
 		
+		// var mailCreate = mock(MailConnectCreator.class);
 
-		var jsonretorno = "{\"id\":3,\"rm\":3564402,\"nome\":\"MARIA ISABEL\",\"turma\":\"642-42\",\"cpf\":\"12345678900\",\"rg\":\"25484582\",\"dataNascimento\":\"1957-11-12\",\"isCliente\":false}"; //mapper.writeValueAsString(alunodto);
-		InputStream targetStream = new ByteArrayInputStream(jsonretorno.getBytes());
-		targetStream.close();
-
-		when(mockHttp.getResponseCode()).thenReturn(200);
-		when(mockHttp.getInputStream()).thenReturn(targetStream);
-
-		// when(mailCreate.create(any(), any())).thenReturn(mockHttp);
+		// var alunodto = new CartaoDTO();
+		// alunodto.setCpf("12345678900");
+		// alunodto.setDataNascimento(LocalDate.parse("1957-11-12"));
+		// alunodto.setId(3L);
+		// alunodto.setIsCliente(false);
+		// alunodto.setRg("25484582");
+		// alunodto.setRm("3564402");
+		// alunodto.setTurma("642-42");
+	
+		// when(mailCreate.obterAluno(any(), any())).thenReturn(alunodto);
 
 		// var httpCliente = new HttpClienteAlunoServiceImpl(env,mailCreate);
 		// var retorno = httpCliente.getAluno(3L);
