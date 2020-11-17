@@ -6,17 +6,31 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import br.com.fiap.Transaction.dto.ClienteAlunoRemote;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import okhttp3.ResponseBody;
 import org.springframework.stereotype.Component;
 
 import br.com.fiap.Transaction.dto.CartaoDTO;
 import br.com.fiap.Transaction.dto.ClienteAlunoDTO;
+import retrofit2.Call;
+import retrofit2.Retrofit;
+
+import retrofit2.converter.gson.GsonConverterFactory;
 
 @Component
 public class MailConnectCreator {
     public ClienteAlunoDTO obterAluno(String urlAlunoCliente, Long idCliente) throws Exception {
-        URL url = new URL(urlAlunoCliente + "/clientealuno/" + idCliente.toString() + "/buscaClienteAlunoId");
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(urlAlunoCliente + "/cliente/" + idCliente.toString())
+                .addConverterFactory(GsonConverterFactory.create()).build();
+
+        ClienteAlunoRemote clienteAlunoRemote = retrofit.create(ClienteAlunoRemote.class);
+
+        Call<ResponseBody> responseBodyCall = clienteAlunoRemote.buscarAluno();
+
+        URL url = new URL(urlAlunoCliente + "/cliente/" + idCliente.toString() );
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Accept", "application/json");
@@ -32,7 +46,7 @@ public class MailConnectCreator {
     }
 
     public CartaoDTO obterCartao(String urlAlunoCliente, Long idCliente) throws IOException {
-        URL url = new URL(urlAlunoCliente + "/clientealuno/" + idCliente.toString() + "/buscaClienteAlunoId");
+        URL url = new URL(urlAlunoCliente + "/cliente/" + idCliente.toString() + "/cartao");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Accept", "application/json");

@@ -3,6 +3,9 @@ package br.com.fiap.Transaction.dto;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.http.GET;
 
 public class ClienteAlunoDTO {
     private long id;
@@ -71,6 +74,5 @@ public class ClienteAlunoDTO {
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
-
 
 }
