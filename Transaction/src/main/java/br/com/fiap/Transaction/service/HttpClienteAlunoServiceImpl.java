@@ -6,7 +6,9 @@ import br.com.fiap.Transaction.mail.MailConnectCreator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,8 +27,7 @@ public class HttpClienteAlunoServiceImpl implements HttpClienteAlunoService {
     public HttpClienteAlunoServiceImpl(Environment environment, MailConnectCreator httpURLConnection) {
         this.environment = environment;
         this._httpURLConnection = httpURLConnection;
-        this.urlAlunoCliente = environment
-                .getProperty("clienteapi.app.url" + ':' + "clienteapi.app.port" + "clienteapi.app.context");
+        this.urlAlunoCliente = environment.getProperty("clienteapi.app.url") + ':' + environment.getProperty("clienteapi.app.port") + environment.getProperty("clienteapi.app.context");
     }
 
     @Override
@@ -35,13 +36,12 @@ public class HttpClienteAlunoServiceImpl implements HttpClienteAlunoService {
             return _httpURLConnection.obterAluno(this.urlAlunoCliente, idCliente);
 
         } catch (Exception e) {
-
+            throw new ResponseStatusException(HttpStatus.BAD_GATEWAY);
         }
-        return null;
     }
 
     @Override
-    public CartaoDTO getCartao(Long idCartao) {
+    public CartaoDTO getCartao(Long idCliente, Long idCartao) {
         try {
             return _httpURLConnection.obterCartao(this.urlAlunoCliente, idCartao);
 
