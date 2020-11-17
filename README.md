@@ -487,8 +487,8 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
 
         Body da Requisição
         { 
-            "cpf":”12345678900”, 
-            "senha":”1234” 
+            "cpf": ”12345678900”, 
+            "password": ”1234” 
         } 
 
         Retorno do token JWT para ser passado no Header das chamadas: 
