@@ -365,20 +365,19 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
     **/cliente/{idCliente}/endereco**
 
         Body da Requisição:
-        { 
-            "cep":"04337-120", 
-            "cidade": "São Paulo", 
-            "complemento":"CASA 2", 
-            "estado": "SP", 
-            "idCliente":"2", 
-            "logradouro": "RUA MELO NUNES", 
-            "numero": "110",
-            "tipoEndereco": "ENTREGA" 
-        } 
+        {
+            "cep":"04337-120",
+            "cidade": "São Paulo",
+            "complemento": "CASA 2",
+            "estado": "SP",
+            "logradouro": "RUA MELO NUNES",
+            "numero": 110,
+            "tipoEndereco": "ENTREGA"
+        }
  
         Retorno do Endereço criado: 
         { 
-        "id":33, 
+            "id":33, 
             "cep":"04337-120", 
             "cidade": "São Paulo", 
             "complemento":"CASA 2", 
@@ -401,7 +400,7 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
 
         Retorno dos Endereços do Aluno: 
         [{ 
-        "id":33, 
+            "id":33, 
             "cep":"04337-120", 
             "cidade": "São Paulo", 
             "complemento":"CASA 2", 
@@ -428,19 +427,18 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
 
         Body da Requisição:
         { 
-            "codigoIdentificador":"123", 
+            "codigoIdentificador": 123, 
             "dataValidade": "2020-11-16 ", 
-            "idCliente":"2", 
-            "numeroCartao": "1234654954874587" 
+            "numeroCartao": 123465495487458 
         } 
  
         Retorno do Cartão criado: 
         { 
         "id":303, 
-        "codigoIdentificador":"123", 
-            "dataValidade": "2020-11-16 ", 
-            "idCliente":"2", 
-            "numeroCartao": "1234654954874587" 
+        "codigoIdentificador": 123, 
+        "dataValidade": "2020-11-16 ", 
+        "idCliente": 2, 
+        "numeroCartao": 1234654954874587
         } 
  
     **l)**	Atualizando os dados de um Cliente/Aluno (PUT)
@@ -470,11 +468,11 @@ Com isso, uma interface de documentação e testes é exposta para cada Web API,
 
         Retorno dos Cartões do Cliente: 
         [{ 
-        "id":303, 
-        "codigoIdentificador":"123", 
+            "id":303, 
+            "codigoIdentificador": 123, 
             "dataValidade": "2020-11-16 ", 
-            "idCliente":"2", 
-            "numeroCartao": "1234654954874587" 
+            "idCliente": 2, 
+            "numeroCartao": 1234654954874587
         }] 
 
 
